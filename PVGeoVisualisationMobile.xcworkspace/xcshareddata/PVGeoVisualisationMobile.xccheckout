@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>C2650AD9-CE2D-4276-AA56-A8339AC78C5F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>PVGeoVisualisationMobile</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>067E3199-422E-418E-B7FD-75901F4C4488</key>
+		<string>https://github.com/balazspete/PVGeoVisualisation-Mobile.git</string>
+		<key>CFE4BCD6-D79C-42F4-848F-10E32ECFE88F</key>
+		<string>git://github.com/p2/Redland-ObjC.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>PVGeoVisualisationMobile.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>067E3199-422E-418E-B7FD-75901F4C4488</key>
+		<string>..</string>
+		<key>CFE4BCD6-D79C-42F4-848F-10E32ECFE88F</key>
+		<string>../Redland-ObjC</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/balazspete/PVGeoVisualisation-Mobile.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>067E3199-422E-418E-B7FD-75901F4C4488</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>067E3199-422E-418E-B7FD-75901F4C4488</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PVGeoVisualisationMobile</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CFE4BCD6-D79C-42F4-848F-10E32ECFE88F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Redland-ObjC</string>
+		</dict>
+	</array>
+</dict>
+</plist>
