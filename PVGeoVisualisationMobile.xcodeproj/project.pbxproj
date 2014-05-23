@@ -1,0 +1,478 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E8CAF0C4192F92A400884C20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C3192F92A400884C20 /* Foundation.framework */; };
+		E8CAF0C6192F92A400884C20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C5192F92A400884C20 /* CoreGraphics.framework */; };
+		E8CAF0C8192F92A400884C20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C7192F92A400884C20 /* UIKit.framework */; };
+		E8CAF0CA192F92A400884C20 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C9192F92A400884C20 /* CoreData.framework */; };
+		E8CAF0D0192F92A400884C20 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8CAF0CE192F92A400884C20 /* InfoPlist.strings */; };
+		E8CAF0D2192F92A400884C20 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CAF0D1192F92A400884C20 /* main.m */; };
+		E8CAF0D6192F92A400884C20 /* PVVISAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CAF0D5192F92A400884C20 /* PVVISAppDelegate.m */; };
+		E8CAF0D9192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8CAF0D7192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld */; };
+		E8CAF0DB192F92A400884C20 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E8CAF0DA192F92A400884C20 /* Images.xcassets */; };
+		E8CAF0E2192F92A400884C20 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0E1192F92A400884C20 /* XCTest.framework */; };
+		E8CAF0E3192F92A400884C20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C3192F92A400884C20 /* Foundation.framework */; };
+		E8CAF0E4192F92A400884C20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C7192F92A400884C20 /* UIKit.framework */; };
+		E8CAF0E5192F92A400884C20 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C9192F92A400884C20 /* CoreData.framework */; };
+		E8CAF0ED192F92A400884C20 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E8CAF0EB192F92A400884C20 /* InfoPlist.strings */; };
+		E8CAF0EF192F92A400884C20 /* PVGeoVisualisationMobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E8CAF0EE192F92A400884C20 /* PVGeoVisualisationMobileTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E8CAF0E6192F92A400884C20 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E8CAF0B8192F92A400884C20 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E8CAF0BF192F92A400884C20;
+			remoteInfo = PVGeoVisualisationMobile;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E8CAF0C0192F92A400884C20 /* PVGeoVisualisationMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PVGeoVisualisationMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8CAF0C3192F92A400884C20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		E8CAF0C5192F92A400884C20 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		E8CAF0C7192F92A400884C20 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		E8CAF0C9192F92A400884C20 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E8CAF0CD192F92A400884C20 /* PVGeoVisualisationMobile-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PVGeoVisualisationMobile-Info.plist"; sourceTree = "<group>"; };
+		E8CAF0CF192F92A400884C20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E8CAF0D1192F92A400884C20 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E8CAF0D3192F92A400884C20 /* PVGeoVisualisationMobile-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PVGeoVisualisationMobile-Prefix.pch"; sourceTree = "<group>"; };
+		E8CAF0D4192F92A400884C20 /* PVVISAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PVVISAppDelegate.h; sourceTree = "<group>"; };
+		E8CAF0D5192F92A400884C20 /* PVVISAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVVISAppDelegate.m; sourceTree = "<group>"; };
+		E8CAF0D8192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PVGeoVisualisationMobile.xcdatamodel; sourceTree = "<group>"; };
+		E8CAF0DA192F92A400884C20 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E8CAF0E0192F92A400884C20 /* PVGeoVisualisationMobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PVGeoVisualisationMobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8CAF0E1192F92A400884C20 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		E8CAF0EA192F92A400884C20 /* PVGeoVisualisationMobileTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PVGeoVisualisationMobileTests-Info.plist"; sourceTree = "<group>"; };
+		E8CAF0EC192F92A400884C20 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E8CAF0EE192F92A400884C20 /* PVGeoVisualisationMobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PVGeoVisualisationMobileTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E8CAF0BD192F92A400884C20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CAF0C6192F92A400884C20 /* CoreGraphics.framework in Frameworks */,
+				E8CAF0CA192F92A400884C20 /* CoreData.framework in Frameworks */,
+				E8CAF0C8192F92A400884C20 /* UIKit.framework in Frameworks */,
+				E8CAF0C4192F92A400884C20 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CAF0DD192F92A400884C20 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CAF0E2192F92A400884C20 /* XCTest.framework in Frameworks */,
+				E8CAF0E5192F92A400884C20 /* CoreData.framework in Frameworks */,
+				E8CAF0E4192F92A400884C20 /* UIKit.framework in Frameworks */,
+				E8CAF0E3192F92A400884C20 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E8CAF0B7192F92A400884C20 = {
+			isa = PBXGroup;
+			children = (
+				E8CAF0CB192F92A400884C20 /* PVGeoVisualisationMobile */,
+				E8CAF0E8192F92A400884C20 /* PVGeoVisualisationMobileTests */,
+				E8CAF0C2192F92A400884C20 /* Frameworks */,
+				E8CAF0C1192F92A400884C20 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E8CAF0C1192F92A400884C20 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E8CAF0C0192F92A400884C20 /* PVGeoVisualisationMobile.app */,
+				E8CAF0E0192F92A400884C20 /* PVGeoVisualisationMobileTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E8CAF0C2192F92A400884C20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E8CAF0C3192F92A400884C20 /* Foundation.framework */,
+				E8CAF0C5192F92A400884C20 /* CoreGraphics.framework */,
+				E8CAF0C7192F92A400884C20 /* UIKit.framework */,
+				E8CAF0C9192F92A400884C20 /* CoreData.framework */,
+				E8CAF0E1192F92A400884C20 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E8CAF0CB192F92A400884C20 /* PVGeoVisualisationMobile */ = {
+			isa = PBXGroup;
+			children = (
+				E8CAF0D4192F92A400884C20 /* PVVISAppDelegate.h */,
+				E8CAF0D5192F92A400884C20 /* PVVISAppDelegate.m */,
+				E8CAF0DA192F92A400884C20 /* Images.xcassets */,
+				E8CAF0D7192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld */,
+				E8CAF0CC192F92A400884C20 /* Supporting Files */,
+			);
+			path = PVGeoVisualisationMobile;
+			sourceTree = "<group>";
+		};
+		E8CAF0CC192F92A400884C20 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E8CAF0CD192F92A400884C20 /* PVGeoVisualisationMobile-Info.plist */,
+				E8CAF0CE192F92A400884C20 /* InfoPlist.strings */,
+				E8CAF0D1192F92A400884C20 /* main.m */,
+				E8CAF0D3192F92A400884C20 /* PVGeoVisualisationMobile-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E8CAF0E8192F92A400884C20 /* PVGeoVisualisationMobileTests */ = {
+			isa = PBXGroup;
+			children = (
+				E8CAF0EE192F92A400884C20 /* PVGeoVisualisationMobileTests.m */,
+				E8CAF0E9192F92A400884C20 /* Supporting Files */,
+			);
+			path = PVGeoVisualisationMobileTests;
+			sourceTree = "<group>";
+		};
+		E8CAF0E9192F92A400884C20 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E8CAF0EA192F92A400884C20 /* PVGeoVisualisationMobileTests-Info.plist */,
+				E8CAF0EB192F92A400884C20 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E8CAF0BF192F92A400884C20 /* PVGeoVisualisationMobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8CAF0F2192F92A400884C20 /* Build configuration list for PBXNativeTarget "PVGeoVisualisationMobile" */;
+			buildPhases = (
+				E8CAF0BC192F92A400884C20 /* Sources */,
+				E8CAF0BD192F92A400884C20 /* Frameworks */,
+				E8CAF0BE192F92A400884C20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PVGeoVisualisationMobile;
+			productName = PVGeoVisualisationMobile;
+			productReference = E8CAF0C0192F92A400884C20 /* PVGeoVisualisationMobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E8CAF0DF192F92A400884C20 /* PVGeoVisualisationMobileTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E8CAF0F5192F92A400884C20 /* Build configuration list for PBXNativeTarget "PVGeoVisualisationMobileTests" */;
+			buildPhases = (
+				E8CAF0DC192F92A400884C20 /* Sources */,
+				E8CAF0DD192F92A400884C20 /* Frameworks */,
+				E8CAF0DE192F92A400884C20 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E8CAF0E7192F92A400884C20 /* PBXTargetDependency */,
+			);
+			name = PVGeoVisualisationMobileTests;
+			productName = PVGeoVisualisationMobileTests;
+			productReference = E8CAF0E0192F92A400884C20 /* PVGeoVisualisationMobileTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E8CAF0B8192F92A400884C20 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PVVIS;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Balázs Pete";
+				TargetAttributes = {
+					E8CAF0DF192F92A400884C20 = {
+						TestTargetID = E8CAF0BF192F92A400884C20;
+					};
+				};
+			};
+			buildConfigurationList = E8CAF0BB192F92A400884C20 /* Build configuration list for PBXProject "PVGeoVisualisationMobile" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8CAF0B7192F92A400884C20;
+			productRefGroup = E8CAF0C1192F92A400884C20 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E8CAF0BF192F92A400884C20 /* PVGeoVisualisationMobile */,
+				E8CAF0DF192F92A400884C20 /* PVGeoVisualisationMobileTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E8CAF0BE192F92A400884C20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CAF0D0192F92A400884C20 /* InfoPlist.strings in Resources */,
+				E8CAF0DB192F92A400884C20 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CAF0DE192F92A400884C20 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CAF0ED192F92A400884C20 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E8CAF0BC192F92A400884C20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CAF0D2192F92A400884C20 /* main.m in Sources */,
+				E8CAF0D6192F92A400884C20 /* PVVISAppDelegate.m in Sources */,
+				E8CAF0D9192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E8CAF0DC192F92A400884C20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E8CAF0EF192F92A400884C20 /* PVGeoVisualisationMobileTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E8CAF0E7192F92A400884C20 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E8CAF0BF192F92A400884C20 /* PVGeoVisualisationMobile */;
+			targetProxy = E8CAF0E6192F92A400884C20 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E8CAF0CE192F92A400884C20 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E8CAF0CF192F92A400884C20 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		E8CAF0EB192F92A400884C20 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E8CAF0EC192F92A400884C20 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E8CAF0F0192F92A400884C20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		E8CAF0F1192F92A400884C20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E8CAF0F3192F92A400884C20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Prefix.pch";
+				INFOPLIST_FILE = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E8CAF0F4192F92A400884C20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Prefix.pch";
+				INFOPLIST_FILE = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		E8CAF0F6192F92A400884C20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PVGeoVisualisationMobile.app/PVGeoVisualisationMobile";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PVGeoVisualisationMobileTests/PVGeoVisualisationMobileTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		E8CAF0F7192F92A400884C20 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PVGeoVisualisationMobile.app/PVGeoVisualisationMobile";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Prefix.pch";
+				INFOPLIST_FILE = "PVGeoVisualisationMobileTests/PVGeoVisualisationMobileTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E8CAF0BB192F92A400884C20 /* Build configuration list for PBXProject "PVGeoVisualisationMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8CAF0F0192F92A400884C20 /* Debug */,
+				E8CAF0F1192F92A400884C20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E8CAF0F2192F92A400884C20 /* Build configuration list for PBXNativeTarget "PVGeoVisualisationMobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8CAF0F3192F92A400884C20 /* Debug */,
+				E8CAF0F4192F92A400884C20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		E8CAF0F5192F92A400884C20 /* Build configuration list for PBXNativeTarget "PVGeoVisualisationMobileTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E8CAF0F6192F92A400884C20 /* Debug */,
+				E8CAF0F7192F92A400884C20 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E8CAF0D7192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E8CAF0D8192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodel */,
+			);
+			currentVersion = E8CAF0D8192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodel */;
+			path = PVGeoVisualisationMobile.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E8CAF0B8192F92A400884C20 /* Project object */;
+}
