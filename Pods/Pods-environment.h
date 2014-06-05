@@ -48,11 +48,23 @@
 #define COCOAPODS_VERSION_MINOR_AFNetworking_UIKit 2
 #define COCOAPODS_VERSION_PATCH_AFNetworking_UIKit 4
 
+// GRMustache
+#define COCOAPODS_POD_AVAILABLE_GRMustache
+#define COCOAPODS_VERSION_MAJOR_GRMustache 7
+#define COCOAPODS_VERSION_MINOR_GRMustache 0
+#define COCOAPODS_VERSION_PATCH_GRMustache 2
+
 // GroundControl
 #define COCOAPODS_POD_AVAILABLE_GroundControl
 #define COCOAPODS_VERSION_MAJOR_GroundControl 2
 #define COCOAPODS_VERSION_MINOR_GroundControl 1
 #define COCOAPODS_VERSION_PATCH_GroundControl 0
+
+// JRSwizzle
+#define COCOAPODS_POD_AVAILABLE_JRSwizzle
+#define COCOAPODS_VERSION_MAJOR_JRSwizzle 1
+#define COCOAPODS_VERSION_MINOR_JRSwizzle 0
+#define COCOAPODS_VERSION_PATCH_JRSwizzle 0
 
 // SkyLab
 #define COCOAPODS_POD_AVAILABLE_SkyLab

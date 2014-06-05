@@ -9,7 +9,17 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-GRMustache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-GroundControl.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-JRSwizzle.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +37,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1044086AE16A47EDA00BC80C</key>
+		<key>1561DEE91FC54879B59ECD38</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>33A94C20783C4C1F86A98522</key>
+		<key>273A1F728C9844C195DBE114</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3E6D4D7E554848C9A30AC0E4</key>
+		<key>C785132652A144C9BE888E01</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7891DF9E4790456B84096784</key>
+		<key>CB46E20E761449669BB1C434</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CD5571C955AF443E928D5922</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FA69747CF573446FA77B2AEF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
