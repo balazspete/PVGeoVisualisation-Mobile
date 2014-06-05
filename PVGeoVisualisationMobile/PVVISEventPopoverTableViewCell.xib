@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="30" id="FHf-bY-nGu" customClass="PVVISEventPopoverTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FHf-bY-nGu" id="wEt-J7-RGA">
+                <rect key="frame" x="0.0" y="0.0" width="250" height="29"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rtw-S5-sha">
+                        <rect key="frame" x="59" y="4" width="183" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTw-zY-d1Z">
+                        <rect key="frame" x="15" y="4" width="36" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="OEy-ZM-sjf"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.50964604589999996" green="0.50964604589999996" blue="0.50964604589999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="rtw-S5-sha" firstAttribute="leading" secondItem="KTw-zY-d1Z" secondAttribute="trailing" constant="8" id="1Vx-m6-kXS"/>
+                    <constraint firstItem="rtw-S5-sha" firstAttribute="top" secondItem="wEt-J7-RGA" secondAttribute="top" constant="4" id="e9o-eN-jDB"/>
+                    <constraint firstAttribute="trailing" secondItem="rtw-S5-sha" secondAttribute="trailing" constant="8" id="ko2-AH-gH4"/>
+                    <constraint firstItem="rtw-S5-sha" firstAttribute="height" secondItem="KTw-zY-d1Z" secondAttribute="height" id="mU0-Rf-Rv0"/>
+                    <constraint firstItem="KTw-zY-d1Z" firstAttribute="top" secondItem="wEt-J7-RGA" secondAttribute="top" constant="4" id="vxM-CN-ka0"/>
+                    <constraint firstItem="KTw-zY-d1Z" firstAttribute="leading" secondItem="wEt-J7-RGA" secondAttribute="leading" constant="15" id="x2f-jj-xhR"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="label" destination="rtw-S5-sha" id="zHj-uu-cau"/>
+                <outlet property="subLabel" destination="KTw-zY-d1Z" id="ZAM-De-emI"/>
+            </connections>
+        </tableViewCell>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="58" id="U40-cP-hkh" customClass="PVVISEventPopoverTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U40-cP-hkh" id="iNC-QW-Lt9">
+                <rect key="frame" x="0.0" y="0.0" width="250" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abO-to-9IC">
+                        <rect key="frame" x="15" y="11" width="230" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="abO-to-9IC" secondAttribute="trailing" constant="5" id="1Gf-rL-f32"/>
+                    <constraint firstAttribute="centerY" secondItem="abO-to-9IC" secondAttribute="centerY" id="Ms3-S9-L5c"/>
+                    <constraint firstItem="abO-to-9IC" firstAttribute="leading" secondItem="iNC-QW-Lt9" secondAttribute="leading" constant="15" id="b3v-Cz-VTx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="label" destination="abO-to-9IC" id="965-0S-0JD"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>
