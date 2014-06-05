@@ -8,6 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		0329CD8624584C0B84952E54 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A3CC5A98E34FCF9134C592 /* libPods.a */; };
+		E82ADDDC193D137800A7011A /* PVVISEventPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E82ADDDB193D137800A7011A /* PVVISEventPopoverView.m */; };
+		E82ADDDE193D139000A7011A /* PVVISEventPopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E82ADDDD193D139000A7011A /* PVVISEventPopoverView.xib */; };
+		E82ADDE1193D2E3000A7011A /* PVVISEventPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E82ADDE0193D2E3000A7011A /* PVVISEventPopoverViewController.m */; };
+		E82ADDE5193E13E600A7011A /* PVVISEventPopoverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E82ADDE3193E13E600A7011A /* PVVISEventPopoverTableViewCell.m */; };
+		E82ADDE8193E36BD00A7011A /* PVVISEventPopoverTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E82ADDE7193E36BD00A7011A /* PVVISEventPopoverTableViewCell.xib */; };
+		E82ADDEA193F600A00A7011A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E82ADDE9193F600A00A7011A /* QuartzCore.framework */; };
+		E82ADDF0193F890900A7011A /* PVVISQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = E82ADDEF193F890900A7011A /* PVVISQuery.m */; };
+		E82ADDF4193FE0C100A7011A /* PVVISQueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E82ADDF2193FE0C100A7011A /* PVVISQueryViewController.m */; };
+		E82ADDF9193FE8D500A7011A /* PVVISTagCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E82ADDF7193FE8D500A7011A /* PVVISTagCollectionViewController.m */; };
+		E82ADDFA193FE8D500A7011A /* PVVISTagCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E82ADDF8193FE8D500A7011A /* PVVISTagCollectionViewController.xib */; };
+		E83BD0A7193BF8E100D9D09F /* PVVISTag.m in Sources */ = {isa = PBXBuildFile; fileRef = E83BD0A6193BF8E100D9D09F /* PVVISTag.m */; };
+		E83BD0AA193BFAE900D9D09F /* PVVISLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = E83BD0A9193BFAE900D9D09F /* PVVISLocation.m */; };
+		E86B16DE1933E98C000DDF18 /* PVVISMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */; };
+		E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */; };
+		E86B16E11933EB2C000DDF18 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86B16E01933EB2C000DDF18 /* MapKit.framework */; };
+		E86B16E31933F2B6000DDF18 /* FilterUIConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = E86B16E21933F2B6000DDF18 /* FilterUIConfiguration.plist */; };
+		E86B1743193532DF000DDF18 /* PVVISSparqlOverHTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B1742193532DF000DDF18 /* PVVISSparqlOverHTTP.m */; };
+		E86B174619353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B174519353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.m */; };
+		E86B1749193543ED000DDF18 /* PVVISSparqlOverHTTPResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B1748193543ED000DDF18 /* PVVISSparqlOverHTTPResponseSerializer.m */; };
+		E86B174B1937FC96000DDF18 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = E86B174A1937FC96000DDF18 /* config.plist */; };
+		E86B174E1937FD87000DDF18 /* PVVISConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B174D1937FD87000DDF18 /* PVVISConfig.m */; };
+		E86B1751193807D5000DDF18 /* PVVISDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B1750193807D5000DDF18 /* PVVISDataStore.m */; };
+		E86B17541938ABFC000DDF18 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B17531938ABFC000DDF18 /* NSString+URLEncoding.m */; };
+		E86B17561938CA8B000DDF18 /* ds.ttl in Resources */ = {isa = PBXBuildFile; fileRef = E86B17551938CA8B000DDF18 /* ds.ttl */; };
+		E86B1759193BD554000DDF18 /* PVVISEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B1758193BD554000DDF18 /* PVVISEvent.m */; };
 		E8CAF0C4192F92A400884C20 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C3192F92A400884C20 /* Foundation.framework */; };
 		E8CAF0C6192F92A400884C20 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C5192F92A400884C20 /* CoreGraphics.framework */; };
 		E8CAF0C8192F92A400884C20 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8CAF0C7192F92A400884C20 /* UIKit.framework */; };
@@ -69,6 +94,48 @@
 
 /* Begin PBXFileReference section */
 		E3408F6957504BF1818D98FE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		E82ADDDA193D137800A7011A /* PVVISEventPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISEventPopoverView.h; path = Interfaces/PVVISEventPopoverView.h; sourceTree = "<group>"; };
+		E82ADDDB193D137800A7011A /* PVVISEventPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISEventPopoverView.m; path = Interfaces/PVVISEventPopoverView.m; sourceTree = "<group>"; };
+		E82ADDDD193D139000A7011A /* PVVISEventPopoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISEventPopoverView.xib; path = Interfaces/PVVISEventPopoverView.xib; sourceTree = "<group>"; };
+		E82ADDDF193D2E3000A7011A /* PVVISEventPopoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISEventPopoverViewController.h; path = Controllers/PVVISEventPopoverViewController.h; sourceTree = "<group>"; };
+		E82ADDE0193D2E3000A7011A /* PVVISEventPopoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISEventPopoverViewController.m; path = Controllers/PVVISEventPopoverViewController.m; sourceTree = "<group>"; };
+		E82ADDE2193E13E600A7011A /* PVVISEventPopoverTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISEventPopoverTableViewCell.h; path = Interfaces/PVVISEventPopoverTableViewCell.h; sourceTree = "<group>"; };
+		E82ADDE3193E13E600A7011A /* PVVISEventPopoverTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISEventPopoverTableViewCell.m; path = Interfaces/PVVISEventPopoverTableViewCell.m; sourceTree = "<group>"; };
+		E82ADDE7193E36BD00A7011A /* PVVISEventPopoverTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PVVISEventPopoverTableViewCell.xib; sourceTree = "<group>"; };
+		E82ADDE9193F600A00A7011A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		E82ADDEE193F890900A7011A /* PVVISQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISQuery.h; path = Models/PVVISQuery.h; sourceTree = "<group>"; };
+		E82ADDEF193F890900A7011A /* PVVISQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISQuery.m; path = Models/PVVISQuery.m; sourceTree = "<group>"; };
+		E82ADDF1193FE0C100A7011A /* PVVISQueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISQueryViewController.h; path = Controllers/PVVISQueryViewController.h; sourceTree = "<group>"; };
+		E82ADDF2193FE0C100A7011A /* PVVISQueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISQueryViewController.m; path = Controllers/PVVISQueryViewController.m; sourceTree = "<group>"; };
+		E82ADDF6193FE8D500A7011A /* PVVISTagCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISTagCollectionViewController.h; path = Controllers/PVVISTagCollectionViewController.h; sourceTree = "<group>"; };
+		E82ADDF7193FE8D500A7011A /* PVVISTagCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISTagCollectionViewController.m; path = Controllers/PVVISTagCollectionViewController.m; sourceTree = "<group>"; };
+		E82ADDF8193FE8D500A7011A /* PVVISTagCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISTagCollectionViewController.xib; path = Controllers/PVVISTagCollectionViewController.xib; sourceTree = "<group>"; };
+		E83BD098193BE72900D9D09F /* libPods-GRMustache.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-GRMustache.a"; path = "Pods/build/Debug-iphoneos/libPods-GRMustache.a"; sourceTree = "<group>"; };
+		E83BD0A5193BF8E100D9D09F /* PVVISTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISTag.h; path = Models/PVVISTag.h; sourceTree = "<group>"; };
+		E83BD0A6193BF8E100D9D09F /* PVVISTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISTag.m; path = Models/PVVISTag.m; sourceTree = "<group>"; };
+		E83BD0A8193BFAE900D9D09F /* PVVISLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PVVISLocation.h; sourceTree = "<group>"; };
+		E83BD0A9193BFAE900D9D09F /* PVVISLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PVVISLocation.m; sourceTree = "<group>"; };
+		E86B16DB1933E98C000DDF18 /* PVVISMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISMapViewController.h; path = Controllers/PVVISMapViewController.h; sourceTree = "<group>"; };
+		E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISMapViewController.m; path = Controllers/PVVISMapViewController.m; sourceTree = "<group>"; };
+		E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISMapViewController.xib; path = Controllers/PVVISMapViewController.xib; sourceTree = "<group>"; };
+		E86B16E01933EB2C000DDF18 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E86B16E21933F2B6000DDF18 /* FilterUIConfiguration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = FilterUIConfiguration.plist; path = Controllers/FilterUIConfiguration.plist; sourceTree = "<group>"; };
+		E86B1741193532DF000DDF18 /* PVVISSparqlOverHTTP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISSparqlOverHTTP.h; path = Support/PVVISSparqlOverHTTP.h; sourceTree = "<group>"; };
+		E86B1742193532DF000DDF18 /* PVVISSparqlOverHTTP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISSparqlOverHTTP.m; path = Support/PVVISSparqlOverHTTP.m; sourceTree = "<group>"; };
+		E86B174419353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISSparqlOverHttpRequestSerializer.h; path = Support/PVVISSparqlOverHttpRequestSerializer.h; sourceTree = "<group>"; };
+		E86B174519353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISSparqlOverHttpRequestSerializer.m; path = Support/PVVISSparqlOverHttpRequestSerializer.m; sourceTree = "<group>"; };
+		E86B1747193543ED000DDF18 /* PVVISSparqlOverHTTPResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISSparqlOverHTTPResponseSerializer.h; path = Support/PVVISSparqlOverHTTPResponseSerializer.h; sourceTree = "<group>"; };
+		E86B1748193543ED000DDF18 /* PVVISSparqlOverHTTPResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISSparqlOverHTTPResponseSerializer.m; path = Support/PVVISSparqlOverHTTPResponseSerializer.m; sourceTree = "<group>"; };
+		E86B174A1937FC96000DDF18 /* config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = config.plist; sourceTree = "<group>"; };
+		E86B174C1937FD87000DDF18 /* PVVISConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISConfig.h; path = Support/PVVISConfig.h; sourceTree = "<group>"; };
+		E86B174D1937FD87000DDF18 /* PVVISConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISConfig.m; path = Support/PVVISConfig.m; sourceTree = "<group>"; };
+		E86B174F193807D5000DDF18 /* PVVISDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISDataStore.h; path = Support/PVVISDataStore.h; sourceTree = "<group>"; };
+		E86B1750193807D5000DDF18 /* PVVISDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISDataStore.m; path = Support/PVVISDataStore.m; sourceTree = "<group>"; };
+		E86B17521938ABFC000DDF18 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+URLEncoding.h"; path = "Support/NSString+URLEncoding.h"; sourceTree = "<group>"; };
+		E86B17531938ABFC000DDF18 /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+URLEncoding.m"; path = "Support/NSString+URLEncoding.m"; sourceTree = "<group>"; };
+		E86B17551938CA8B000DDF18 /* ds.ttl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ds.ttl; sourceTree = "<group>"; };
+		E86B1757193BD554000DDF18 /* PVVISEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISEvent.h; path = Models/PVVISEvent.h; sourceTree = "<group>"; };
+		E86B1758193BD554000DDF18 /* PVVISEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISEvent.m; path = Models/PVVISEvent.m; sourceTree = "<group>"; };
 		E8CAF0C0192F92A400884C20 /* PVGeoVisualisationMobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PVGeoVisualisationMobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E8CAF0C3192F92A400884C20 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E8CAF0C5192F92A400884C20 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -99,7 +166,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E82ADDEA193F600A00A7011A /* QuartzCore.framework in Frameworks */,
 				E8CAF111192F9C1000884C20 /* libsqlite3.dylib in Frameworks */,
+				E86B16E11933EB2C000DDF18 /* MapKit.framework in Frameworks */,
 				E8CAF10F192F9C0600884C20 /* libxslt.dylib in Frameworks */,
 				E8CAF10D192F9BFA00884C20 /* libxml2.dylib in Frameworks */,
 				E8CAF10B192F9BF100884C20 /* libredland-ios.a in Frameworks */,
@@ -125,6 +194,70 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E82ADDCF193D130D00A7011A /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */,
+				E82ADDDA193D137800A7011A /* PVVISEventPopoverView.h */,
+				E82ADDDB193D137800A7011A /* PVVISEventPopoverView.m */,
+				E82ADDDD193D139000A7011A /* PVVISEventPopoverView.xib */,
+				E82ADDE2193E13E600A7011A /* PVVISEventPopoverTableViewCell.h */,
+				E82ADDE3193E13E600A7011A /* PVVISEventPopoverTableViewCell.m */,
+				E82ADDE7193E36BD00A7011A /* PVVISEventPopoverTableViewCell.xib */,
+			);
+			name = Interfaces;
+			sourceTree = "<group>";
+		};
+		E86B16D21933E95F000DDF18 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E86B16DB1933E98C000DDF18 /* PVVISMapViewController.h */,
+				E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */,
+				E82ADDDF193D2E3000A7011A /* PVVISEventPopoverViewController.h */,
+				E82ADDE0193D2E3000A7011A /* PVVISEventPopoverViewController.m */,
+				E82ADDF1193FE0C100A7011A /* PVVISQueryViewController.h */,
+				E82ADDF2193FE0C100A7011A /* PVVISQueryViewController.m */,
+				E82ADDF6193FE8D500A7011A /* PVVISTagCollectionViewController.h */,
+				E82ADDF7193FE8D500A7011A /* PVVISTagCollectionViewController.m */,
+				E82ADDF8193FE8D500A7011A /* PVVISTagCollectionViewController.xib */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		E86B16FF19352855000DDF18 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E86B1757193BD554000DDF18 /* PVVISEvent.h */,
+				E86B1758193BD554000DDF18 /* PVVISEvent.m */,
+				E83BD0A5193BF8E100D9D09F /* PVVISTag.h */,
+				E83BD0A6193BF8E100D9D09F /* PVVISTag.m */,
+				E83BD0A8193BFAE900D9D09F /* PVVISLocation.h */,
+				E83BD0A9193BFAE900D9D09F /* PVVISLocation.m */,
+				E82ADDEE193F890900A7011A /* PVVISQuery.h */,
+				E82ADDEF193F890900A7011A /* PVVISQuery.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		E86B170419352ADB000DDF18 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				E86B1741193532DF000DDF18 /* PVVISSparqlOverHTTP.h */,
+				E86B1742193532DF000DDF18 /* PVVISSparqlOverHTTP.m */,
+				E86B174419353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.h */,
+				E86B174519353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.m */,
+				E86B1747193543ED000DDF18 /* PVVISSparqlOverHTTPResponseSerializer.h */,
+				E86B1748193543ED000DDF18 /* PVVISSparqlOverHTTPResponseSerializer.m */,
+				E86B174C1937FD87000DDF18 /* PVVISConfig.h */,
+				E86B174D1937FD87000DDF18 /* PVVISConfig.m */,
+				E86B174F193807D5000DDF18 /* PVVISDataStore.h */,
+				E86B1750193807D5000DDF18 /* PVVISDataStore.m */,
+				E86B17521938ABFC000DDF18 /* NSString+URLEncoding.h */,
+				E86B17531938ABFC000DDF18 /* NSString+URLEncoding.m */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
 		E8CAF0B7192F92A400884C20 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +282,9 @@
 		E8CAF0C2192F92A400884C20 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E82ADDE9193F600A00A7011A /* QuartzCore.framework */,
+				E83BD098193BE72900D9D09F /* libPods-GRMustache.a */,
+				E86B16E01933EB2C000DDF18 /* MapKit.framework */,
 				E8CAF110192F9C1000884C20 /* libsqlite3.dylib */,
 				E8CAF10E192F9C0600884C20 /* libxslt.dylib */,
 				E8CAF10C192F9BFA00884C20 /* libxml2.dylib */,
@@ -165,11 +301,18 @@
 		E8CAF0CB192F92A400884C20 /* PVGeoVisualisationMobile */ = {
 			isa = PBXGroup;
 			children = (
+				E82ADDCF193D130D00A7011A /* Interfaces */,
+				E86B170419352ADB000DDF18 /* Support */,
+				E86B16FF19352855000DDF18 /* Models */,
+				E86B16D21933E95F000DDF18 /* Controllers */,
 				E8CAF0D4192F92A400884C20 /* PVVISAppDelegate.h */,
 				E8CAF0D5192F92A400884C20 /* PVVISAppDelegate.m */,
 				E8CAF0DA192F92A400884C20 /* Images.xcassets */,
 				E8CAF0D7192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld */,
 				E8CAF0CC192F92A400884C20 /* Supporting Files */,
+				E86B16E21933F2B6000DDF18 /* FilterUIConfiguration.plist */,
+				E86B174A1937FC96000DDF18 /* config.plist */,
+				E86B17551938CA8B000DDF18 /* ds.ttl */,
 			);
 			path = PVGeoVisualisationMobile;
 			sourceTree = "<group>";
@@ -329,8 +472,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E82ADDFA193FE8D500A7011A /* PVVISTagCollectionViewController.xib in Resources */,
 				E8CAF0D0192F92A400884C20 /* InfoPlist.strings in Resources */,
+				E86B16E31933F2B6000DDF18 /* FilterUIConfiguration.plist in Resources */,
+				E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */,
+				E82ADDDE193D139000A7011A /* PVVISEventPopoverView.xib in Resources */,
 				E8CAF0DB192F92A400884C20 /* Images.xcassets in Resources */,
+				E86B174B1937FC96000DDF18 /* config.plist in Resources */,
+				E86B17561938CA8B000DDF18 /* ds.ttl in Resources */,
+				E82ADDE8193E36BD00A7011A /* PVVISEventPopoverTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,8 +532,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E82ADDF4193FE0C100A7011A /* PVVISQueryViewController.m in Sources */,
+				E86B17541938ABFC000DDF18 /* NSString+URLEncoding.m in Sources */,
+				E86B1749193543ED000DDF18 /* PVVISSparqlOverHTTPResponseSerializer.m in Sources */,
+				E86B1751193807D5000DDF18 /* PVVISDataStore.m in Sources */,
+				E83BD0AA193BFAE900D9D09F /* PVVISLocation.m in Sources */,
+				E86B1743193532DF000DDF18 /* PVVISSparqlOverHTTP.m in Sources */,
+				E86B174619353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.m in Sources */,
+				E82ADDE5193E13E600A7011A /* PVVISEventPopoverTableViewCell.m in Sources */,
+				E83BD0A7193BF8E100D9D09F /* PVVISTag.m in Sources */,
+				E86B16DE1933E98C000DDF18 /* PVVISMapViewController.m in Sources */,
+				E82ADDDC193D137800A7011A /* PVVISEventPopoverView.m in Sources */,
+				E82ADDE1193D2E3000A7011A /* PVVISEventPopoverViewController.m in Sources */,
 				E8CAF0D2192F92A400884C20 /* main.m in Sources */,
+				E86B1759193BD554000DDF18 /* PVVISEvent.m in Sources */,
 				E8CAF0D6192F92A400884C20 /* PVVISAppDelegate.m in Sources */,
+				E82ADDF0193F890900A7011A /* PVVISQuery.m in Sources */,
+				E86B174E1937FD87000DDF18 /* PVVISConfig.m in Sources */,
+				E82ADDF9193FE8D500A7011A /* PVVISTagCollectionViewController.m in Sources */,
 				E8CAF0D9192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -512,6 +678,10 @@
 					"$(PROJECT_DIR)/**",
 				);
 				INFOPLIST_FILE = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
@@ -536,6 +706,10 @@
 					"$(PROJECT_DIR)/**",
 				);
 				INFOPLIST_FILE = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"$(inherited)",
