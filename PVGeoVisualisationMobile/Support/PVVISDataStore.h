@@ -1,0 +1,28 @@
+//
+//  PVVISDataStore.h
+//  PVGeoVisualisationMobile
+//
+//  Created by Balázs Pete on 30/05/2014.
+//  Copyright (c) 2014 Balázs Pete. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <Redland-ObjC.h>
+#import <MapKit/MapKit.h>
+
+typedef void(^ActionCallback)(NSString* action, id data);
+
+@interface PVVISDataStore : NSObject <MKMapViewDelegate>
+
+@property (nonatomic, copy) ActionCallback actionCallback;
+
+@property (strong, nonatomic, getter = getModel) RedlandModel *model;
+
+- (id)initWithRemoteData:(void (^)(bool success, NSError *error))callback;
+- (void)loadRemoteData:(void (^)(bool success, NSError *error))callback;
+
+- (void)dumpResources;
+
+
+
+@end
