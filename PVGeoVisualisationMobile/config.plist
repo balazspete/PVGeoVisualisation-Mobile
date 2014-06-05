@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>local-end-point</key>
+	<dict>
+		<key>query-template</key>
+		<string>PREFIX pv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence#&gt;
+PREFIX owltime:&lt;http://www.w3.org/2006/time#&gt;
+
+PREFIX geo:&lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;
+PREFIX xsd:&lt;http://www.w3.org/2001/XMLSchema#&gt;
+
+SELECT ?latitude ?longitude ?year ?description ?category ?motivation ?fatalities ?location ?url
+WHERE {
+	?url
+		pv:description ?description ;
+		pv:category ?category ;
+		pv:motivation ?motivation ;
+		pv:unstructuredLocation ?locationNode ;
+		pv:fatalitiesValue ?fatalitiesValue ;
+		owltime:year ?yearValue .
+	
+		?locationNode
+			pv:unstructuredLocation ?location;
+			geo:lat ?lat;
+			geo:long ?long .
+
+	BIND (xsd:int(?yearValue) AS ?year)
+	BIND (xsd:int(?fatalitiesValue) AS ?fatalities)
+	BIND (xsd:double(?lat) AS ?latitude)
+	BIND (xsd:double(?long) AS ?longitude)
+}
+
+LIMIT {{ limit }}</string>
+		<key>file</key>
+		<string>default.sqlite</string>
+		<key>baseURL</key>
+		<string>http://tcdfame.cs.tcd.ie</string>
+	</dict>
+	<key>remote-end-point</key>
+	<dict>
+		<key>query</key>
+		<string>PREFIX rdf:&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+PREFIX uspv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence/uspv/&gt;
+PREFIX xsd:&lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX pv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence#&gt;
+PREFIX owltime:&lt;http://www.w3.org/2006/time#&gt;
+
+PREFIX lgd:&lt;http://linkedgeodata.org/&gt;
+PREFIX lgdo:&lt;http://linkedgeodata.org/ontology/&gt;
+PREFIX geo:&lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;
+PREFIX spatial:&lt;http://jena.apache.org/spatial#&gt;
+
+CONSTRUCT {
+	?url
+		pv:description ?description ;
+		pv:category ?categoryValue ;
+		pv:motivation ?motivationValue;
+		pv:unstructuredLocation ?locationNode;
+		pv:fatalitiesValue ?fatalitiesValue ;
+		owltime:year ?year .
+	
+		?locationNode
+			pv:unstructuredLocation ?location .
+		?locationNode
+			geo:lat ?lat;
+			geo:long ?long .
+	
+} WHERE {
+	?url
+		pv:description ?description; 
+		pv:category ?categoryValue;
+		pv:motivation ?motivationValue;
+		pv:fatalities ?fatalitiesNode;
+		pv:location ?locationNode;
+		pv:atTime ?timeNode .
+
+	?fatalitiesNode
+		pv:fatalitiesValue ?fatalitiesValue.
+
+	?timeNode
+		owltime:hasDateTimeDescription _:dateTimeDescription .
+
+	_:dateTimeDescription
+		owltime:year ?year
+
+	{
+		?locationNode
+			pv:unstructuredLocation ?location .
+	} UNION {
+		?locationNode
+			pv:unstructuredLocation ?location ;
+			geo:lat ?lat;
+			geo:long ?long .
+	}
+
+}
+
+LIMIT 3000</string>
+		<key>ds</key>
+		<string>http://ld.eliendrae.net:3030/ds</string>
+		<key>graph</key>
+		<string>default</string>
+	</dict>
+</dict>
+</plist>
