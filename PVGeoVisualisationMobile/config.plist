@@ -30,11 +30,25 @@ WHERE {
 	BIND (xsd:int(?fatalitiesValue) AS ?fatalities)
 	BIND (xsd:double(?lat) AS ?latitude)
 	BIND (xsd:double(?long) AS ?longitude)
+
+	FILTER ( false {{#category}}|| ?category=&lt;{{.}}&gt;{{^}}|| true{{/ category}} )
+	FILTER ( false {{#motivation}}|| ?motivation=&lt;{{.}}&gt;{{^}}|| true{{/ motivation}} )
+
+	{{# date.range.min}}FILTER( {{date.range.min}} &lt;= ?yearValue ){{/ date.range.min}}
+	{{# date.range.max}}FILTER( {{date.range.max}} &gt;= ?yearValue ){{/ date.range.max}}
+
+	FILTER( false{{# date.values}} || {{.}} = ?yearValue{{^}} || true{{/ date.values}} )
+
+	{{# fatality.range.min}}FILTER( {{fatality.range.min}} &lt;= ?fatalitiesValue ){{/ fatality.range.min}}
+	{{# fatality.range.max}}FILTER( {{fatality.range.max}} &gt;= ?fatalitiesValue ){{/ fatality.range.max}}
+
+	FILTER( false{{# fatality.values}} || {{.}} = ?fatalitiesValue{{^}} || true{{/ fatality.values}} )
+
 }
 
 LIMIT {{ limit }}</string>
-		<key>file</key>
-		<string>default.sqlite</string>
+		<key>db-name</key>
+		<string>politicalviolence.sqlite</string>
 		<key>baseURL</key>
 		<string>http://tcdfame.cs.tcd.ie</string>
 	</dict>
