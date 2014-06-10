@@ -21,7 +21,10 @@
     self.dataStore = [PVVISDataStore new];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[PVVISQueryViewController alloc] initWithNibName:@"PVVISQueryViewController" bundle:nil];
+//    self.window.rootViewController =
+    PVVISQueryViewController *controller = [[PVVISQueryViewController alloc] init];
+//    [self.window addSubview:controller.view];
+    self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
     return YES;
 }

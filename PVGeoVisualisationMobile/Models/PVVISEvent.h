@@ -12,9 +12,9 @@
 #import "PVVISTag.h"
 #import "PVVISLocation.h"
 
-@interface PVVISEvent : NSObject <MKAnnotation>
+@interface PVVISEvent : NSManagedObject <MKAnnotation>
 
-@property NSString *description;
+@property NSString *descriptionText;
 
 @property NSString *URI;
 

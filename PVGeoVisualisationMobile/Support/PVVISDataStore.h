@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <Redland-ObjC.h>
 #import <MapKit/MapKit.h>
+#import "PVVISQuery.h"
 
 typedef void(^ActionCallback)(NSString* action, id data);
 
@@ -18,11 +19,13 @@ typedef void(^ActionCallback)(NSString* action, id data);
 
 @property (strong, nonatomic, getter = getModel) RedlandModel *model;
 
+@property PVVISQuery *query;
+
 - (id)initWithRemoteData:(void (^)(bool success, NSError *error))callback;
 - (void)loadRemoteData:(void (^)(bool success, NSError *error))callback;
 
 - (void)dumpResources;
-
-
+- (void)createResults;
+- (void)reloadMap:(MKMapView*)map;
 
 @end

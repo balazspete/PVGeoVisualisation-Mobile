@@ -10,8 +10,8 @@
 
 @interface PVVISTag : NSObject
 
-@property NSString *URI;
-@property NSString *value;
+@property (readonly, nonatomic) NSString *URI;
+@property (readonly, nonatomic) NSString *value;
 
 + (PVVISTag*)tagWithURIString:(NSString*)tag;
 

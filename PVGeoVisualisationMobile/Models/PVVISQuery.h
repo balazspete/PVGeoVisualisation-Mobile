@@ -11,6 +11,13 @@
 #import "PVVISEvent.h"
 #import "PVVISTag.h"
 
+#define PVVISQueryKeyMotivation @"motivation"
+#define PVVISQueryKeyCategory @"category"
+#define PVVISQueryKeyLocation @"location"
+#define PVVISQueryKeyFatality @"fatality"
+#define PVVISQueryKeyDate @"date"
+#define PVVISQueryKeyLimit @"limit"
+
 @interface PVVISQuery : NSObject
 
 @property NSMutableDictionary *dictionary;
@@ -20,18 +27,27 @@
 - (id)init;
 - (id)initWithLimit:(NSNumber*)limit;
 
+- (id)getDataForKey:(NSString*)key;
+
 - (void)addMotivation:(PVVISTag*)motivation;
+- (void)removeMotivation:(PVVISTag*)motivation;
 - (void)addCategory:(PVVISTag*)category;
+- (void)removeCategory:(PVVISTag*)category;
 
 - (void)addLocation:(PVVISLocation*)location;
+- (void)removeLocation:(PVVISLocation*)location;
 
 - (void)addFatality:(NSNumber*)date;
-- (void)setMinFatality:(NSNumber*)min;
-- (void)setMaxFatality:(NSNumber*)max;
+- (void)removeFatality:(NSNumber*)date;
+
+@property NSNumber *minDFatality;
+@property NSNumber *maxDFatality;
 
 - (void)addDate:(NSNumber*)date;
-- (void)setMinDate:(NSNumber*)min;
-- (void)setMaxDate:(NSNumber*)max;
+- (void)removeDate:(NSNumber*)date;
+
+@property NSNumber *minDate;
+@property NSNumber *maxDate;
 
 - (void)setLimit:(NSNumber*)limit;
 

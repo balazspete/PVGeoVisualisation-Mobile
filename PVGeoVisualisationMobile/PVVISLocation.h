@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
 
-@interface PVVISLocation : NSObject
+@interface PVVISLocation : NSManagedObject
 
 @property NSString *location;
 @property CLLocationCoordinate2D coordinate;

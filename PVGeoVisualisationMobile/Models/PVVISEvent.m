@@ -34,7 +34,7 @@
     return event;
 }
 
-- (id)initWithURI:(NSString*)URI description:(NSString*)description category:(PVVISTag*)category motivation:(PVVISTag*)motivation fatalities:(NSNumber*)fatalities date:(NSNumber*)date locationName:(NSString*)location
+- (id)initWithURI:(NSString*)URI description:(NSString*)descriptionText category:(PVVISTag*)category motivation:(PVVISTag*)motivation fatalities:(NSNumber*)fatalities date:(NSNumber*)date locationName:(NSString*)location
 {
     self = [super init];
     if (self)
@@ -42,7 +42,7 @@
         self.details = @[@"category", @"motivation", @"fatalities", @"location"];
         
         self.URI = URI;
-        self.description = description;
+        self.descriptionText = descriptionText;
         self.category = category;
         self.motivation = motivation;
         self.fatalities = fatalities;

@@ -40,7 +40,16 @@
         
         self.dataStore.actionCallback = ^(NSString* action, id data)
         {
-            NSLog(@"Action: %@\nData: %@", action, data);
+            if (data) {
+                self.loadingLabel.hidden = YES;
+                [self.dataStore reloadMap:self.mapView];
+            }
+            else
+            {
+                [self.mapView removeAnnotations:self.mapView.annotations];
+                self.loadingLabel.hidden = NO;
+            }
+            
         };
     }
     return self;
@@ -50,16 +59,20 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    
+   
     UITapGestureRecognizer *tapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openQueryUI:)];
     tapGestureRecogniser.numberOfTapsRequired = 1;
     [self.filterButton addGestureRecognizer:tapGestureRecogniser];
 
     [self loadDataFromDatabase];
     self.mapView.delegate = self.dataStore;
-    
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.dataStore createResults];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -76,9 +89,8 @@
         if (!success)
         {
             NSLog(@"Error: %@", error.description);
+            self.loadingLabel.hidden = YES;
         }
-        self.loadingLabel.hidden = YES;
-        [self.mapView reloadInputViews];
     }];
 }
 

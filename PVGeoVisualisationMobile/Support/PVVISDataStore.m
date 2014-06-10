@@ -9,7 +9,6 @@
 #import "PVVISDataStore.h"
 #import "PVVISEvent.h"
 
-#import "PVVISQuery.h"
 #import "PVVISConfig.h"
 #import "PVVISSparqlOverHTTP.h"
 #import "PVVISEventPopoverView.h"
@@ -18,11 +17,12 @@
 
 #import "GRMustache.h"
 
+#import <sqlite3.h>
+
 @interface PVVISDataStore ()
 
 @property (strong, nonatomic) RedlandStorage *storage;
 
-@property PVVISQuery *query;
 @property NSArray *results;
 
 @property UIPopoverController *popover;
@@ -45,16 +45,28 @@
     return self;
 }
 
+-(void)testSqlitePresence
+{
+    // List available storage factories.
+    for(int counter = 0;;counter++) {
+        const char *name = NULL;
+        const char *label = NULL;
+        if(0 != librdf_storage_enumerate([RedlandWorld defaultWrappedWorld], counter, &name, &label))
+            break;
+        if (0 == strcmp("sqlite", name)) {
+            // how nice - found it.
+            return;
+        }
+    }
+    NSLog(@"storage factory 'sqlite' not present.");
+}
+
 - (void)ensureModel
 {
     if (!self.storage)
     {
-        //        NSString *filename = [[PVVISConfig localEndPoint] objectForKey:@"file"];
-        //        NSString *localStore = [NSString stringWithFormat:@"%@/%@", [PVVISConfig documentsDirectory], filename];
-        //        NSString *options = [[NSFileManager defaultManager] fileExistsAtPath:localStore] ? @"new='no'" : @"new='yes'";
-        //        self.storage = [[RedlandStorage alloc] initWithFactoryName:@"sqlite" identifier:filename options:options];
         
-        self.storage = [[RedlandStorage alloc] initWithFactoryName:@"file" identifier:@"db.rdf" options:nil];
+        self.storage = [[RedlandStorage alloc] initWithFactoryName:@"memory" identifier:@"db.rdf" options:nil];
     }
     
     if (!self.model)
@@ -85,7 +97,6 @@
         [self ensureModel];
         
         [PVVISSparqlOverHTTP queryDataSet:dataSet withQuery:query intoModel:self.model callback:^(RedlandModel *model, NSError *error) {
-
             if (model)
             {
                 self.model = model;
@@ -107,10 +118,12 @@
 
 - (void)createResults
 {
+    self.actionCallback(@"results", nil);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary *localConfig = [PVVISConfig localEndPoint];
         
         NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"query-template"] error:nil];
+        NSLog(@"%@", queryString);
         
         RedlandQuery *query = [RedlandQuery queryWithLanguageName:RedlandSPARQLLanguageName queryString:queryString baseURI:[RedlandURI URIWithString:[localConfig objectForKey:@"baseURL"]]];
         
@@ -125,7 +138,12 @@
             [results addObject:event];
         }
         
+        
         self.results = results;
+        
+        NSLog(@"SPARQL query results count: %lu", self.results.count);
+        
+        self.actionCallback(@"results", [NSNumber numberWithUnsignedInteger:self.results.count]);
         
         result = nil;
         queryString = nil;
@@ -144,8 +162,7 @@
 
 - (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
 {
-    [mapView removeAnnotations:mapView.annotations];
-    [mapView addAnnotations:self.results];
+    [self reloadMap:mapView];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
@@ -183,7 +200,12 @@
     };
 }
 
-
+- (void)reloadMap:(MKMapView *)mapView
+{
+    [mapView removeAnnotations:mapView.annotations];
+    [mapView addAnnotations:self.results];
+    [mapView reloadInputViews];
+}
 
 
 @end

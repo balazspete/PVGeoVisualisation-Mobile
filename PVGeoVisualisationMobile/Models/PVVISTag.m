@@ -10,12 +10,21 @@
 
 @implementation PVVISTag
 
+- (id)initWithURIString:(NSString*)URI
+{
+    self = [super init];
+    if (self)
+    {
+        _URI = URI;
+        _value = [PVVISTag getValueFromURIString:URI];
+    }
+    
+    return self;
+}
+
 + (PVVISTag*)tagWithURIString:(NSString*)URI
 {
-    //temp
-    PVVISTag *newTag = [PVVISTag new];
-    newTag.URI = URI;
-    newTag.value = [PVVISTag getValueFromURIString:URI];
+    PVVISTag *newTag = [[PVVISTag alloc] initWithURIString:URI];
     return newTag;
 }
 
@@ -23,6 +32,21 @@
 {
     NSArray *chunks = [URI componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/#"]];
     return chunks.lastObject;
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[PVVISTag class]])
+    {
+        return ((PVVISTag *)object).URI == self.URI;
+    }
+    
+    return false;
+}
+
+- (NSString*)description
+{
+    return self.URI;
 }
 
 @end
