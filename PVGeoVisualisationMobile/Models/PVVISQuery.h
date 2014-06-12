@@ -51,4 +51,6 @@
 
 - (void)setLimit:(NSNumber*)limit;
 
+- (void)reset:(NSString*)key;
+
 @end

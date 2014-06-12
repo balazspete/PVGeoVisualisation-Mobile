@@ -10,6 +10,8 @@
 #import "PVVISQueryViewController.h"
 #import "PVVISMapViewController.h"
 
+#import "PVVISDataStore.h"
+
 @implementation PVVISAppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
@@ -26,6 +28,7 @@
 //    [self.window addSubview:controller.view];
     self.window.rootViewController = controller;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

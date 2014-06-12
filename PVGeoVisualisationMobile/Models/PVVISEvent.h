@@ -14,21 +14,24 @@
 
 @interface PVVISEvent : NSManagedObject <MKAnnotation>
 
-@property NSString *descriptionText;
+@property (nonatomic, strong) NSString *descriptionText;
 
-@property NSString *URI;
+@property (nonatomic, strong) NSString *uri;
 
-@property PVVISTag *category;
-@property PVVISTag *motivation;
-@property NSNumber *fatalities;
-@property NSNumber *date;
-@property PVVISLocation *location;
+@property (nonatomic, weak, readonly) PVVISTag *category;
+@property (nonatomic, weak, readonly) PVVISTag *motivation;
 
-@property NSArray *details;
+@property (nonatomic, strong) NSString *rawCategory;
+@property (nonatomic, strong) NSString *rawMotivation;
 
-- (id)initWithURI:(NSString*)URI description:(NSString*)description category:(PVVISTag*)category motivation:(PVVISTag*)motivation fatalities:(NSNumber*)fatalities date:(NSNumber*)date locationName:(NSString*)location;
+@property (nonatomic, strong) NSNumber *fatalities;
+@property (nonatomic, strong) NSNumber *date;
+@property (nonatomic, strong) PVVISLocation *location;
 
+@property (readonly) NSArray *details;
 
-+ (PVVISEvent*)eventWithDictionary:(NSDictionary*)dictionary;
+- (id)initWithURI:(NSString*)URI description:(NSString*)description category:(NSString*)category motivation:(NSString*)motivation fatalities:(NSNumber*)fatalities date:(NSNumber*)date locationName:(NSString*)location insertIntoManagedObjectContext:(NSManagedObjectContext *)context;
+
++ (PVVISEvent*)eventWithDictionary:(NSDictionary*)dictionary insertIntoManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

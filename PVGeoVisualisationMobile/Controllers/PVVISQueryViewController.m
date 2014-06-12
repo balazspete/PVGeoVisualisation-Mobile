@@ -18,9 +18,10 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface PVVISQueryViewController () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface PVVISQueryViewController () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate>
 
 @property BOOL initial;
+
 @property PVVISDataStore *dataStore;
 
 @property PVVISMapViewController *mapViewController;
@@ -82,8 +83,11 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     self.collectionView.dataSource = self;
     self.collectionView.allowsMultipleSelection = YES;
     
-    UITapGestureRecognizer *recogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayMap:)];
-    [[self.searchButton valueForKey:@"view"] addGestureRecognizer:recogniser];
+    UITapGestureRecognizer *search = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayMap:)];
+    [[self.searchButton valueForKey:@"view"] addGestureRecognizer:search];
+    
+    UITapGestureRecognizer *reset = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetQuery:)];
+    [[self.resetButton valueForKey:@"view"] addGestureRecognizer:reset];
     
     [self registerCollectionViewReusableCells];
     [self registerTableViewReusableCells];
@@ -144,6 +148,16 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     }];
 }
 
+#pragma mark - alert view delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        [self.dataStore reloadDataStore];
+    }
+}
+
 #pragma mark - table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -151,6 +165,18 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     if (indexPath.section == 0)
     {
         [self presentPropertySelectionForIndex:indexPath.row];
+    }
+    else if (indexPath.section == 1)
+    {
+        if (indexPath.row == 0)
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Reloading data set"
+                                                            message:@"Are you sure you wish to reload the data set? You must be connected to the Internet!"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"No"
+                                                  otherButtonTitles:@"Yes", nil];
+            [alert show];
+        }
     }
 }
 
@@ -168,24 +194,49 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.queryParameters.count;
+    if (section == 0)
+    {
+        return self.queryParameters.count;
+    }
+    else if (section == 1)
+    {
+        return 1;
+    }
+    
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PVVISQueryUITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TableViewLabelWithSubtext"];
     
-    NSDictionary *entry = [self.queryParameters objectAtIndex:indexPath.row];
-    cell.label.text = [entry objectForKey:@"name"];
-    
-    NSString *hint = [entry objectForKey:@"hint"];
-    cell.subLabel.text = hint? hint : @"";
+    if (indexPath.section == 0)
+    {
+        NSDictionary *entry = [self.queryParameters objectAtIndex:indexPath.row];
+        cell.label.text = [entry objectForKey:@"name"];
+        
+        NSString *hint = [entry objectForKey:@"hint"];
+        cell.subLabel.text = hint? hint : @"";
+    }
+    else if (indexPath.section == 1)
+    {
+        if (indexPath.row == 0)
+        {
+            cell.label.text = @"Reload data set";
+            cell.subLabel.text = @"Delete and load the latest version";
+        }
+    }
     
     UIView *selectionColor = [UIView new];
     selectionColor.backgroundColor = _tableSelectionColor;
     cell.selectedBackgroundView = selectionColor;
-
+    
     return cell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -193,6 +244,10 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     if (section == 0)
     {
         return @"Properties";
+    }
+    else if (section == 1)
+    {
+        return @"Preferences";
     }
     
     return nil;
@@ -213,11 +268,14 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     NSArray *key = [[self.currentProperty objectForKey:@"id"] componentsSeparatedByString:@"."];
     NSString *selectorName = [NSString stringWithFormat:@"add%@:", [key[0] capitalizedString]];
     SEL selector = NSSelectorFromString(selectorName);
-    
+
     if ([self.dataStore.query respondsToSelector:selector])
     {
         PVVISQueryUICollectionViewCell *cell = (PVVISQueryUICollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [self.dataStore.query performSelector:selector withObject:cell.data];
+#pragma clang diagnostic pop
         [collectionView cellForItemAtIndexPath:indexPath].backgroundColor = _labelColor;
     }
 }
@@ -239,7 +297,10 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     if ([self.dataStore.query respondsToSelector:selector])
     {
         PVVISQueryUICollectionViewCell *cell = (PVVISQueryUICollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [self.dataStore.query performSelector:selector withObject:cell.data];
+#pragma clang diagnostic pop
         [collectionView cellForItemAtIndexPath:indexPath].backgroundColor = [UIColor whiteColor];
     }
 }
@@ -323,17 +384,17 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
         
         NSArray *data = [self.dataStore.query getDataForKey:key];
         
-        if (![key isEqualToString:PVVISQueryKeyLocation])
-        {
-            PVVISTag *tag = [PVVISTag tagWithURIString:[dictionary objectForKey:@"value"]];
-            cell.data = tag;
-            selected = [data containsObject:tag];
-        }
-        else
+        if ([key isEqualToString:PVVISQueryKeyLocation])
         {
             PVVISArea *area = [[PVVISArea alloc] initWithDictionary:dictionary];
             cell.data = area;
             selected = [data containsObject:area];
+        }
+        else
+        {
+            PVVISTag *tag = [PVVISTag tagWithURIString:[dictionary objectForKey:@"value"]];
+            cell.data = tag;
+            selected = [data containsObject:tag];
         }
     }
     else
@@ -371,8 +432,12 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
         }
     }
     
-    cell.selected = selected;
     cell.backgroundColor = selected ? _labelColor : [UIColor whiteColor];
+    
+    if (selected)
+    {
+        cell.highlighted = YES;
+    }
 }
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -394,13 +459,19 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     {
         if ([[self.currentProperty objectForKey:@"type"] isEqualToString:@"tabbed"])
         {
-            NSString *text = [[[self.currentProperty objectForKey:@"tabs"] objectAtIndex:indexPath.section] objectForKey:@"name"];
+            NSDictionary *property = [[self.currentProperty objectForKey:@"tabs"] objectAtIndex:indexPath.section];
+            NSString *text = [property objectForKey:@"name"];
             view.textField.text = [text uppercaseString];
+            view.key = [property objectForKey:@"id"];
         }
         else
         {
             view.textField.text = [[self.currentProperty objectForKey:@"name"] uppercaseString];
+            view.key = [self.currentProperty objectForKey:@"id"];
         }
+        
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clearSection:)];
+        [view.clearButton addGestureRecognizer:recognizer];
     }
     
     return view;
@@ -441,7 +512,10 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     
     if ([self.dataStore.query respondsToSelector:selector])
     {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [self.dataStore.query performSelector:selector withObject:cell.data];
+#pragma clang diagnostic pop
         [self.collectionView reloadData];
     }
 }
@@ -466,9 +540,15 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
         }
         
         SEL selector = NSSelectorFromString(selectorName);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
         if ([self.dataStore.query respondsToSelector:selector])
         {
+#pragma clang diagnostic pop
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
             [self.dataStore.query performSelector:selector withObject:number];
+#pragma clang diagnostic pop
             [self.collectionView reloadData];
         }
     };
@@ -486,6 +566,20 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     [self presentViewController:self.picker animated:YES completion:^{
         NSLog(@"PRESENTED!");
     }];
+}
+
+#pragma mark - clear section
+- (void)clearSection:(UITapGestureRecognizer*)sender
+{
+    PVVISQueryUICollectionReusableView *view = (PVVISQueryUICollectionReusableView *)sender.view.superview;
+    [self.dataStore.query reset:view.key];
+    [self.collectionView reloadData];
+}
+
+- (void)resetQuery:(UITapGestureRecognizer*)sender
+{
+    self.dataStore.query = [PVVISQuery new];
+    [self.collectionView reloadData];
 }
 
 @end

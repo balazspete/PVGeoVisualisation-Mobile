@@ -7,6 +7,7 @@
 //
 
 #import "PVVISQuery.h"
+#import "GRMustacheFilter.h"
 
 @interface PVVISQuery ()
 
@@ -33,11 +34,14 @@
         [self.dictionary setValue:[NSMutableArray new] forKey:PVVISQueryKeyLocation];
         [self.dictionary setValue:@{
                          @"values": [NSMutableArray new],
-                         @"range": [NSMutableDictionary new]} forKey:PVVISQueryKeyDate];
+                         @"range": [NSMutableDictionary dictionaryWithDictionary:@{@"min": @0}]} forKey:PVVISQueryKeyDate];
         [self.dictionary setValue:@{
                          @"values": [NSMutableArray new],
-                         @"range": [NSMutableDictionary new]} forKey:PVVISQueryKeyFatality];
+                         @"range": [NSMutableDictionary dictionaryWithDictionary:@{@"min": @0}]} forKey:PVVISQueryKeyFatality];
         [self.dictionary setValue:limit forKey:PVVISQueryKeyLimit];
+        [self.dictionary setValue:[GRMustacheFilter filterWithBlock:^id(id object) {
+            return @([object count]==0);
+        }] forKey:@"isEmpty"];
     }
     
     return self;
@@ -61,8 +65,10 @@
         {
             return (id)dict;
         }
-        
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
         return helper(index+1, [dict objectForKey:chunks[index]]);
+#pragma clang diagnostic pop
     } copy];
     
     return helper(0, self.dictionary);
@@ -165,6 +171,24 @@
 - (void)setLimit:(NSNumber*)limit
 {
     [self.dictionary setValue:limit forKey:@"limit"];
+}
+
+- (void)reset:(NSString*)key
+{
+    id data = [self getDataForKey:key];
+    if ([data isKindOfClass:[NSMutableArray class]])
+    {
+        [((NSMutableArray*)data) removeAllObjects];
+    }
+    else
+    {
+        NSArray *chunks = [key componentsSeparatedByString:@"."];
+        if (chunks.count == 3)
+        {
+            id _data = [self getDataForKey:[NSString stringWithFormat:@"%@.%@", chunks[0], chunks[1]]];
+            [_data removeObjectForKey:chunks[2]];
+        }
+    }
 }
 
 #pragma mark - private helper methods

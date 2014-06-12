@@ -33,7 +33,6 @@
 		E8457C3F1944A3DD00A8D57A /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8457C3D1944A3DD00A8D57A /* map@2x.png */; };
 		E8457C431944D53400A8D57A /* PVVISArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E8457C421944D53400A8D57A /* PVVISArea.m */; };
 		E8457C451947307400A8D57A /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8457C441947307400A8D57A /* libsqlite3.0.dylib */; };
-		E8457C4D19478E1F00A8D57A /* PVVISEvent.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E8457C4B19478E1F00A8D57A /* PVVISEvent.xcdatamodeld */; };
 		E86B16DE1933E98C000DDF18 /* PVVISMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */; };
 		E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */; };
 		E86B16E11933EB2C000DDF18 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86B16E01933EB2C000DDF18 /* MapKit.framework */; };
@@ -145,7 +144,6 @@
 		E8457C411944D53400A8D57A /* PVVISArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISArea.h; path = Models/PVVISArea.h; sourceTree = "<group>"; };
 		E8457C421944D53400A8D57A /* PVVISArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISArea.m; path = Models/PVVISArea.m; sourceTree = "<group>"; };
 		E8457C441947307400A8D57A /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
-		E8457C4C19478E1F00A8D57A /* PVVISEvent.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PVVISEvent.xcdatamodel; sourceTree = "<group>"; };
 		E86B16DB1933E98C000DDF18 /* PVVISMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISMapViewController.h; path = Controllers/PVVISMapViewController.h; sourceTree = "<group>"; };
 		E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISMapViewController.m; path = Controllers/PVVISMapViewController.m; sourceTree = "<group>"; };
 		E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISMapViewController.xib; path = Controllers/PVVISMapViewController.xib; sourceTree = "<group>"; };
@@ -196,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8CAF0CA192F92A400884C20 /* CoreData.framework in Frameworks */,
 				E8457C451947307400A8D57A /* libsqlite3.0.dylib in Frameworks */,
 				E8CAF111192F9C1000884C20 /* libsqlite3.dylib in Frameworks */,
 				E82ADDEA193F600A00A7011A /* QuartzCore.framework in Frameworks */,
@@ -204,7 +203,6 @@
 				E8CAF10D192F9BFA00884C20 /* libxml2.dylib in Frameworks */,
 				E8CAF10B192F9BF100884C20 /* libredland-ios.a in Frameworks */,
 				E8CAF0C6192F92A400884C20 /* CoreGraphics.framework in Frameworks */,
-				E8CAF0CA192F92A400884C20 /* CoreData.framework in Frameworks */,
 				E8CAF0C8192F92A400884C20 /* UIKit.framework in Frameworks */,
 				E8CAF0C4192F92A400884C20 /* Foundation.framework in Frameworks */,
 				0329CD8624584C0B84952E54 /* libPods.a in Frameworks */,
@@ -303,7 +301,6 @@
 			children = (
 				E86B1757193BD554000DDF18 /* PVVISEvent.h */,
 				E86B1758193BD554000DDF18 /* PVVISEvent.m */,
-				E8457C4B19478E1F00A8D57A /* PVVISEvent.xcdatamodeld */,
 				E83BD0A5193BF8E100D9D09F /* PVVISTag.h */,
 				E83BD0A6193BF8E100D9D09F /* PVVISTag.m */,
 				E83BD0A8193BFAE900D9D09F /* PVVISLocation.h */,
@@ -628,7 +625,6 @@
 				E82ADDDC193D137800A7011A /* PVVISEventPopoverView.m in Sources */,
 				E82ADDE1193D2E3000A7011A /* PVVISEventPopoverViewController.m in Sources */,
 				E8CAF0D2192F92A400884C20 /* main.m in Sources */,
-				E8457C4D19478E1F00A8D57A /* PVVISEvent.xcdatamodeld in Sources */,
 				E8457C381943E94D00A8D57A /* PVVISNumberValuePickerControllerViewController.m in Sources */,
 				E86B1759193BD554000DDF18 /* PVVISEvent.m in Sources */,
 				E8CAF0D6192F92A400884C20 /* PVVISAppDelegate.m in Sources */,
@@ -877,17 +873,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		E8457C4B19478E1F00A8D57A /* PVVISEvent.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				E8457C4C19478E1F00A8D57A /* PVVISEvent.xcdatamodel */,
-			);
-			currentVersion = E8457C4C19478E1F00A8D57A /* PVVISEvent.xcdatamodel */;
-			name = PVVISEvent.xcdatamodeld;
-			path = Models/PVVISEvent.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		E8CAF0D7192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

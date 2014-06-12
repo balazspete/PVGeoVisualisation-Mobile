@@ -10,13 +10,14 @@
 
 @implementation PVVISTag
 
-- (id)initWithURIString:(NSString*)URI
+@synthesize uri = _uri;
+
+- (id)initWithURIString:(NSString*)URI;
 {
     self = [super init];
     if (self)
     {
-        _URI = URI;
-        _value = [PVVISTag getValueFromURIString:URI];
+        _uri = URI;
     }
     
     return self;
@@ -34,19 +35,24 @@
     return chunks.lastObject;
 }
 
-- (BOOL)isEqual:(id)object
+- (NSString*)value
 {
-    if ([object isKindOfClass:[PVVISTag class]])
-    {
-        return ((PVVISTag *)object).URI == self.URI;
-    }
-    
-    return false;
+    return [PVVISTag getValueFromURIString:self.uri];
 }
 
 - (NSString*)description
 {
-    return self.URI;
+    return self.uri;
+}
+
+- (BOOL)isEqual:(id)object
+{
+    if ([object isKindOfClass:[PVVISTag class]])
+    {
+        return [self.uri isEqualToString:((PVVISTag *)object).uri];
+    }
+    
+    return false;
 }
 
 @end

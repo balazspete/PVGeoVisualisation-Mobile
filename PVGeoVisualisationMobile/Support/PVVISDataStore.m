@@ -17,13 +17,13 @@
 
 #import "GRMustache.h"
 
-#import <sqlite3.h>
+#import "PVVISAppDelegate.h"
 
 @interface PVVISDataStore ()
 
 @property (strong, nonatomic) RedlandStorage *storage;
 
-@property NSArray *results;
+@property NSMutableArray *results;
 
 @property UIPopoverController *popover;
 
@@ -31,34 +31,23 @@
 
 @implementation PVVISDataStore
 
+@synthesize fetchedResultsController, managedObjectContext;
+
 - (id)init
 {
     self = [super init];
     if (self)
     {
+        PVVISAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        self.managedObjectContext = delegate.managedObjectContext;
+        
         [self ensureModel];
         
         self.query = [PVVISQuery new];
-        self.results = [NSArray new];
+        self.results = [NSMutableArray new];
     }
     
     return self;
-}
-
--(void)testSqlitePresence
-{
-    // List available storage factories.
-    for(int counter = 0;;counter++) {
-        const char *name = NULL;
-        const char *label = NULL;
-        if(0 != librdf_storage_enumerate([RedlandWorld defaultWrappedWorld], counter, &name, &label))
-            break;
-        if (0 == strcmp("sqlite", name)) {
-            // how nice - found it.
-            return;
-        }
-    }
-    NSLog(@"storage factory 'sqlite' not present.");
 }
 
 - (void)ensureModel
@@ -116,38 +105,127 @@
     });
 }
 
+- (void)deleteAllObjectsInCoreData
+{
+    PVVISAppDelegate *delegate = (PVVISAppDelegate*)[UIApplication sharedApplication].delegate;
+    NSArray *allEntities = delegate.managedObjectModel.entities;
+    for (NSEntityDescription *entityDescription in allEntities)
+    {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        [fetchRequest setEntity:entityDescription];
+        
+        fetchRequest.includesPropertyValues = NO;
+        fetchRequest.includesSubentities = NO;
+        
+        NSError *error;
+        NSArray *items = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        
+        if (error) {
+            NSLog(@"Error requesting items from Core Data: %@", [error localizedDescription]);
+        }
+        
+        for (NSManagedObject *managedObject in items) {
+            [self.managedObjectContext deleteObject:managedObject];
+        }
+        
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Error deleting %@ - error:%@", entityDescription, [error localizedDescription]);
+        }
+    }  
+}
+
+- (void)reloadDataStore
+{
+    [self deleteAllObjectsInCoreData];
+    [self loadRemoteData:^(bool success, NSError *error) {
+        
+        
+        //TODO: notify or something...
+    }];
+}
+
+- (void)runQuery {
+    self.actionCallback(@"results", nil);
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        
+        NSDictionary *localConfig = [PVVISConfig localEndPoint];
+        NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"cd-query"] error:nil];
+        NSLog(@"%@", queryString);
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:queryString];
+        [request setPredicate:predicate];
+        
+        NSError *error;
+        self.results = [NSMutableArray arrayWithArray:[self.managedObjectContext executeFetchRequest:request error:&error]];
+        
+        self.actionCallback(@"done", [NSNumber numberWithUnsignedInteger:self.results.count]);
+    });
+}
+- (NSError *)willPresentError:(NSError *)error {
+    
+    // Only deal with Core Data Errors
+    if (!([[error domain] isEqualToString:NSCocoaErrorDomain])) {
+        return error;
+    }
+    NSInteger errorCode = [error code];
+    if ((errorCode < NSValidationErrorMinimum) || (errorCode > NSValidationErrorMaximum)) {
+        return error;
+    }
+    
+    // If there is only 1 error, let the usual alert display it
+    if (errorCode != NSValidationMultipleErrorsError) {
+        return error;
+    }
+    
+    // Get the errors. NSValidationMultipleErrorsError - the errors are in an array in the userInfo dictionary for key NSDetailedErrorsKey
+    NSArray *detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
+    NSUInteger errorCount = [detailedErrors count];
+    NSMutableString *errorString = [NSMutableString stringWithFormat:@"There are %lu validation errors:-", errorCount];
+    for (int i = 0; i < errorCount; i++) {
+        [errorString appendFormat:@"%@\n",
+         [[detailedErrors objectAtIndex:i] localizedDescription]];
+    }
+    
+    // Create a new error with the new userInfo and return it
+    NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionaryWithDictionary:[error userInfo]];
+    [newUserInfo setObject:errorString forKey:NSLocalizedDescriptionKey];
+    NSError *newError = [NSError errorWithDomain:[error domain] code:[error code] userInfo:newUserInfo];
+    return newError;
+}
 - (void)createResults
 {
-    self.actionCallback(@"results", nil);
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSDictionary *localConfig = [PVVISConfig localEndPoint];
         
-        NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"query-template"] error:nil];
-        NSLog(@"%@", queryString);
+        NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"query"] error:nil];
         
         RedlandQuery *query = [RedlandQuery queryWithLanguageName:RedlandSPARQLLanguageName queryString:queryString baseURI:[RedlandURI URIWithString:[localConfig objectForKey:@"baseURL"]]];
         
         [self ensureModel];
         RedlandQueryResultsEnumerator *result = [[query executeOnModel:self.model] resultEnumerator];
         
-        NSMutableArray *results = [NSMutableArray new];
         
         for (NSDictionary *entry in result)
         {
-            PVVISEvent *event = [PVVISEvent eventWithDictionary:entry];
-            [results addObject:event];
+            PVVISEvent *event = [PVVISEvent eventWithDictionary:entry insertIntoManagedObjectContext:self.managedObjectContext];
+            [self.managedObjectContext insertObject:event];
         }
         
-        
-        self.results = results;
-        
-        NSLog(@"SPARQL query results count: %lu", self.results.count);
-        
-        self.actionCallback(@"results", [NSNumber numberWithUnsignedInteger:self.results.count]);
+        NSError *error;
+        if (![self.managedObjectContext save:&error])
+        {
+            [self willPresentError:error];
+        }
         
         result = nil;
         queryString = nil;
         localConfig = nil;
+        
+        [self runQuery];
     });
 }
 
@@ -178,6 +256,7 @@
 - (void)showCallout:(UITapGestureRecognizer *)sender
 {
     MKPinAnnotationView *view = (MKPinAnnotationView*) sender.view;
+
     PVVISEventPopoverViewController *popoverView = [[PVVISEventPopoverViewController alloc] initWithEvent:view.annotation];
     
     if (self.popover)

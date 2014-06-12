@@ -24,6 +24,8 @@
 
 @implementation PVVISMapViewController
 
+static UIColor *_buttonColor;
+
 - (id)init
 {
     return [self initWithNibName:@"PVVISMapViewController" bundle:nil];
@@ -34,20 +36,27 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        NSArray *colorArray = @[@0.10f, @0.8f, @0.44f];
+        _buttonColor = [UIColor colorWithRed:[colorArray[0] floatValue] green:[colorArray[1] floatValue] blue:[colorArray[2] floatValue] alpha:1.0f];
         
         self.results = [NSMutableArray new];
         self.dataStore = ((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]).dataStore;
         
         self.dataStore.actionCallback = ^(NSString* action, id data)
         {
-            if (data) {
-                self.loadingLabel.hidden = YES;
-                [self.dataStore reloadMap:self.mapView];
+            if ([action isEqualToString:@"done"]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+//                [self.loadingLabel performSelectorOnMainThread:@selector(setHidden:) withObject:@YES waitUntilDone:YES ];
+//                [self.loadingLabel performSelector:@selector(setHidden:) withObject:@YES afterDelay:0];
+//                [self.dataStore performSelectorOnMainThread:@selector(reloadMap:) withObject:self.mapView waitUntilDone:YES];
+                [self.dataStore performSelector:@selector(reloadMap:) withObject:self.mapView afterDelay:0];
+#pragma clang diagnostic pop
             }
             else
             {
                 [self.mapView removeAnnotations:self.mapView.annotations];
-                self.loadingLabel.hidden = NO;
+//                self.loadingLabel.hidden = NO;
             }
             
         };
@@ -64,34 +73,27 @@
     tapGestureRecogniser.numberOfTapsRequired = 1;
     [self.filterButton addGestureRecognizer:tapGestureRecogniser];
 
-    [self loadDataFromDatabase];
     self.mapView.delegate = self.dataStore;
+    
+    
+    self.loadingLabel.hidden = YES;
+    
+    self.filterButton.layer.borderWidth = 1.7f;
+    self.filterButton.layer.cornerRadius = 15.0f;
+    self.filterButton.layer.borderColor = _buttonColor.CGColor;
+    self.filterButton.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.dataStore createResults];
+    [self.dataStore runQuery];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     [self.dataStore dumpResources];
-}
-
-#pragma mark - initial data load
-
-- (void)loadDataFromDatabase
-{
-    self.loadingLabel.hidden = NO;
-    [self.dataStore loadRemoteData:^(bool success, NSError *error) {
-        if (!success)
-        {
-            NSLog(@"Error: %@", error.description);
-            self.loadingLabel.hidden = YES;
-        }
-    }];
 }
 
 #pragma mark - query UI tap handler

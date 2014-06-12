@@ -11,11 +11,14 @@
 
 @interface PVVISLocation : NSManagedObject
 
-@property NSString *location;
+@property (nonatomic, strong) NSString *location;
+@property (nonatomic, strong) NSNumber *latitude;
+@property (nonatomic, strong) NSNumber *longitude;
+
 @property CLLocationCoordinate2D coordinate;
 
-- (id)initWithUnstructuredLocation:(NSString*)location;
-- (id)initWithLatitude:(double)latitude longitude:(double)longitude;
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate;
+- (id)initWithUnstructuredLocation:(NSString*)location insertIntoManagedObjectContext:(NSManagedObjectContext *)context;
+- (id)initWithLatitude:(double)latitude longitude:(double)longitude insertIntoManagedObjectContext:(NSManagedObjectContext *)context;
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate insertIntoManagedObjectContext:(NSManagedObjectContext *)context;
 
 @end

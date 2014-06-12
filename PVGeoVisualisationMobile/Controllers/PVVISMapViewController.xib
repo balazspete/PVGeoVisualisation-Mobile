@@ -9,7 +9,6 @@
                 <outlet property="filterButton" destination="HVw-ij-J5Y" id="Z0K-aS-hEQ"/>
                 <outlet property="loadingLabel" destination="x3t-YQ-W1E" id="sQz-jh-5Y1"/>
                 <outlet property="mapView" destination="yNx-G2-tCr" id="JQR-9v-DmN"/>
-                <outlet property="searchView" destination="6Iw-2H-jMp" id="0nK-VV-jwj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,19 +21,18 @@
                     <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </mapView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Iw-2H-jMp">
-                    <rect key="frame" x="0.0" y="0.0" width="75" height="67"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVw-ij-J5Y">
+                    <rect key="frame" x="10" y="30" width="83" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVw-ij-J5Y">
-                            <rect key="frame" x="20" y="31" width="46" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                    </subviews>
-                </view>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="83" id="QNT-1j-NV3"/>
+                        <constraint firstAttribute="height" constant="42" id="YLd-2T-VyA"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" title="Search">
+                        <color key="titleColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
                 <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading data..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3t-YQ-W1E">
                     <rect key="frame" x="632" y="983" width="116" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -48,7 +46,9 @@
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="yNx-G2-tCr" secondAttribute="centerY" id="54G-88-71t"/>
                 <constraint firstAttribute="trailing" secondItem="x3t-YQ-W1E" secondAttribute="trailing" constant="20" id="QCQ-5T-yQH"/>
+                <constraint firstItem="HVw-ij-J5Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="brE-Jo-uhY"/>
                 <constraint firstItem="yNx-G2-tCr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="j18-q2-4Mp"/>
+                <constraint firstItem="HVw-ij-J5Y" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="kjU-DT-hhR"/>
                 <constraint firstAttribute="bottom" secondItem="yNx-G2-tCr" secondAttribute="bottom" id="m9i-6l-KG4"/>
                 <constraint firstAttribute="centerX" secondItem="yNx-G2-tCr" secondAttribute="centerX" id="mWc-Za-ElQ"/>
                 <constraint firstAttribute="bottom" secondItem="x3t-YQ-W1E" secondAttribute="bottom" constant="20" id="rn7-1J-Ut0"/>

@@ -13,7 +13,10 @@
 
 typedef void(^ActionCallback)(NSString* action, id data);
 
-@interface PVVISDataStore : NSObject <MKMapViewDelegate>
+@interface PVVISDataStore : NSObject <MKMapViewDelegate, NSFetchedResultsControllerDelegate>
+
+@property NSFetchedResultsController *fetchedResultsController;
+@property NSManagedObjectContext *managedObjectContext;
 
 @property (nonatomic, copy) ActionCallback actionCallback;
 
@@ -24,8 +27,12 @@ typedef void(^ActionCallback)(NSString* action, id data);
 - (id)initWithRemoteData:(void (^)(bool success, NSError *error))callback;
 - (void)loadRemoteData:(void (^)(bool success, NSError *error))callback;
 
+- (void)runQuery;
+
 - (void)dumpResources;
 - (void)createResults;
 - (void)reloadMap:(MKMapView*)map;
+
+- (void)reloadDataStore;
 
 @end

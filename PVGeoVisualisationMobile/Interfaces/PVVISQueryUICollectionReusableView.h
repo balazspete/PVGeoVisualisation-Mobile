@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UIButton *clearButton;
 
+@property NSString *key;
+
 @end

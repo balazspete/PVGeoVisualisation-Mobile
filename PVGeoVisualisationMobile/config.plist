@@ -4,6 +4,37 @@
 <dict>
 	<key>local-end-point</key>
 	<dict>
+		<key>query</key>
+		<string>PREFIX pv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence#&gt;
+PREFIX owltime:&lt;http://www.w3.org/2006/time#&gt;
+
+PREFIX geo:&lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;
+PREFIX xsd:&lt;http://www.w3.org/2001/XMLSchema#&gt;
+
+SELECT ?latitude ?longitude ?year ?description ?category ?motivation ?fatalities ?location ?url
+WHERE {
+	?url
+		pv:description ?description ;
+		pv:category ?category ;
+		pv:motivation ?motivation ;
+		pv:unstructuredLocation ?locationNode ;
+		pv:fatalitiesValue ?fatalitiesValue ;
+		owltime:year ?yearValue .
+	
+		?locationNode
+			pv:unstructuredLocation ?location;
+			geo:lat ?lat;
+			geo:long ?long .
+
+	BIND (xsd:int(?yearValue) AS ?year)
+	BIND (xsd:int(?fatalitiesValue) AS ?fatalities)
+	BIND (xsd:double(?lat) AS ?latitude)
+	BIND (xsd:double(?long) AS ?longitude)
+
+}
+</string>
+		<key>cd-query</key>
+		<string>{{^ isEmpty(category)}}( {{# category}}( rawCategory LIKE &apos;{{.}}&apos; ) OR {{/ category}}rawCategory==NULL ) AND {{/}}{{^ isEmpty(motivation)}}( {{# motivation}}( rawMotivation LIKE &apos;{{.}}&apos; ) OR {{/ motivation}}rawMotivation==NULL ) AND {{/}}{{# date.range.min}}( {{date.range.min}} &lt;= date ) AND {{/ date.range.min}}{{# date.range.max}}( date &lt;= {{date.range.max}} ) AND {{/ date.range.max}}{{^ isEmpty(date.values) }}( {{#date.values}}( date == {{.}} ) OR {{/date.values}}date==NULL ) AND {{/}}{{# fatality.range.min}}( {{fatality.range.min}} &lt;= fatalities ) AND {{/ fatality.range.min}}{{# fatality.range.max}}( fatalities &lt;= {{fatality.range.max}} ) AND {{/ fatality.range.max}}{{^ isEmpty(fatality.values) }}( {{#fatality.values}}( fatalities == {{.}} ) OR {{/fatality.values}}YES ) AND {{/}}( uri != NULL )</string>
 		<key>query-template</key>
 		<string>PREFIX pv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence#&gt;
 PREFIX owltime:&lt;http://www.w3.org/2006/time#&gt;
@@ -34,15 +65,15 @@ WHERE {
 	FILTER ( false {{#category}}|| ?category=&lt;{{.}}&gt;{{^}}|| true{{/ category}} )
 	FILTER ( false {{#motivation}}|| ?motivation=&lt;{{.}}&gt;{{^}}|| true{{/ motivation}} )
 
-	{{# date.range.min}}FILTER( {{date.range.min}} &lt;= ?yearValue ){{/ date.range.min}}
-	{{# date.range.max}}FILTER( {{date.range.max}} &gt;= ?yearValue ){{/ date.range.max}}
+	{{# date.range.min}}FILTER( {{date.range.min}} &lt;= ?year ){{/ date.range.min}}
+	{{# date.range.max}}FILTER( {{date.range.max}} &gt;= ?year ){{/ date.range.max}}
 
-	FILTER( false{{# date.values}} || {{.}} = ?yearValue{{^}} || true{{/ date.values}} )
+	FILTER( false{{# date.values}} || {{.}} = ?year{{^}} || true{{/ date.values}} )
 
-	{{# fatality.range.min}}FILTER( {{fatality.range.min}} &lt;= ?fatalitiesValue ){{/ fatality.range.min}}
-	{{# fatality.range.max}}FILTER( {{fatality.range.max}} &gt;= ?fatalitiesValue ){{/ fatality.range.max}}
+	{{# fatality.range.min}}FILTER( {{fatality.range.min}} &lt;= ?fatalities ){{/ fatality.range.min}}
+	{{# fatality.range.max}}FILTER( {{fatality.range.max}} &gt;= ?fatalities ){{/ fatality.range.max}}
 
-	FILTER( false{{# fatality.values}} || {{.}} = ?fatalitiesValue{{^}} || true{{/ fatality.values}} )
+	FILTER( false{{# fatality.values}} || {{.}} = ?fatalities{{^}} || true{{/ fatality.values}} )
 
 }
 
