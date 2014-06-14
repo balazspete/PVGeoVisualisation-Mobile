@@ -207,6 +207,10 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
             
             results = [results filteredArrayUsingPredicate:locationFilter];
         }
+        else
+        {
+            minX = -115, maxX = -75, minY = 15, maxY = 60;
+        }
         
         NSLog(@"Query results: %lu entries", results.count);
         
