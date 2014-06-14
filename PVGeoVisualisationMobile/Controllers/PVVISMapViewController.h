@@ -21,4 +21,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *loadingCancelButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *processIndicator;
 
+@property UIImageView *mapImage;
+
 @end

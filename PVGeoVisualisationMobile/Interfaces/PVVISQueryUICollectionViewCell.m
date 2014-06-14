@@ -17,7 +17,7 @@ static CGSize _extraMargins = {40, 20};
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        
+
     }
     return self;
 }

@@ -10,6 +10,8 @@
 
 @implementation PVVISQueryUITableViewCell
 
+@synthesize backgroundView = _backgroundView;
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -22,6 +24,11 @@
 - (void)awakeFromNib
 {
     // Initialization code
+    self.backgroundColor = [UIColor clearColor];
+    
+    UIView *backView = [[UIView alloc] initWithFrame:CGRectZero];
+    backView.backgroundColor = [UIColor clearColor];
+    self.backgroundView = backView;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated

@@ -15,5 +15,8 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *searchButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *resetButton;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end

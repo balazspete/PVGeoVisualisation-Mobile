@@ -15,6 +15,8 @@
 #import "PVVISQueryViewController.h"
 #import <Redland-ObjC.h>
 
+#import "UIImage+StackBlur.h"
+
 @interface PVVISMapViewController ()
 
 @property NSMutableArray *results;
@@ -84,7 +86,7 @@ static UIColor *_buttonColor;
 
 - (void)styleButton:(UIButton*)button
 {
-    button.layer.borderWidth = 1.7f;
+    button.layer.borderWidth = 0.8f;
     button.layer.cornerRadius = 15.0f;
     button.layer.borderColor = _buttonColor.CGColor;
     button.backgroundColor = [UIColor whiteColor];
@@ -113,9 +115,20 @@ static UIColor *_buttonColor;
 
 - (void)openQueryUI:(UITapGestureRecognizer *)sender
 {
-    [self dismissViewControllerAnimated:YES completion:^{
+    [self captureMapImage];
+    [self dismissViewControllerAnimated:NO completion:^{
         [self.dataStore reloadMap:self.mapView];
     }];
+}
+
+- (void)captureMapImage
+{
+    UIGraphicsBeginImageContext(self.mapView.frame.size);
+    [[self.mapView layer] renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    self.mapImage.image = [image stackBlur:30];
+    self.mapImage.alpha = 0.8f;
+    UIGraphicsEndImageContext();
 }
 
 #pragma mark - zooming

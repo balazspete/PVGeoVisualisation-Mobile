@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0329CD8624584C0B84952E54 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A3CC5A98E34FCF9134C592 /* libPods.a */; };
+		E81112D4194BDEA700735422 /* PVVISQueryViewController2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E81112D3194BDEA700735422 /* PVVISQueryViewController2.xib */; };
+		E81112E0194CCC4100735422 /* PVVISQueryUICollectionViewCell2.xib in Resources */ = {isa = PBXBuildFile; fileRef = E81112DF194CCC4100735422 /* PVVISQueryUICollectionViewCell2.xib */; };
+		E81112E3194CCFC200735422 /* UIImage+StackBlur.m in Sources */ = {isa = PBXBuildFile; fileRef = E81112E2194CCFC200735422 /* UIImage+StackBlur.m */; };
 		E82ADDDC193D137800A7011A /* PVVISEventPopoverView.m in Sources */ = {isa = PBXBuildFile; fileRef = E82ADDDB193D137800A7011A /* PVVISEventPopoverView.m */; };
 		E82ADDDE193D139000A7011A /* PVVISEventPopoverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E82ADDDD193D139000A7011A /* PVVISEventPopoverView.xib */; };
 		E82ADDE1193D2E3000A7011A /* PVVISEventPopoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E82ADDE0193D2E3000A7011A /* PVVISEventPopoverViewController.m */; };
@@ -106,6 +109,10 @@
 
 /* Begin PBXFileReference section */
 		E3408F6957504BF1818D98FE /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		E81112D3194BDEA700735422 /* PVVISQueryViewController2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISQueryViewController2.xib; path = Controllers/PVVISQueryViewController2.xib; sourceTree = "<group>"; };
+		E81112DF194CCC4100735422 /* PVVISQueryUICollectionViewCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISQueryUICollectionViewCell2.xib; path = Interfaces/PVVISQueryUICollectionViewCell2.xib; sourceTree = "<group>"; };
+		E81112E1194CCFC200735422 /* UIImage+StackBlur.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+StackBlur.h"; path = "Support/UIImage+StackBlur.h"; sourceTree = "<group>"; };
+		E81112E2194CCFC200735422 /* UIImage+StackBlur.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+StackBlur.m"; path = "Support/UIImage+StackBlur.m"; sourceTree = "<group>"; };
 		E82ADDDA193D137800A7011A /* PVVISEventPopoverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISEventPopoverView.h; path = Interfaces/PVVISEventPopoverView.h; sourceTree = "<group>"; };
 		E82ADDDB193D137800A7011A /* PVVISEventPopoverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISEventPopoverView.m; path = Interfaces/PVVISEventPopoverView.m; sourceTree = "<group>"; };
 		E82ADDDD193D139000A7011A /* PVVISEventPopoverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISEventPopoverView.xib; path = Interfaces/PVVISEventPopoverView.xib; sourceTree = "<group>"; };
@@ -258,16 +265,18 @@
 		E82ADE501940BB9500A7011A /* Layouts */ = {
 			isa = PBXGroup;
 			children = (
-				E8457C371943E94D00A8D57A /* PVVISNumberValuePickerControllerViewController.xib */,
-				E82ADE4C1940B11C00A7011A /* PVVISQueryViewController.xib */,
 				E82ADDE7193E36BD00A7011A /* PVVISEventPopoverTableViewCell.xib */,
 				E82ADDDD193D139000A7011A /* PVVISEventPopoverView.xib */,
 				E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */,
+				E82ADE4C1940B11C00A7011A /* PVVISQueryViewController.xib */,
+				E81112D3194BDEA700735422 /* PVVISQueryViewController2.xib */,
 				E8457C0F1940C77800A8D57A /* PVVISQueryUITableViewCell.xib */,
 				E8457C2A19412BDE00A8D57A /* PVVISQueryUICollectionViewCell.xib */,
+				E81112DF194CCC4100735422 /* PVVISQueryUICollectionViewCell2.xib */,
 				E8457C2F1942147500A8D57A /* PVVISQueryUICollectionFooter.xib */,
 				E8457C331943A05700A8D57A /* PVVISQueryUICollectionHeader.xib */,
 				E8457C3A19449F7F00A8D57A /* PVVISQueryUICollectionBlankFooter.xib */,
+				E8457C371943E94D00A8D57A /* PVVISNumberValuePickerControllerViewController.xib */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -320,6 +329,8 @@
 				E86B174D1937FD87000DDF18 /* PVVISConfig.m */,
 				E86B174F193807D5000DDF18 /* PVVISDataStore.h */,
 				E86B1750193807D5000DDF18 /* PVVISDataStore.m */,
+				E81112E1194CCFC200735422 /* UIImage+StackBlur.h */,
+				E81112E2194CCFC200735422 /* UIImage+StackBlur.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -542,7 +553,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E8457C341943A05700A8D57A /* PVVISQueryUICollectionHeader.xib in Resources */,
+				E81112E0194CCC4100735422 /* PVVISQueryUICollectionViewCell2.xib in Resources */,
 				E8457C3B19449F7F00A8D57A /* PVVISQueryUICollectionBlankFooter.xib in Resources */,
+				E81112D4194BDEA700735422 /* PVVISQueryViewController2.xib in Resources */,
 				E8457C101940C77800A8D57A /* PVVISQueryUITableViewCell.xib in Resources */,
 				E8CAF0D0192F92A400884C20 /* InfoPlist.strings in Resources */,
 				E86B16E31933F2B6000DDF18 /* FilterUIConfiguration.plist in Resources */,
@@ -629,6 +642,7 @@
 				E86B1759193BD554000DDF18 /* PVVISEvent.m in Sources */,
 				E8CAF0D6192F92A400884C20 /* PVVISAppDelegate.m in Sources */,
 				E82ADDF0193F890900A7011A /* PVVISQuery.m in Sources */,
+				E81112E3194CCFC200735422 /* UIImage+StackBlur.m in Sources */,
 				E86B174E1937FD87000DDF18 /* PVVISConfig.m in Sources */,
 				E8CAF0D9192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld in Sources */,
 			);

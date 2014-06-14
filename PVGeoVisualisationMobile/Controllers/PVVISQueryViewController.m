@@ -16,6 +16,8 @@
 #import "PVVISNumberValuePickerControllerViewController.h"
 #import "PVVISArea.h"
 
+#import "UIImage+StackBlur.h"
+
 #import <QuartzCore/QuartzCore.h>
 
 @interface PVVISQueryViewController () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate>
@@ -42,12 +44,11 @@
 @implementation PVVISQueryViewController
 
 static UIColor *_labelColor;
-static UIColor *_tableSelectionColor;
 static PVVISQueryUICollectionViewCell *_sizingCell;
 
 - (id)init
 {
-    return [self initWithNibName:@"PVVISQueryViewController" bundle:nil];
+    return [self initWithNibName:@"PVVISQueryViewController2" bundle:nil];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -55,7 +56,6 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     //46, 204, 113
     NSArray *colorArray = @[@0.10f, @0.8f, @0.44f];
     _labelColor = [UIColor colorWithRed:[colorArray[0] floatValue] green:[colorArray[1] floatValue] blue:[colorArray[2] floatValue] alpha:1.0f];
-    _tableSelectionColor = [UIColor colorWithRed:[colorArray[0] floatValue] green:[colorArray[1] floatValue] blue:[colorArray[2] floatValue] alpha:0.25f];
     
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
@@ -83,6 +83,14 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     self.collectionView.dataSource = self;
     self.collectionView.allowsMultipleSelection = YES;
     
+//    [self.navigationBar setBackgroundImage:[UIImage new]
+//                             forBarMetrics:UIBarMetricsDefault];
+//    self.navigationBar.shadowImage = [UIImage new];
+//    self.navigationBar.translucent = YES;
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
+    
     UITapGestureRecognizer *search = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayMap:)];
     [[self.searchButton valueForKey:@"view"] addGestureRecognizer:search];
     
@@ -99,12 +107,12 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 - (void)registerCollectionViewReusableCells
 {
-    UINib *cellNib = [UINib nibWithNibName:@"PVVISQueryUICollectionViewCell" bundle:nil];
+    UINib *cellNib = [UINib nibWithNibName:@"PVVISQueryUICollectionViewCell2" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"CollectionViewLabel"];
     _sizingCell = [[cellNib instantiateWithOwner:nil options:nil] objectAtIndex:0];
     
@@ -127,9 +135,11 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
     if (self.initial)
     {
         self.mapViewController = [[PVVISMapViewController alloc] init];
+        self.mapViewController.mapImage = self.backgroundImageView;
         self.initial = NO;
         [self presentMap];
     }
@@ -143,7 +153,7 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
 
 - (void)presentMap
 {
-    [self presentViewController:self.mapViewController animated:YES completion:^{
+    [self presentViewController:self.mapViewController animated:NO completion:^{
         NSLog(@"MAP PRESENTED");
     }];
 }
@@ -182,7 +192,7 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60.0f;
+    return 65.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -227,9 +237,7 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
         }
     }
     
-    UIView *selectionColor = [UIView new];
-    selectionColor.backgroundColor = _tableSelectionColor;
-    cell.selectedBackgroundView = selectionColor;
+    cell.backgroundColor = [UIColor clearColor];
     
     return cell;
 }
@@ -352,26 +360,25 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *type = [self.currentProperty objectForKey:@"type"];
-    if ([type isEqualToString:@"selector"])
-    {
-        [self setCellValuesForCell:_sizingCell atIndexPath:indexPath withProperty:self.currentProperty];
-    }
-    else
-    {
-        _sizingCell.label.text = @"value";
-    }
+//    NSString *type = [self.currentProperty objectForKey:@"type"];
+//    if ([type isEqualToString:@"selector"])
+//    {
+//        [self setCellValuesForCell:_sizingCell atIndexPath:indexPath withProperty:self.currentProperty];
+//    }
+//    else
+//    {
+//        _sizingCell.label.text = @"value";
+//    }
     
-    return [_sizingCell intrinsicContentSize];
+    return CGSizeMake(CGRectGetWidth(self.collectionView.frame)-20, 62);//[_sizingCell intrinsicContentSize];
 }
 
 - (void)setCellValuesForCell:(PVVISQueryUICollectionViewCell *)cell atIndexPath:(NSIndexPath *)indexPath withProperty:(NSDictionary*)property
 {
     BOOL selected = NO;
     
-    cell.layer.borderWidth = 1.7f;
-    cell.layer.cornerRadius = 15.0f;
-    cell.layer.borderColor = _labelColor.CGColor;
+    cell.layer.borderWidth = 0.5f;
+    cell.layer.borderColor = [UIColor darkGrayColor].CGColor;
     
     NSString *key = [property objectForKey:@"id"];
     cell.key = key;
@@ -433,6 +440,7 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     }
     
     cell.backgroundColor = selected ? _labelColor : [UIColor whiteColor];
+    cell.alpha = 0.8f;
     
     if (selected)
     {
