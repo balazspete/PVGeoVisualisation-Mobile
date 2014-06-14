@@ -564,7 +564,7 @@ static PVVISQueryUICollectionViewCell *_sizingCell;
     }
     
     [self presentViewController:self.picker animated:YES completion:^{
-        NSLog(@"PRESENTED!");
+        NSLog(@"Back here 11");
     }];
 }
 

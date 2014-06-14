@@ -10,6 +10,7 @@
                 <outlet property="loadingLabel" destination="x3t-YQ-W1E" id="sQz-jh-5Y1"/>
                 <outlet property="mapView" destination="yNx-G2-tCr" id="JQR-9v-DmN"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="zoomButton" destination="gKq-nZ-IsA" id="Dp5-Gx-C0Q"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -33,6 +34,18 @@
                         <color key="titleColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-nZ-IsA">
+                    <rect key="frame" x="664" y="30" width="94" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="94" id="I89-P1-afG"/>
+                        <constraint firstAttribute="height" constant="42" id="N5Y-bh-aKK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" title="Zoom out">
+                        <color key="titleColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
                 <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading data..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3t-YQ-W1E">
                     <rect key="frame" x="632" y="983" width="116" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -45,6 +58,8 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="yNx-G2-tCr" secondAttribute="centerY" id="54G-88-71t"/>
+                <constraint firstAttribute="trailing" secondItem="gKq-nZ-IsA" secondAttribute="trailing" constant="10" id="7kx-So-BX4"/>
+                <constraint firstItem="gKq-nZ-IsA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="9ie-lk-8JT"/>
                 <constraint firstAttribute="trailing" secondItem="x3t-YQ-W1E" secondAttribute="trailing" constant="20" id="QCQ-5T-yQH"/>
                 <constraint firstItem="HVw-ij-J5Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="brE-Jo-uhY"/>
                 <constraint firstItem="yNx-G2-tCr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="j18-q2-4Mp"/>

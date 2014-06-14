@@ -20,6 +20,9 @@
 @property NSMutableArray *results;
 @property PVVISDataStore *dataStore;
 
+- (void)styleButton:(UIButton*)button;
+- (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector;
+
 @end
 
 @implementation PVVISMapViewController
@@ -68,20 +71,30 @@ static UIColor *_buttonColor;
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-   
-    UITapGestureRecognizer *tapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openQueryUI:)];
-    tapGestureRecogniser.numberOfTapsRequired = 1;
-    [self.filterButton addGestureRecognizer:tapGestureRecogniser];
-
     self.mapView.delegate = self.dataStore;
-    
     
     self.loadingLabel.hidden = YES;
     
-    self.filterButton.layer.borderWidth = 1.7f;
-    self.filterButton.layer.cornerRadius = 15.0f;
-    self.filterButton.layer.borderColor = _buttonColor.CGColor;
-    self.filterButton.backgroundColor = [UIColor whiteColor];
+    [self styleButton:self.filterButton];
+    [self styleButton:self.zoomButton];
+    
+    [self addGestureRecogniser:self.filterButton selector:@selector(openQueryUI:)];
+    [self addGestureRecogniser:self.zoomButton selector:@selector(zoomToggle:)];
+}
+
+- (void)styleButton:(UIButton*)button
+{
+    button.layer.borderWidth = 1.7f;
+    button.layer.cornerRadius = 15.0f;
+    button.layer.borderColor = _buttonColor.CGColor;
+    button.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector
+{
+    UITapGestureRecognizer *tapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:selector];
+    tapGestureRecogniser.numberOfTapsRequired = 1;
+    [button addGestureRecognizer:tapGestureRecogniser];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -100,12 +113,21 @@ static UIColor *_buttonColor;
 
 - (void)openQueryUI:(UITapGestureRecognizer *)sender
 {
-    NSLog(@"button pressed");
     [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"dismissed");
+        [self.dataStore reloadMap:self.mapView];
     }];
 }
 
+#pragma mark - zooming
 
+static bool inMode = YES;
+- (void)zoomToggle:(UITapGestureRecognizer *)sender
+{
+    NSString *title = inMode ? @"Zoom out" : @"Zoom in";
+    inMode = !inMode;
+    [self.zoomButton setTitle:title forState:UIControlStateNormal];
+    
+    [self.dataStore zoomOutMap:self.mapView];
+}
 
 @end

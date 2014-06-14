@@ -35,4 +35,6 @@ typedef void(^ActionCallback)(NSString* action, id data);
 
 - (void)reloadDataStore;
 
+- (void)zoomOutMap:(MKMapView *)mapView;
+
 @end

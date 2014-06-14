@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-MKPolygon-GPC.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-SkyLab.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,32 +42,37 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1561DEE91FC54879B59ECD38</key>
+		<key>10DF73B4F667434BABE0012C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>273A1F728C9844C195DBE114</key>
+		<key>632CC17BBECB43D583C2D6BE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C785132652A144C9BE888E01</key>
+		<key>7199A4A14C804C3788D1494D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CB46E20E761449669BB1C434</key>
+		<key>73C44F38770F411D9A1556C7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CD5571C955AF443E928D5922</key>
+		<key>834D03CDE12E491A9D4A0115</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FA69747CF573446FA77B2AEF</key>
+		<key>8F818949808646E2BDBC92B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B98D5A40C61343DF9D1D584D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

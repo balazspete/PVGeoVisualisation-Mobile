@@ -14,7 +14,11 @@
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 
 @property NSString *label;
-@property MKPolygon *polygon;
+@property NSArray *polygons;
 @property NSArray *values;
+
+@property (readonly) NSDictionary *boundingBox;
+
+@property (weak, atomic, readonly) MKPolygonRenderer *polygonRenderer;
 
 @end

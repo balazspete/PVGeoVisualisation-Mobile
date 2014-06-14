@@ -8,6 +8,7 @@
 
 #import "PVVISDataStore.h"
 #import "PVVISEvent.h"
+#import "PVVISArea.h"
 
 #import "PVVISConfig.h"
 #import "PVVISSparqlOverHTTP.h"
@@ -30,6 +31,10 @@
 @end
 
 @implementation PVVISDataStore
+
+static bool zoomToFit = YES;
+static double minX = -100, maxX = 40, minY = 45, maxY = 70,
+    _minX, _maxX, _minY, _maxY;
 
 @synthesize fetchedResultsController, managedObjectContext;
 
@@ -134,71 +139,89 @@
     }  
 }
 
+//TODO: notify or something...
 - (void)reloadDataStore
 {
     [self deleteAllObjectsInCoreData];
     [self loadRemoteData:^(bool success, NSError *error) {
         
         
-        //TODO: notify or something...
     }];
 }
 
+//TODO: Add within polygon filtering
 - (void)runQuery {
     self.actionCallback(@"results", nil);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        minX = 1.0/0, maxX = -1.0/0, minY = 1.0/0, maxY = -1.0/0;
+        _minX = -115, _maxX = -75, _minY = 15, _maxY = 60;
+        
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
         [request setEntity:entityDescription];
         
         NSDictionary *localConfig = [PVVISConfig localEndPoint];
         NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"cd-query"] error:nil];
-        NSLog(@"%@", queryString);
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:queryString];
         [request setPredicate:predicate];
         
         NSError *error;
-        self.results = [NSMutableArray arrayWithArray:[self.managedObjectContext executeFetchRequest:request error:&error]];
+        NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
         
+        if (results.count == 0)
+        {
+            minX = -115, maxX = -75, minY = 15, maxY = 60;
+            
+            self.results = [NSMutableArray new];
+            self.actionCallback(@"done", @0);
+            
+            NSLog(@"Query results: %lu entries", results.count);
+            
+            return;
+        }
+        
+        NSArray *areas = [self.query getDataForKey:PVVISQueryKeyLocation];
+        if (areas.count) {
+            NSPredicate *locationFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                PVVISLocation *location = ((PVVISEvent *)evaluatedObject).location;
+                for (PVVISArea *area in areas)
+                {
+                    NSDictionary *box = area.boundingBox;
+                    if ([[box objectForKey:@"minX"] doubleValue] <= location.longitude.doubleValue && location.longitude.doubleValue <= [[box objectForKey:@"maxX"] doubleValue] && [[box objectForKey:@"minY"] doubleValue] <= location.latitude.doubleValue && location.latitude.doubleValue <= [[box objectForKey:@"maxY"] doubleValue])
+                    {
+                        // TODO: add polygon filtering
+                        
+                        minX = MIN(minX, location.longitude.doubleValue);
+                        minY = MIN(minY, location.latitude.doubleValue);
+                        maxX = MAX(maxX, location.longitude.doubleValue);
+                        maxY = MAX(maxY, location.latitude.doubleValue);
+                        
+                        return YES;
+                    }
+                }
+                
+                return false;
+            }];
+            
+            results = [results filteredArrayUsingPredicate:locationFilter];
+        }
+        
+        NSLog(@"Query results: %lu entries", results.count);
+        
+        zoomToFit = YES;
+        
+        self.results = [NSMutableArray arrayWithArray:results];
         self.actionCallback(@"done", [NSNumber numberWithUnsignedInteger:self.results.count]);
     });
 }
-- (NSError *)willPresentError:(NSError *)error {
-    
-    // Only deal with Core Data Errors
-    if (!([[error domain] isEqualToString:NSCocoaErrorDomain])) {
-        return error;
-    }
-    NSInteger errorCode = [error code];
-    if ((errorCode < NSValidationErrorMinimum) || (errorCode > NSValidationErrorMaximum)) {
-        return error;
-    }
-    
-    // If there is only 1 error, let the usual alert display it
-    if (errorCode != NSValidationMultipleErrorsError) {
-        return error;
-    }
-    
-    // Get the errors. NSValidationMultipleErrorsError - the errors are in an array in the userInfo dictionary for key NSDetailedErrorsKey
-    NSArray *detailedErrors = [[error userInfo] objectForKey:NSDetailedErrorsKey];
-    NSUInteger errorCount = [detailedErrors count];
-    NSMutableString *errorString = [NSMutableString stringWithFormat:@"There are %lu validation errors:-", errorCount];
-    for (int i = 0; i < errorCount; i++) {
-        [errorString appendFormat:@"%@\n",
-         [[detailedErrors objectAtIndex:i] localizedDescription]];
-    }
-    
-    // Create a new error with the new userInfo and return it
-    NSMutableDictionary *newUserInfo = [NSMutableDictionary dictionaryWithDictionary:[error userInfo]];
-    [newUserInfo setObject:errorString forKey:NSLocalizedDescriptionKey];
-    NSError *newError = [NSError errorWithDomain:[error domain] code:[error code] userInfo:newUserInfo];
-    return newError;
-}
+
 - (void)createResults
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"Started loading data!");
+        
         NSDictionary *localConfig = [PVVISConfig localEndPoint];
         
         NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"query"] error:nil];
@@ -218,12 +241,14 @@
         NSError *error;
         if (![self.managedObjectContext save:&error])
         {
-            [self willPresentError:error];
+            NSLog(@"Error saving data!");
         }
         
         result = nil;
         queryString = nil;
         localConfig = nil;
+        
+        NSLog(@"Done loading data!");
         
         [self runQuery];
     });
@@ -284,7 +309,23 @@
     [mapView removeAnnotations:mapView.annotations];
     [mapView addAnnotations:self.results];
     [mapView reloadInputViews];
+    
+    if (zoomToFit)
+    {
+        [mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake((minY+maxY)/2, (minX + maxX)/2), MKCoordinateSpanMake(maxY-minY, maxX-minX)) animated:YES];
+        zoomToFit = NO;
+    }
+    
+    NSLog(@"Reloading map");
 }
 
+- (void)zoomOutMap:(MKMapView *)mapView
+{
+    double minx = minX, maxx = maxX, miny = minY, maxy = maxY;
+    minX = _minX, maxX = _maxX, minY = _minY, maxY = _maxY;
+    _minX = minx, _maxX = maxx, _minY = miny, _maxY = maxy;
+    zoomToFit = YES;
+    [self reloadMap:mapView];
+}
 
 @end
