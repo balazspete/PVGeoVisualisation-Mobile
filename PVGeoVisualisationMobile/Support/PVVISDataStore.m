@@ -316,7 +316,10 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     
     if (zoomToFit)
     {
-        [mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake((minY+maxY)/2, (minX + maxX)/2), MKCoordinateSpanMake(maxY-minY, maxX-minX)) animated:YES];
+        if (minY != INFINITY || maxY != -INFINITY || minX != INFINITY || maxX != -INFINITY)
+        {
+            [mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake((minY+maxY)/2, (minX + maxX)/2), MKCoordinateSpanMake(maxY-minY, maxX-minX)) animated:YES];
+        }
         zoomToFit = NO;
     }
     
