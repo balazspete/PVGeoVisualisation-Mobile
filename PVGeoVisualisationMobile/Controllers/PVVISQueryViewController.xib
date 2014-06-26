@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PVVISQueryViewController">
+            <connections>
+                <outlet property="collectionView" destination="fEr-Mr-wYe" id="jsd-Lb-8eX"/>
+                <outlet property="resetButton" destination="cwI-hs-r2R" id="6yT-b4-4S1"/>
+                <outlet property="searchButton" destination="RBm-tI-PDi" id="cau-6V-0RR"/>
+                <outlet property="tableView" destination="7yY-xi-psM" id="LJd-rl-s4b"/>
+                <outlet property="view" destination="iN0-l3-epB" id="4uk-2h-nlW"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="7yY-xi-psM">
+                    <rect key="frame" x="0.0" y="45" width="290" height="979"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="290" id="XTd-hY-nIC"/>
+                    </constraints>
+                </tableView>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="fEr-Mr-wYe">
+                    <rect key="frame" x="291" y="64" width="477" height="960"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pVh-oe-FsD">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="50" height="50"/>
+                        <size key="footerReferenceSize" width="50" height="50"/>
+                        <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
+                    </collectionViewFlowLayout>
+                    <cells/>
+                </collectionView>
+                <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tkm-yI-f3l">
+                    <rect key="frame" x="0.0" y="20" width="768" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="barTintColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
+                    <items>
+                        <navigationItem title="Query" id="zyb-XD-cLz">
+                            <barButtonItem key="leftBarButtonItem" title="Reset" id="cwI-hs-r2R">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </barButtonItem>
+                            <barButtonItem key="rightBarButtonItem" title="Search" style="done" id="RBm-tI-PDi">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jif-Aa-Jeg">
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="7yY-xi-psM" secondAttribute="bottom" id="0aa-Wf-VSF"/>
+                <constraint firstAttribute="trailing" secondItem="fEr-Mr-wYe" secondAttribute="trailing" id="4sr-6T-e72"/>
+                <constraint firstItem="7yY-xi-psM" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="45" id="8Xp-1L-K57"/>
+                <constraint firstItem="fEr-Mr-wYe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="9yl-AH-D9v"/>
+                <constraint firstItem="jif-Aa-Jeg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JdA-Pe-d7l"/>
+                <constraint firstItem="tkm-yI-f3l" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="N0J-MQ-ZR4"/>
+                <constraint firstAttribute="trailing" secondItem="tkm-yI-f3l" secondAttribute="trailing" id="PoZ-pa-Zuk"/>
+                <constraint firstItem="tkm-yI-f3l" firstAttribute="top" secondItem="jif-Aa-Jeg" secondAttribute="bottom" id="QFV-FR-dPo"/>
+                <constraint firstAttribute="bottom" secondItem="fEr-Mr-wYe" secondAttribute="bottom" id="Rwl-gN-B4r"/>
+                <constraint firstItem="tkm-yI-f3l" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Sl2-GM-neD"/>
+                <constraint firstItem="jif-Aa-Jeg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZOl-of-zaa"/>
+                <constraint firstAttribute="trailing" secondItem="jif-Aa-Jeg" secondAttribute="trailing" id="bFn-LV-B3o"/>
+                <constraint firstItem="jif-Aa-Jeg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="k9e-ii-cMh"/>
+                <constraint firstItem="7yY-xi-psM" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="nVh-UF-6sJ"/>
+                <constraint firstItem="fEr-Mr-wYe" firstAttribute="leading" secondItem="7yY-xi-psM" secondAttribute="trailing" constant="1" id="sqy-C4-PwQ"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+        </view>
+    </objects>
+</document>

@@ -7,10 +7,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PVVISMapViewController">
             <connections>
                 <outlet property="filterButton" destination="HVw-ij-J5Y" id="Z0K-aS-hEQ"/>
-                <outlet property="loadingLabel" destination="x3t-YQ-W1E" id="9wd-9v-25V"/>
+                <outlet property="loadingLabel" destination="x3t-YQ-W1E" id="sQz-jh-5Y1"/>
                 <outlet property="mapView" destination="yNx-G2-tCr" id="JQR-9v-DmN"/>
-                <outlet property="searchView" destination="6Iw-2H-jMp" id="0nK-VV-jwj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="zoomButton" destination="gKq-nZ-IsA" id="Dp5-Gx-C0Q"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -22,38 +22,51 @@
                     <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </mapView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Iw-2H-jMp">
-                    <rect key="frame" x="0.0" y="0.0" width="75" height="67"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVw-ij-J5Y">
-                            <rect key="frame" x="20" y="31" width="46" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                        </button>
-                    </subviews>
-                </view>
-                <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading data..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3t-YQ-W1E">
-                    <rect key="frame" x="570" y="983" width="178" height="21"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HVw-ij-J5Y">
+                    <rect key="frame" x="10" y="30" width="83" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="178" id="3xD-QH-2KC"/>
+                        <constraint firstAttribute="width" constant="83" id="QNT-1j-NV3"/>
+                        <constraint firstAttribute="height" constant="42" id="YLd-2T-VyA"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" title="Search">
+                        <color key="titleColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKq-nZ-IsA">
+                    <rect key="frame" x="664" y="30" width="94" height="42"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="94" id="I89-P1-afG"/>
+                        <constraint firstAttribute="height" constant="42" id="N5Y-bh-aKK"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                    <state key="normal" title="Zoom out">
+                        <color key="titleColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+                <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading data..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3t-YQ-W1E">
+                    <rect key="frame" x="632" y="983" width="116" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.47999999999999998" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="centerY" secondItem="yNx-G2-tCr" secondAttribute="centerY" id="54G-88-71t"/>
-                <constraint firstAttribute="trailing" secondItem="x3t-YQ-W1E" secondAttribute="trailing" constant="20" id="FZM-0p-P5a"/>
+                <constraint firstAttribute="trailing" secondItem="gKq-nZ-IsA" secondAttribute="trailing" constant="10" id="7kx-So-BX4"/>
+                <constraint firstItem="gKq-nZ-IsA" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="9ie-lk-8JT"/>
+                <constraint firstAttribute="trailing" secondItem="x3t-YQ-W1E" secondAttribute="trailing" constant="20" id="QCQ-5T-yQH"/>
+                <constraint firstItem="HVw-ij-J5Y" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="brE-Jo-uhY"/>
                 <constraint firstItem="yNx-G2-tCr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="j18-q2-4Mp"/>
-                <constraint firstAttribute="bottom" secondItem="x3t-YQ-W1E" secondAttribute="bottom" constant="20" id="k9w-gK-6uQ"/>
+                <constraint firstItem="HVw-ij-J5Y" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="kjU-DT-hhR"/>
                 <constraint firstAttribute="bottom" secondItem="yNx-G2-tCr" secondAttribute="bottom" id="m9i-6l-KG4"/>
                 <constraint firstAttribute="centerX" secondItem="yNx-G2-tCr" secondAttribute="centerX" id="mWc-Za-ElQ"/>
+                <constraint firstAttribute="bottom" secondItem="x3t-YQ-W1E" secondAttribute="bottom" constant="20" id="rn7-1J-Ut0"/>
                 <constraint firstItem="yNx-G2-tCr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vM5-bQ-Cgx"/>
                 <constraint firstAttribute="trailing" secondItem="yNx-G2-tCr" secondAttribute="trailing" id="zBd-3B-P8g"/>
             </constraints>

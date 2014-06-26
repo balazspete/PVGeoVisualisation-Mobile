@@ -17,37 +17,47 @@
 
 @implementation PVVISEvent
 
-+ (PVVISEvent*)eventWithDictionary:(NSDictionary*)dictionary
+@synthesize uri = _uri,
+    fatalities = _fatalities,
+    date = _date,
+    location = _location,
+    descriptionText = _descriptionText,
+    details = _details,
+    rawMotivation, rawCategory;
+
+@dynamic category, motivation;
+
++ (PVVISEvent*)eventWithDictionary:(NSDictionary*)dictionary insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
-    NSString *URI = [PVVISEvent URIStringValueWithKey:@"url" fromDictionary:dictionary];
-    NSString *description = [PVVISEvent stringValueWithKey:@"description" fromDictionary:dictionary];
-    PVVISTag *category = [PVVISEvent tagWithKey:@"category" fromDictionary:dictionary];
-    PVVISTag *motivation = [PVVISEvent tagWithKey:@"motivation" fromDictionary:dictionary];
+    NSString *URI = [PVVISEvent URIStringValueWithKey:@"url" fromDictionary:dictionary];    NSString *description = [PVVISEvent stringValueWithKey:@"description" fromDictionary:dictionary];
+    NSString *category = [PVVISEvent URIStringValueWithKey:@"category" fromDictionary:dictionary];
+    NSString *motivation = [PVVISEvent URIStringValueWithKey:@"motivation" fromDictionary:dictionary];
     NSNumber *fatalities = [PVVISEvent numberValueWithKey:@"fatalities" fromDictionary:dictionary];
     NSNumber *date = [PVVISEvent numberValueWithKey:@"year" fromDictionary:dictionary];
     NSString *location = [PVVISEvent stringValueWithKey:@"location" fromDictionary:dictionary];
     NSNumber *lat = [PVVISEvent numberValueWithKey:@"latitude" fromDictionary:dictionary];
     NSNumber *lng = [PVVISEvent numberValueWithKey:@"longitude" fromDictionary:dictionary];
     
-    PVVISEvent *event = [[PVVISEvent alloc] initWithURI:URI description:description category:category motivation:motivation fatalities:fatalities date:date locationName:location];
-    event.location.coordinate = CLLocationCoordinate2DMake([lat doubleValue], [lng doubleValue]);
+    PVVISEvent *event = [[PVVISEvent alloc] initWithURI:URI description:description category:category motivation:motivation fatalities:fatalities date:date locationName:location insertIntoManagedObjectContext:context];
+    [event setCoordinate:CLLocationCoordinate2DMake([lat doubleValue], [lng doubleValue])];
     return event;
 }
 
-- (id)initWithURI:(NSString*)URI description:(NSString*)description category:(PVVISTag*)category motivation:(PVVISTag*)motivation fatalities:(NSNumber*)fatalities date:(NSNumber*)date locationName:(NSString*)location
+- (id)initWithURI:(NSString*)URI description:(NSString*)description category:(NSString*)category motivation:(NSString*)motivation fatalities:(NSNumber*)fatalities date:(NSNumber*)date locationName:(NSString*)location insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
-    self = [super init];
+    self = [super initWithEntity:[NSEntityDescription entityForName:@"Event" inManagedObjectContext:context] insertIntoManagedObjectContext:context];
     if (self)
     {
-        self.details = @[@"category", @"motivation", @"fatalities", @"location"];
-        
-        self.URI = URI;
-        self.description = description;
-        self.category = category;
-        self.motivation = motivation;
+        self.uri = URI;
+        self.descriptionText = description;
+        self.rawCategory = category;
+        self.rawMotivation = motivation;
         self.fatalities = fatalities;
         self.date = date;
-        self.location = [[PVVISLocation alloc] initWithUnstructuredLocation:location];
+        
+        self.location = [[PVVISLocation alloc] initWithUnstructuredLocation:location insertIntoManagedObjectContext:context];
+        
+        _details = @[@"category", @"motivation", @"fatalities", @"location"];
     }
     
     return self;
@@ -55,12 +65,22 @@
 
 - (NSString*)title
 {
-    return self.URI;
+    return self.uri;
 }
 
 - (NSString*)subtitle
 {
     return self.description;
+}
+
+- (PVVISTag*)category
+{
+    return [PVVISTag tagWithURIString:self.rawCategory];
+}
+
+- (PVVISTag*)motivation
+{
+    return [PVVISTag tagWithURIString:self.rawMotivation];
 }
 
 - (CLLocationCoordinate2D)coordinate
@@ -70,7 +90,7 @@
 
 - (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
 {
-    self.location = [[PVVISLocation alloc] initWithCoordinate:newCoordinate];
+    [self.location setCoordinate:newCoordinate];
 }
 
 #pragma mark - RedlandNode helper
@@ -95,11 +115,5 @@
         return [NSNumber numberWithInteger:[node intValue]];
     }
 }
-
-+ (PVVISTag*)tagWithKey:(NSString*)key fromDictionary:(NSDictionary*)dictionary
-{
-    return [PVVISTag tagWithURIString:[(RedlandNode*)[dictionary objectForKey:key] URIStringValue]];
-}
-
 
 @end

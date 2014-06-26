@@ -14,6 +14,13 @@
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *searchView;
 @property (weak, nonatomic) IBOutlet UIButton *filterButton;
+@property (weak, nonatomic) IBOutlet UIButton *zoomButton;
+
+@property (weak, nonatomic) IBOutlet UIView *loadingBar;
 @property (weak, nonatomic) IBOutlet UILabel *loadingLabel;
+@property (weak, nonatomic) IBOutlet UIButton *loadingCancelButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *processIndicator;
+
+@property UIImageView *mapImage;
 
 @end

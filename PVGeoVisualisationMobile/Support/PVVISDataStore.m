@@ -8,8 +8,8 @@
 
 #import "PVVISDataStore.h"
 #import "PVVISEvent.h"
+#import "PVVISArea.h"
 
-#import "PVVISQuery.h"
 #import "PVVISConfig.h"
 #import "PVVISSparqlOverHTTP.h"
 #import "PVVISEventPopoverView.h"
@@ -18,12 +18,13 @@
 
 #import "GRMustache.h"
 
+#import "PVVISAppDelegate.h"
+
 @interface PVVISDataStore ()
 
 @property (strong, nonatomic) RedlandStorage *storage;
 
-@property PVVISQuery *query;
-@property NSArray *results;
+@property NSMutableArray *results;
 
 @property UIPopoverController *popover;
 
@@ -31,15 +32,24 @@
 
 @implementation PVVISDataStore
 
+static bool zoomToFit = YES;
+static double minX = -100, maxX = 40, minY = 45, maxY = 70,
+    _minX, _maxX, _minY, _maxY;
+
+@synthesize fetchedResultsController, managedObjectContext;
+
 - (id)init
 {
     self = [super init];
     if (self)
     {
+        PVVISAppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        self.managedObjectContext = delegate.managedObjectContext;
+        
         [self ensureModel];
         
         self.query = [PVVISQuery new];
-        self.results = [NSArray new];
+        self.results = [NSMutableArray new];
     }
     
     return self;
@@ -49,12 +59,8 @@
 {
     if (!self.storage)
     {
-        //        NSString *filename = [[PVVISConfig localEndPoint] objectForKey:@"file"];
-        //        NSString *localStore = [NSString stringWithFormat:@"%@/%@", [PVVISConfig documentsDirectory], filename];
-        //        NSString *options = [[NSFileManager defaultManager] fileExistsAtPath:localStore] ? @"new='no'" : @"new='yes'";
-        //        self.storage = [[RedlandStorage alloc] initWithFactoryName:@"sqlite" identifier:filename options:options];
         
-        self.storage = [[RedlandStorage alloc] initWithFactoryName:@"file" identifier:@"db.rdf" options:nil];
+        self.storage = [[RedlandStorage alloc] initWithFactoryName:@"memory" identifier:@"db.rdf" options:nil];
     }
     
     if (!self.model)
@@ -85,7 +91,6 @@
         [self ensureModel];
         
         [PVVISSparqlOverHTTP queryDataSet:dataSet withQuery:query intoModel:self.model callback:^(RedlandModel *model, NSError *error) {
-
             if (model)
             {
                 self.model = model;
@@ -105,31 +110,151 @@
     });
 }
 
+- (void)deleteAllObjectsInCoreData
+{
+    PVVISAppDelegate *delegate = (PVVISAppDelegate*)[UIApplication sharedApplication].delegate;
+    NSArray *allEntities = delegate.managedObjectModel.entities;
+    for (NSEntityDescription *entityDescription in allEntities)
+    {
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        [fetchRequest setEntity:entityDescription];
+        
+        fetchRequest.includesPropertyValues = NO;
+        fetchRequest.includesSubentities = NO;
+        
+        NSError *error;
+        NSArray *items = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+        
+        if (error) {
+            NSLog(@"Error requesting items from Core Data: %@", [error localizedDescription]);
+        }
+        
+        for (NSManagedObject *managedObject in items) {
+            [self.managedObjectContext deleteObject:managedObject];
+        }
+        
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Error deleting %@ - error:%@", entityDescription, [error localizedDescription]);
+        }
+    }  
+}
+
+//TODO: notify or something...
+- (void)reloadDataStore
+{
+    [self deleteAllObjectsInCoreData];
+    [self loadRemoteData:^(bool success, NSError *error) {
+        
+        
+    }];
+}
+
+//TODO: Add within polygon filtering
+- (void)runQuery {
+    self.actionCallback(@"results", nil);
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        minX = 1.0/0, maxX = -1.0/0, minY = 1.0/0, maxY = -1.0/0;
+        _minX = -115, _maxX = -75, _minY = 15, _maxY = 60;
+        
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entityDescription];
+        
+        NSDictionary *localConfig = [PVVISConfig localEndPoint];
+        NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"cd-query"] error:nil];
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:queryString];
+        [request setPredicate:predicate];
+        
+        NSError *error;
+        NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+        
+        if (results.count == 0)
+        {
+            minX = -115, maxX = -75, minY = 15, maxY = 60;
+            
+            self.results = [NSMutableArray new];
+            self.actionCallback(@"done", @0);
+            
+            NSLog(@"Query results: %lu entries", results.count);
+            
+            return;
+        }
+        
+        NSArray *areas = [self.query getDataForKey:PVVISQueryKeyLocation];
+        if (areas.count) {
+            NSPredicate *locationFilter = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                PVVISLocation *location = ((PVVISEvent *)evaluatedObject).location;
+                for (PVVISArea *area in areas)
+                {
+                    NSDictionary *box = area.boundingBox;
+                    if ([[box objectForKey:@"minX"] doubleValue] <= location.longitude.doubleValue && location.longitude.doubleValue <= [[box objectForKey:@"maxX"] doubleValue] && [[box objectForKey:@"minY"] doubleValue] <= location.latitude.doubleValue && location.latitude.doubleValue <= [[box objectForKey:@"maxY"] doubleValue])
+                    {
+                        // TODO: add polygon filtering
+                        
+                        minX = MIN(minX, location.longitude.doubleValue);
+                        minY = MIN(minY, location.latitude.doubleValue);
+                        maxX = MAX(maxX, location.longitude.doubleValue);
+                        maxY = MAX(maxY, location.latitude.doubleValue);
+                        
+                        return YES;
+                    }
+                }
+                
+                return false;
+            }];
+            
+            results = [results filteredArrayUsingPredicate:locationFilter];
+        }
+        else
+        {
+            minX = -115, maxX = -75, minY = 15, maxY = 60;
+        }
+        
+        NSLog(@"Query results: %lu entries", results.count);
+        
+        zoomToFit = YES;
+        
+        self.results = [NSMutableArray arrayWithArray:results];
+        self.actionCallback(@"done", [NSNumber numberWithUnsignedInteger:self.results.count]);
+    });
+}
+
 - (void)createResults
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"Started loading data!");
+        
         NSDictionary *localConfig = [PVVISConfig localEndPoint];
         
-        NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"query-template"] error:nil];
+        NSString *queryString = [GRMustacheTemplate renderObject:self.query.dictionary fromString:[localConfig objectForKey:@"query"] error:nil];
         
         RedlandQuery *query = [RedlandQuery queryWithLanguageName:RedlandSPARQLLanguageName queryString:queryString baseURI:[RedlandURI URIWithString:[localConfig objectForKey:@"baseURL"]]];
         
         [self ensureModel];
         RedlandQueryResultsEnumerator *result = [[query executeOnModel:self.model] resultEnumerator];
         
-        NSMutableArray *results = [NSMutableArray new];
         
         for (NSDictionary *entry in result)
         {
-            PVVISEvent *event = [PVVISEvent eventWithDictionary:entry];
-            [results addObject:event];
+            PVVISEvent *event = [PVVISEvent eventWithDictionary:entry insertIntoManagedObjectContext:self.managedObjectContext];
+            [self.managedObjectContext insertObject:event];
         }
         
-        self.results = results;
+        NSError *error;
+        if (![self.managedObjectContext save:&error])
+        {
+            NSLog(@"Error saving data!");
+        }
         
         result = nil;
         queryString = nil;
         localConfig = nil;
+        
+        NSLog(@"Done loading data!");
+        
+        [self runQuery];
     });
 }
 
@@ -144,8 +269,7 @@
 
 - (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
 {
-    [mapView removeAnnotations:mapView.annotations];
-    [mapView addAnnotations:self.results];
+    [self reloadMap:mapView];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
@@ -161,6 +285,7 @@
 - (void)showCallout:(UITapGestureRecognizer *)sender
 {
     MKPinAnnotationView *view = (MKPinAnnotationView*) sender.view;
+
     PVVISEventPopoverViewController *popoverView = [[PVVISEventPopoverViewController alloc] initWithEvent:view.annotation];
     
     if (self.popover)
@@ -183,7 +308,31 @@
     };
 }
 
+- (void)reloadMap:(MKMapView *)mapView
+{
+    [mapView removeAnnotations:mapView.annotations];
+    [mapView addAnnotations:self.results];
+    [mapView reloadInputViews];
+    
+    if (zoomToFit)
+    {
+        if (minY != INFINITY || maxY != -INFINITY || minX != INFINITY || maxX != -INFINITY)
+        {
+            [mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake((minY+maxY)/2, (minX + maxX)/2), MKCoordinateSpanMake(maxY-minY, maxX-minX)) animated:YES];
+        }
+        zoomToFit = NO;
+    }
+    
+    NSLog(@"Reloading map");
+}
 
-
+- (void)zoomOutMap:(MKMapView *)mapView
+{
+    double minx = minX, maxx = maxX, miny = minY, maxy = maxY;
+    minX = _minX, maxX = _maxX, minY = _minY, maxY = _maxY;
+    _minX = minx, _maxX = maxx, _minY = miny, _maxY = maxy;
+    zoomToFit = YES;
+    [self reloadMap:mapView];
+}
 
 @end

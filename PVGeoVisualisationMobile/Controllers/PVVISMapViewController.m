@@ -15,14 +15,21 @@
 #import "PVVISQueryViewController.h"
 #import <Redland-ObjC.h>
 
+#import "UIImage+StackBlur.h"
+
 @interface PVVISMapViewController ()
 
 @property NSMutableArray *results;
 @property PVVISDataStore *dataStore;
 
+- (void)styleButton:(UIButton*)button;
+- (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector;
+
 @end
 
 @implementation PVVISMapViewController
+
+static UIColor *_buttonColor;
 
 - (id)init
 {
@@ -34,13 +41,29 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        NSArray *colorArray = @[@0.10f, @0.8f, @0.44f];
+        _buttonColor = [UIColor colorWithRed:[colorArray[0] floatValue] green:[colorArray[1] floatValue] blue:[colorArray[2] floatValue] alpha:1.0f];
         
         self.results = [NSMutableArray new];
         self.dataStore = ((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]).dataStore;
         
         self.dataStore.actionCallback = ^(NSString* action, id data)
         {
-            NSLog(@"Action: %@\nData: %@", action, data);
+            if ([action isEqualToString:@"done"]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+//                [self.loadingLabel performSelectorOnMainThread:@selector(setHidden:) withObject:@YES waitUntilDone:YES ];
+//                [self.loadingLabel performSelector:@selector(setHidden:) withObject:@YES afterDelay:0];
+//                [self.dataStore performSelectorOnMainThread:@selector(reloadMap:) withObject:self.mapView waitUntilDone:YES];
+                [self.dataStore performSelector:@selector(reloadMap:) withObject:self.mapView afterDelay:0];
+#pragma clang diagnostic pop
+            }
+            else
+            {
+                [self.mapView removeAnnotations:self.mapView.annotations];
+//                self.loadingLabel.hidden = NO;
+            }
+            
         };
     }
     return self;
@@ -50,16 +73,37 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-//    
-    UITapGestureRecognizer *tapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(openQueryUI:)];
-    tapGestureRecogniser.numberOfTapsRequired = 1;
-    [self.filterButton addGestureRecognizer:tapGestureRecogniser];
-
-    [self loadDataFromDatabase];
     self.mapView.delegate = self.dataStore;
     
+    self.loadingLabel.hidden = YES;
+    
+    [self styleButton:self.filterButton];
+    [self styleButton:self.zoomButton];
+    
+    [self addGestureRecogniser:self.filterButton selector:@selector(openQueryUI:)];
+    [self addGestureRecogniser:self.zoomButton selector:@selector(zoomToggle:)];
 }
 
+- (void)styleButton:(UIButton*)button
+{
+    button.layer.borderWidth = 0.8f;
+    button.layer.cornerRadius = 15.0f;
+    button.layer.borderColor = _buttonColor.CGColor;
+    button.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector
+{
+    UITapGestureRecognizer *tapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:selector];
+    tapGestureRecogniser.numberOfTapsRequired = 1;
+    [button addGestureRecognizer:tapGestureRecogniser];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.dataStore runQuery];
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -67,31 +111,36 @@
     [self.dataStore dumpResources];
 }
 
-#pragma mark - initial data load
-
-- (void)loadDataFromDatabase
-{
-    self.loadingLabel.hidden = NO;
-    [self.dataStore loadRemoteData:^(bool success, NSError *error) {
-        if (!success)
-        {
-            NSLog(@"Error: %@", error.description);
-        }
-        self.loadingLabel.hidden = YES;
-        [self.mapView reloadInputViews];
-    }];
-}
-
 #pragma mark - query UI tap handler
 
 - (void)openQueryUI:(UITapGestureRecognizer *)sender
 {
-    NSLog(@"button pressed");
-    [self dismissViewControllerAnimated:YES completion:^{
-        NSLog(@"dismissed");
+    [self captureMapImage];
+    [self dismissViewControllerAnimated:NO completion:^{
+        [self.dataStore reloadMap:self.mapView];
     }];
 }
 
+- (void)captureMapImage
+{
+    UIGraphicsBeginImageContext(self.mapView.frame.size);
+    [[self.mapView layer] renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    self.mapImage.image = [image stackBlur:30];
+    self.mapImage.alpha = 0.8f;
+    UIGraphicsEndImageContext();
+}
 
+#pragma mark - zooming
+
+static bool inMode = YES;
+- (void)zoomToggle:(UITapGestureRecognizer *)sender
+{
+    NSString *title = inMode ? @"Zoom out" : @"Zoom in";
+    inMode = !inMode;
+    [self.zoomButton setTitle:title forState:UIControlStateNormal];
+    
+    [self.dataStore zoomOutMap:self.mapView];
+}
 
 @end

@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PVVISQueryViewController : UISplitViewController
+@interface PVVISQueryViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *searchButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *resetButton;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
+
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 
 @end

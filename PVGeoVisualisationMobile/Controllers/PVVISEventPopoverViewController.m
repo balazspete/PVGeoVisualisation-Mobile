@@ -35,7 +35,7 @@
         
         self.eventView = [nibViews objectAtIndex:0];
         self.eventView.dateLabel.text = [NSString stringWithFormat:@"%u", [event.date intValue]];
-        self.eventView.descriptionText.text = event.description;
+        self.eventView.descriptionText.text = event.descriptionText;
         
         self.view = self.eventView;
         

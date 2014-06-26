@@ -10,9 +10,13 @@
 
 @implementation PVVISLocation
 
-- (id)initWithUnstructuredLocation:(NSString*)location
+@synthesize location = _unstructuredLocation,
+    longitude = _longitude,
+latitude = _latitude;
+
+- (id)initWithUnstructuredLocation:(NSString*)location insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
-    self = [super init];
+    self = [super initWithEntity:[NSEntityDescription entityForName:@"Location" inManagedObjectContext:context] insertIntoManagedObjectContext:context];
     if (self)
     {
         self.location = location;
@@ -21,20 +25,32 @@
     return self;
 }
 
-- (id)initWithLatitude:(double)latitude longitude:(double)longitude
+- (id)initWithLatitude:(double)latitude longitude:(double)longitude insertIntoManagedObjectContext:(NSManagedObjectContext *)context
 {
-    return [self initWithCoordinate:CLLocationCoordinate2DMake(latitude, longitude)];
-}
-
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate
-{
-    self = [super init];
+    self = [super initWithEntity:[NSEntityDescription entityForName:@"Location" inManagedObjectContext:context] insertIntoManagedObjectContext:context];
     if (self)
     {
-        self.coordinate = coordinate;
+        self.latitude = [NSNumber numberWithDouble:latitude];
+        self.longitude = [NSNumber numberWithDouble:longitude];
     }
     
     return self;
+}
+
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coordinate insertIntoManagedObjectContext:(NSManagedObjectContext *)context
+{
+    return [self initWithLatitude:coordinate.latitude longitude:coordinate.longitude insertIntoManagedObjectContext:context];
+}
+
+- (CLLocationCoordinate2D)coordinate
+{
+    return CLLocationCoordinate2DMake([self.latitude doubleValue], [self.longitude doubleValue]);
+}
+
+- (void)setCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    self.latitude = [NSNumber numberWithDouble:coordinate.latitude];
+    self.longitude = [NSNumber numberWithDouble:coordinate.longitude];
 }
 
 @end
