@@ -10,8 +10,17 @@
 
 @interface PVVISQueryUITableViewCell : UITableViewCell
 
+@property NSString *key;
+@property NSIndexPath *indexPath;
+
 @property (weak, nonatomic) IBOutlet UILabel *label;
-@property (weak, nonatomic) IBOutlet UILabel *subLabel;
-@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIView *separator;
+@property (weak, nonatomic) IBOutlet UILabel *counterLabel;
+@property (weak, nonatomic) IBOutlet UIView *cellBackgroundView;
+@property (weak, nonatomic) IBOutlet UIButton *clearButton;
+@property (weak, nonatomic) IBOutlet UILabel *selectedTextLabel;
+
+- (void)cellSelected;
+- (void)cellDeselected;
 
 @end

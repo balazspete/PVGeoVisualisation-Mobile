@@ -17,7 +17,6 @@ static CGSize _extraMargins = {40, 20};
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-
     }
     return self;
 }
@@ -30,6 +29,11 @@ static CGSize _extraMargins = {40, 20};
     // Drawing code
 }
 */
+
+- (void)awakeFromNib
+{
+    self.backgroundView.alpha = 0.8f;
+}
 
 - (CGSize)intrinsicContentSize
 {

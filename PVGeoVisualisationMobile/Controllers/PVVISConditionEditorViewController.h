@@ -7,18 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PVVISCondition.h"
 
-@interface PVVISNumberValuePickerControllerViewController : UIViewController
+@interface PVVISConditionEditorViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationBar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
-
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
-@property (weak, nonatomic) IBOutlet UIPickerView *chooser;
+@property (weak, nonatomic) IBOutlet UITextField *valueField;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
-@property NSNumber* value;
-@property (nonatomic, copy) void(^callback)(NSNumber* number);
+@property (nonatomic, copy) void(^callback)(PVVISCondition* condition);
+
+@property PVVISCondition *condition;
 
 @end

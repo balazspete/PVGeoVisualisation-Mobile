@@ -32,6 +32,7 @@
 
 @implementation PVVISDataStore
 
+static dispatch_semaphore_t _activity;
 static bool zoomToFit = YES;
 static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     _minX, _maxX, _minY, _maxY;
@@ -47,6 +48,7 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         self.managedObjectContext = delegate.managedObjectContext;
         
         [self ensureModel];
+        _activity = dispatch_semaphore_create(1);
         
         self.query = [PVVISQuery new];
         self.results = [NSMutableArray new];
@@ -59,7 +61,6 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
 {
     if (!self.storage)
     {
-        
         self.storage = [[RedlandStorage alloc] initWithFactoryName:@"memory" identifier:@"db.rdf" options:nil];
     }
     
@@ -94,14 +95,12 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
             if (model)
             {
                 self.model = model;
-                callback(YES, nil);
+                [self createResults:callback];
             }
             else
             {
                 callback(NO, error);
             }
-            
-            [self createResults];
         }];
         
         query = nil;
@@ -139,18 +138,17 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     }  
 }
 
-//TODO: notify or something...
-- (void)reloadDataStore
+- (void)reloadDataStore:(void (^)(bool success, NSError *error))callback
 {
     [self deleteAllObjectsInCoreData];
-    [self loadRemoteData:^(bool success, NSError *error) {
-        
-        
-    }];
+    [self loadRemoteData:callback];
 }
 
 //TODO: Add within polygon filtering
-- (void)runQuery {
+- (void)runQuery:(BOOL)fast withCallback:(ActionCallback)callback
+{
+    dispatch_semaphore_wait(_activity, DISPATCH_TIME_FOREVER);
+
     self.actionCallback(@"results", nil);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -174,11 +172,21 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         {
             minX = -115, maxX = -75, minY = 15, maxY = 60;
             
-            self.results = [NSMutableArray new];
-            self.actionCallback(@"done", @0);
+            if (!fast)
+            {
+                self.results = [NSMutableArray new];
+            }
             
-            NSLog(@"Query results: %lu entries", results.count);
+            if (callback)
+            {
+                callback(@"done", @0);
+            }
+            else
+            {
+                self.actionCallback(@"done", @0);
+            }
             
+            dispatch_semaphore_signal(_activity);
             return;
         }
         
@@ -216,12 +224,26 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         
         zoomToFit = YES;
         
-        self.results = [NSMutableArray arrayWithArray:results];
-        self.actionCallback(@"done", [NSNumber numberWithUnsignedInteger:self.results.count]);
+        if (!fast)
+        {
+            self.results = [NSMutableArray arrayWithArray:results];
+        }
+        
+        if (callback)
+        {
+            callback(@"done", [NSNumber numberWithUnsignedInteger:results.count]);
+        }
+        else
+        {
+            self.actionCallback(@"done", [NSNumber numberWithUnsignedInteger:results.count]);
+        }
+        
+        dispatch_semaphore_signal(_activity);
+        return;
     });
 }
 
-- (void)createResults
+- (void)createResults:(void (^)(bool success, NSError *error))callback
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"Started loading data!");
@@ -246,6 +268,7 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         if (![self.managedObjectContext save:&error])
         {
             NSLog(@"Error saving data!");
+            callback(NO, error);
         }
         
         result = nil;
@@ -254,7 +277,7 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         
         NSLog(@"Done loading data!");
         
-        [self runQuery];
+        callback(YES, nil);
     });
 }
 
@@ -310,20 +333,22 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
 
 - (void)reloadMap:(MKMapView *)mapView
 {
-    [mapView removeAnnotations:mapView.annotations];
-    [mapView addAnnotations:self.results];
-    [mapView reloadInputViews];
-    
-    if (zoomToFit)
-    {
-        if (minY != INFINITY || maxY != -INFINITY || minX != INFINITY || maxX != -INFINITY)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [mapView removeAnnotations:mapView.annotations];
+        [mapView addAnnotations:self.results];
+        [mapView reloadInputViews];
+        
+        if (zoomToFit)
         {
-            [mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake((minY+maxY)/2, (minX + maxX)/2), MKCoordinateSpanMake(maxY-minY, maxX-minX)) animated:YES];
+            if (minY != INFINITY || maxY != -INFINITY || minX != INFINITY || maxX != -INFINITY)
+            {
+                [mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake((minY+maxY)/2, (minX + maxX)/2), MKCoordinateSpanMake(maxY-minY+4, maxX-minX+4)) animated:YES];
+            }
+            zoomToFit = NO;
         }
-        zoomToFit = NO;
-    }
-    
-    NSLog(@"Reloading map");
+        
+        NSLog(@"Reloading map");
+    });
 }
 
 - (void)zoomOutMap:(MKMapView *)mapView

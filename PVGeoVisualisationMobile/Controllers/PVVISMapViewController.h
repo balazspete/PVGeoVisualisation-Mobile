@@ -12,15 +12,15 @@
 @interface PVVISMapViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
-@property (weak, nonatomic) IBOutlet UIView *searchView;
 @property (weak, nonatomic) IBOutlet UIButton *filterButton;
 @property (weak, nonatomic) IBOutlet UIButton *zoomButton;
+@property (weak, nonatomic) IBOutlet UIView *toolbar;
+@property (weak, nonatomic) IBOutlet UIButton *magnifyingGlassButton;
 
-@property (weak, nonatomic) IBOutlet UIView *loadingBar;
 @property (weak, nonatomic) IBOutlet UILabel *loadingLabel;
-@property (weak, nonatomic) IBOutlet UIButton *loadingCancelButton;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *processIndicator;
+@property (weak, nonatomic) IBOutlet UILabel *resultsCounter;
 
 @property UIImageView *mapImage;
+@property BOOL runQuery;
 
 @end

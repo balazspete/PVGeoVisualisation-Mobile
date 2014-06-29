@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PVVISCondition.h"
 
 @interface PVVISQueryUICollectionViewCell : UICollectionViewCell
 
@@ -15,5 +16,7 @@
 @property NSString *name;
 @property id data;
 @property NSString *key;
+
+@property NSIndexPath *indexPath;
 
 @end

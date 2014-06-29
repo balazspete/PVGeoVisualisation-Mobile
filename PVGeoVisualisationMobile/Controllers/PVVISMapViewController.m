@@ -22,7 +22,6 @@
 @property NSMutableArray *results;
 @property PVVISDataStore *dataStore;
 
-- (void)styleButton:(UIButton*)button;
 - (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector;
 
 @end
@@ -49,21 +48,20 @@ static UIColor *_buttonColor;
         
         self.dataStore.actionCallback = ^(NSString* action, id data)
         {
-            if ([action isEqualToString:@"done"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([action isEqualToString:@"done"]) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
-//                [self.loadingLabel performSelectorOnMainThread:@selector(setHidden:) withObject:@YES waitUntilDone:YES ];
-//                [self.loadingLabel performSelector:@selector(setHidden:) withObject:@YES afterDelay:0];
-//                [self.dataStore performSelectorOnMainThread:@selector(reloadMap:) withObject:self.mapView waitUntilDone:YES];
-                [self.dataStore performSelector:@selector(reloadMap:) withObject:self.mapView afterDelay:0];
+                    [self.dataStore performSelector:@selector(reloadMap:) withObject:self.mapView afterDelay:0];
 #pragma clang diagnostic pop
-            }
-            else
-            {
-                [self.mapView removeAnnotations:self.mapView.annotations];
-//                self.loadingLabel.hidden = NO;
-            }
-            
+                    self.loadingLabel.hidden = YES;
+                }
+                else
+                {
+                    [self.mapView removeAnnotations:self.mapView.annotations];
+                }
+                self.resultsCounter.text = [data stringValue];
+            });
         };
     }
     return self;
@@ -77,19 +75,15 @@ static UIColor *_buttonColor;
     
     self.loadingLabel.hidden = YES;
     
-    [self styleButton:self.filterButton];
-    [self styleButton:self.zoomButton];
+    self.toolbar.layer.borderWidth = 0.5f;
+    self.toolbar.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.toolbar.layer.cornerRadius = 5;
+    
+    self.toolbar.opaque = YES;
     
     [self addGestureRecogniser:self.filterButton selector:@selector(openQueryUI:)];
+    [self addGestureRecogniser:self.magnifyingGlassButton selector:@selector(openQueryUI:)];
     [self addGestureRecogniser:self.zoomButton selector:@selector(zoomToggle:)];
-}
-
-- (void)styleButton:(UIButton*)button
-{
-    button.layer.borderWidth = 0.8f;
-    button.layer.cornerRadius = 15.0f;
-    button.layer.borderColor = _buttonColor.CGColor;
-    button.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector
@@ -102,7 +96,16 @@ static UIColor *_buttonColor;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.dataStore runQuery];
+    self.loadingLabel.hidden = NO;
+    
+    if (self.runQuery)
+    {
+        [self.dataStore runQuery:NO withCallback:nil];
+    }
+    else
+    {
+        [self.dataStore reloadMap:self.mapView];
+    }
 }
 
 - (void)didReceiveMemoryWarning

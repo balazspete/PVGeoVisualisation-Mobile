@@ -11,8 +11,8 @@
 
 @interface PVVISQuery ()
 
-- (void)addEntry:(id)entry forKey:(NSString*)key;
-- (void)removeEntry:(id)entry forKey:(NSString*)key;
+- (BOOL)addEntry:(id)entry forKey:(NSString*)key;
+- (BOOL)removeEntry:(id)entry forKey:(NSString*)key;
 
 @end
 
@@ -32,12 +32,8 @@
         [self.dictionary setValue:[NSMutableArray new] forKey:PVVISQueryKeyMotivation];
         [self.dictionary setValue:[NSMutableArray new] forKey:PVVISQueryKeyCategory];
         [self.dictionary setValue:[NSMutableArray new] forKey:PVVISQueryKeyLocation];
-        [self.dictionary setValue:@{
-                         @"values": [NSMutableArray new],
-                         @"range": [NSMutableDictionary dictionaryWithDictionary:@{@"min": @0}]} forKey:PVVISQueryKeyDate];
-        [self.dictionary setValue:@{
-                         @"values": [NSMutableArray new],
-                         @"range": [NSMutableDictionary dictionaryWithDictionary:@{@"min": @0}]} forKey:PVVISQueryKeyFatality];
+        [self.dictionary setValue:[NSMutableArray new] forKey:PVVISQueryKeyDate];
+        [self.dictionary setValue:[NSMutableArray new] forKey:PVVISQueryKeyFatality];
         [self.dictionary setValue:limit forKey:PVVISQueryKeyLimit];
         [self.dictionary setValue:[GRMustacheFilter filterWithBlock:^id(id object) {
             return @([object count]==0);
@@ -74,98 +70,54 @@
     return helper(0, self.dictionary);
 }
 
-- (void)addMotivation:(PVVISTag*)motivation
+- (BOOL)addMotivation:(PVVISTag*)motivation
 {
-    [self addEntry:motivation forKey:PVVISQueryKeyMotivation];
+    return [self addEntry:motivation forKey:PVVISQueryKeyMotivation];
 }
 
-- (void)removeMotivation:(PVVISTag*)motivation
+- (BOOL)removeMotivation:(PVVISTag*)motivation
 {
-    [self removeEntry:motivation forKey:PVVISQueryKeyMotivation];
+    return [self removeEntry:motivation forKey:PVVISQueryKeyMotivation];
 }
 
-- (void)addCategory:(PVVISTag*)category
+- (BOOL)addCategory:(PVVISTag*)category
 {
-    [self addEntry:category forKey:PVVISQueryKeyCategory];
+    return [self addEntry:category forKey:PVVISQueryKeyCategory];
 }
 
-- (void)removeCategory:(PVVISTag*)category
+- (BOOL)removeCategory:(PVVISTag*)category
 {
-    [self removeEntry:category forKey:PVVISQueryKeyCategory];
+    return [self removeEntry:category forKey:PVVISQueryKeyCategory];
 }
 
-- (void)addLocation:(PVVISLocation*)location
+- (BOOL)addLocation:(PVVISLocation*)location
 {
-    [self addEntry:location forKey:PVVISQueryKeyLocation];
+    return [self addEntry:location forKey:PVVISQueryKeyLocation];
 }
 
-- (void)removeLocation:(PVVISLocation*)location
+- (BOOL)removeLocation:(PVVISLocation*)location
 {
-    [self removeEntry:location forKey:PVVISQueryKeyLocation];
+    return [self removeEntry:location forKey:PVVISQueryKeyLocation];
 }
 
-- (void)addFatality:(NSNumber*)fatality
+- (BOOL)addFatalities:(NSNumber*)fatality
 {
-    [self addEntry:fatality forKey:@"fatality.values"];
+    return [self addEntry:fatality forKey:PVVISQueryKeyFatality];
 }
 
-- (void)removeFatality:(NSNumber*)fatality
+- (BOOL)removeFatalities:(NSNumber*)fatality
 {
-    [self removeEntry:fatality forKey:@"fatality.values"];
+    return [self removeEntry:fatality forKey:PVVISQueryKeyFatality];
 }
 
-- (NSNumber*)minFatality
+- (BOOL)addDate:(NSNumber *)date
 {
-    return [self getDataForKey:@"fatality.range.min"];
+    return [self addEntry:date forKey:PVVISQueryKeyDate];
 }
 
-- (void)setMinFatality:(NSNumber *)min
+- (BOOL)removeDate:(NSNumber *)date
 {
-    NSMutableDictionary *range = [self getDataForKey:@"fatality.range"];
-    [range setValue:min forKey:@"min"];
-}
-
-- (NSNumber*)maxFatality
-{
-    return [self getDataForKey:@"fatality.range.max"];
-}
-
-- (void)setMaxFatality:(NSNumber *)max
-{
-    NSMutableDictionary *range = [self getDataForKey:@"fatality.range"];
-    [range setValue:max forKey:@"max"];
-}
-
-- (void)addDate:(NSNumber *)date
-{
-    [self addEntry:date forKey:@"date.values"];
-}
-
-- (void)removeDate:(NSNumber *)date
-{
-    [self removeEntry:date forKey:@"date.values"];
-}
-
-- (NSNumber*)minDate
-{
-    return [self getDataForKey:@"date.range.min"];
-}
-
-- (void)setMinDate:(NSNumber *)min
-{
-    NSMutableDictionary *range = [self getDataForKey:@"date.range"];
-    [range setValue:min forKey:@"min"];
-}
-
-- (NSNumber*)maxDate
-{
-    return [self getDataForKey:@"date.range.max"];
-}
-
-- (void)setMaxDate:(NSNumber *)max
-{
-    NSMutableDictionary *range = [self getDataForKey:@"date.range"];
-    [range setValue:max forKey:@"max"];
+    return [self removeEntry:date forKey:PVVISQueryKeyDate];
 }
 
 - (void)setLimit:(NSNumber*)limit
@@ -193,21 +145,23 @@
 
 #pragma mark - private helper methods
 
-- (void)addEntry:(id)entry forKey:(NSString*)key//toArray:(NSMutableArray*)array
+- (BOOL)addEntry:(id)entry forKey:(NSString*)key//toArray:(NSMutableArray*)array
 {
     NSMutableArray *array = [self getDataForKey:key];
     if ([array containsObject:entry])
     {
-        return;
+        return NO;
     }
     
     [array addObject:entry];
+    return YES;
 }
 
-- (void)removeEntry:(id)entry forKey:(NSString*)key//fromArray:(NSMutableArray*)array
+- (BOOL)removeEntry:(id)entry forKey:(NSString*)key//fromArray:(NSMutableArray*)array
 {
     NSMutableArray *array = [self getDataForKey:key];
     [array removeObject:entry];
+    return YES;
 }
 
 @end

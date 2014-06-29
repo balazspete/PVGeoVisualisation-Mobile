@@ -14,7 +14,7 @@
 #define PVVISQueryKeyMotivation @"motivation"
 #define PVVISQueryKeyCategory @"category"
 #define PVVISQueryKeyLocation @"location"
-#define PVVISQueryKeyFatality @"fatality"
+#define PVVISQueryKeyFatality @"fatalities"
 #define PVVISQueryKeyDate @"date"
 #define PVVISQueryKeyLimit @"limit"
 
@@ -29,25 +29,20 @@
 
 - (id)getDataForKey:(NSString*)key;
 
-- (void)addMotivation:(PVVISTag*)motivation;
-- (void)removeMotivation:(PVVISTag*)motivation;
-- (void)addCategory:(PVVISTag*)category;
-- (void)removeCategory:(PVVISTag*)category;
+- (BOOL)addMotivation:(PVVISTag*)motivation;
+- (BOOL)removeMotivation:(PVVISTag*)motivation;
 
-- (void)addLocation:(PVVISLocation*)location;
-- (void)removeLocation:(PVVISLocation*)location;
+- (BOOL)addCategory:(PVVISTag*)category;
+- (BOOL)removeCategory:(PVVISTag*)category;
 
-- (void)addFatality:(NSNumber*)date;
-- (void)removeFatality:(NSNumber*)date;
+- (BOOL)addLocation:(PVVISLocation*)location;
+- (BOOL)removeLocation:(PVVISLocation*)location;
 
-@property NSNumber *minDFatality;
-@property NSNumber *maxDFatality;
+- (BOOL)addFatalities:(NSNumber*)date;
+- (BOOL)removeFatalities:(NSNumber*)date;
 
-- (void)addDate:(NSNumber*)date;
-- (void)removeDate:(NSNumber*)date;
-
-@property NSNumber *minDate;
-@property NSNumber *maxDate;
+- (BOOL)addDate:(NSNumber*)date;
+- (BOOL)removeDate:(NSNumber*)date;
 
 - (void)setLimit:(NSNumber*)limit;
 
