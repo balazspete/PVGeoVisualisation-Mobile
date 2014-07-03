@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIView *dataSetLoadingView;
 
 @property (weak, nonatomic) IBOutlet GMSMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIView *mapViewContainer;
 
 @property NSLayoutConstraint *mapViewShown;
 @property NSLayoutConstraint *mapViewHidden;

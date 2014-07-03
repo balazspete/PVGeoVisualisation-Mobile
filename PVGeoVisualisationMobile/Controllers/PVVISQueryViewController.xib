@@ -10,7 +10,8 @@
                 <outlet property="backgroundImageView" destination="nDY-w9-dkz" id="NtX-as-l6G"/>
                 <outlet property="collectionView" destination="fEr-Mr-wYe" id="jsd-Lb-8eX"/>
                 <outlet property="loadingView" destination="Pan-az-ShS" id="0hy-Mo-2uq"/>
-                <outlet property="mapView" destination="K2d-hS-As6" id="6zc-xM-Cqg"/>
+                <outlet property="mapView" destination="ZIW-j4-IEy" id="GUs-Ow-MsD"/>
+                <outlet property="mapViewContainer" destination="K2d-hS-As6" id="Xg9-cJ-mcv"/>
                 <outlet property="reloadButton" destination="lmi-Mw-mct" id="KVu-vo-N6o"/>
                 <outlet property="resetButton" destination="pg0-fs-Hcz" id="ONK-Ar-ByI"/>
                 <outlet property="resultsCountLabel" destination="sob-RY-VuV" id="s7E-qZ-uKI"/>
@@ -127,7 +128,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
-                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="potential matches found" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfb-MQ-78d">
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="events match the current selection" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfb-MQ-78d">
                                             <rect key="frame" x="38" y="11" width="355" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
@@ -230,13 +231,39 @@
                         <constraint firstItem="Lhd-Se-35v" firstAttribute="top" secondItem="pLT-lJ-0vp" secondAttribute="top" constant="8" id="qBY-da-huk"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2d-hS-As6" customClass="GMSMapView">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K2d-hS-As6">
                     <rect key="frame" x="73" y="550" width="665" height="464"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZIW-j4-IEy" customClass="GMSMapView">
+                            <rect key="frame" x="0.0" y="0.0" width="665" height="464"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        </view>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap on the locations to add them to the selection" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcM-Ow-Ivt">
+                            <rect key="frame" x="0.0" y="0.0" width="665" height="21"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="4yd-rw-6SX"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="height" secondItem="ZIW-j4-IEy" secondAttribute="height" id="16m-BH-N5u"/>
+                        <constraint firstItem="xcM-Ow-Ivt" firstAttribute="width" secondItem="K2d-hS-As6" secondAttribute="width" id="2Ag-Mx-x6o"/>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="474" id="7Ao-Pj-Ycm"/>
+                        <constraint firstItem="xcM-Ow-Ivt" firstAttribute="leading" secondItem="K2d-hS-As6" secondAttribute="leading" id="7dh-y0-rKI"/>
+                        <constraint firstAttribute="width" secondItem="ZIW-j4-IEy" secondAttribute="width" id="KmZ-Ga-8sy"/>
                         <constraint firstAttribute="height" constant="464" placeholder="YES" id="Lal-1D-jQu"/>
+                        <constraint firstAttribute="trailing" secondItem="xcM-Ow-Ivt" secondAttribute="trailing" id="SYx-pM-WFe"/>
+                        <constraint firstItem="xcM-Ow-Ivt" firstAttribute="top" secondItem="K2d-hS-As6" secondAttribute="top" id="e8Z-nH-NGO"/>
+                        <constraint firstAttribute="centerX" secondItem="ZIW-j4-IEy" secondAttribute="centerX" id="g67-bV-NYK"/>
+                        <constraint firstAttribute="centerY" secondItem="ZIW-j4-IEy" secondAttribute="centerY" id="gSI-ul-V2i"/>
                         <constraint firstAttribute="width" constant="665" id="zpd-Mu-BSS"/>
                     </constraints>
                 </view>

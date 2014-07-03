@@ -115,6 +115,7 @@ static NSIndexPath *_currentIndexPath;
     
     self.mapViewShown = [NSLayoutConstraint constraintWithItem:self.mapView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeWidth multiplier:0 constant:455];
     self.mapViewHidden = [NSLayoutConstraint constraintWithItem:self.mapView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeWidth multiplier:0 constant:0];
+    self.mapViewContainer.hidden = YES;
     
     self.mapView.myLocationEnabled = NO;
     self.mapView.settings.tiltGestures = NO;
@@ -515,6 +516,7 @@ static NSIndexPath *_currentIndexPath;
     {
         [self.mapView removeConstraint:self.mapViewHidden];
         [self.mapView addConstraint:self.mapViewShown];
+        self.mapViewContainer.hidden = NO;
         
         [self resetMap];
     }
@@ -522,6 +524,7 @@ static NSIndexPath *_currentIndexPath;
     {
         [self.mapView removeConstraint:self.mapViewShown];
         [self.mapView addConstraint:self.mapViewHidden];
+        self.mapViewContainer.hidden = YES;
     }
     
     [self.collectionView reloadData];
@@ -551,10 +554,7 @@ static NSIndexPath *_currentIndexPath;
         [self.areas addObject:area];
     }
     
-    double coords[4];
-    [self.dataStore defaultWorldView:coords];
-    GMSCameraUpdate *cameraUpdate = [GMSCameraUpdate fitBounds:[[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(coords[3], coords[1]) coordinate:CLLocationCoordinate2DMake(coords[2], coords[0])]];
-    [self.mapView animateWithCameraUpdate:cameraUpdate];
+    self.mapView.camera = [GMSCameraPosition cameraWithLatitude:40.487361 longitude:-93.129276 zoom:3];
 }
 
 #pragma mark - value chooser
@@ -640,6 +640,7 @@ static NSIndexPath *_currentIndexPath;
     [self.collectionView reloadData];
     [self.tableView reloadRowsAtIndexPaths:@[cell.indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
     [self resetMap];
+    [self runQuickQuery];
 }
 
 - (void)resetQuery:(UITapGestureRecognizer*)sender
@@ -683,6 +684,8 @@ static NSIndexPath *_currentIndexPath;
     }
     
     [self.collectionView reloadData];
+    [self.tableView reloadRowsAtIndexPaths:@[_currentIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    [self.tableView selectRowAtIndexPath:_currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self setPolygonsInMap:area isCellSelected:!area.selected];
     [self runQuickQuery];
 }
