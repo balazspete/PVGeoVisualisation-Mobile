@@ -326,7 +326,7 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     self.popover = [[UIPopoverController alloc] initWithContentViewController:popoverView];
     
     CGPoint point = [mapView.projection pointForCoordinate:marker.position];
-    [self.popover presentPopoverFromRect:CGRectMake(point.x, point.y, 10, 1) inView:mapView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    [self.popover presentPopoverFromRect:CGRectMake(point.x-10, point.y-20, 20, 20) inView:mapView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
     [popoverView resizeContents];
     
