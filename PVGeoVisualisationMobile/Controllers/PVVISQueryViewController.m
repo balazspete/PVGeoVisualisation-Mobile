@@ -14,12 +14,14 @@
 #import "PVVISQueryUICollectionViewCell.h"
 #import "PVVISConditionEditorViewController.h"
 #import "PVVISArea.h"
+#import "PVVISPolygon.h"
 
 #import "UIImage+StackBlur.h"
+#import "UIColor+PVVISColorSet.h"
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface PVVISQueryViewController () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate>
+@interface PVVISQueryViewController () <UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UIAlertViewDelegate, GMSMapViewDelegate>
 
 @property BOOL initial;
 
@@ -31,6 +33,7 @@
 
 @property NSDictionary *currentProperty;
 @property PVVISConditionEditorViewController *picker;
+@property NSMutableArray *areas;
 
 - (void)presentMap:(BOOL)runQuery;
 - (void)presentPropertySelectionForIndex:(NSInteger)index;
@@ -38,11 +41,12 @@
 - (void)registerCollectionViewReusableCells;
 - (void)registerTableViewReusableCells;
 
+- (void)setPolygonsInMap:(PVVISArea *)area isCellSelected:(BOOL)selected;
+
 @end
 
 @implementation PVVISQueryViewController
 
-static UIColor *_labelColor;
 static PVVISQueryUICollectionViewCell *_sizingCell;
 static NSString *_dataSetReloadWarningAlertTitle, *_queryResetWarningAlertTitle;
 static NSIndexPath *_currentIndexPath;
@@ -54,9 +58,6 @@ static NSIndexPath *_currentIndexPath;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    //46, 204, 113
-    NSArray *colorArray = @[@0.10f, @0.8f, @0.44f];
-    _labelColor = [UIColor colorWithRed:[colorArray[0] floatValue] green:[colorArray[1] floatValue] blue:[colorArray[2] floatValue] alpha:1.0f];
     _dataSetReloadWarningAlertTitle = @"Reloading data set";
     _queryResetWarningAlertTitle = @"New query";
     
@@ -80,6 +81,7 @@ static NSIndexPath *_currentIndexPath;
     
     [self setNeedsStatusBarAppearanceUpdate];
     
+    self.mapView.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.collectionView.delegate = self;
@@ -102,16 +104,31 @@ static NSIndexPath *_currentIndexPath;
     [self.reloadButton addGestureRecognizer:reload];
     
     self.loadingView.hidden = YES;
+    
+    self.dataSetLoadingView = [[[NSBundle mainBundle] loadNibNamed:@"PVVISDataSetLoadingView" owner:self options:nil] objectAtIndex:0];
+    [self.view addSubview:self.dataSetLoadingView];
     self.dataSetLoadingView.hidden = YES;
     
     self.toolbar.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.toolbar.layer.borderWidth = 0.7f;
     self.toolbar.layer.cornerRadius = 5;
     
+    self.mapViewShown = [NSLayoutConstraint constraintWithItem:self.mapView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeWidth multiplier:0 constant:455];
+    self.mapViewHidden = [NSLayoutConstraint constraintWithItem:self.mapView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.mapView attribute:NSLayoutAttributeWidth multiplier:0 constant:0];
+    
+    self.mapView.myLocationEnabled = NO;
+    self.mapView.settings.tiltGestures = NO;
+    self.mapView.settings.rotateGestures = NO;
+    
+    self.mapView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    self.mapView.layer.borderWidth = 0.7f;
+    
+    self.dataStore.query = [PVVISQuery new];
+    
     [self registerCollectionViewReusableCells];
     [self registerTableViewReusableCells];
 }
-                                       
+
 - (void)displayMap:(UITapGestureRecognizer*)sender
 {
     [self presentMap:(sender.view == self.searchButton)];
@@ -149,6 +166,8 @@ static NSIndexPath *_currentIndexPath;
     
     if (self.initial)
     {
+        self.mapView.delegate = self;
+        
         self.mapViewController = [[PVVISMapViewController alloc] init];
         self.mapViewController.mapImage = self.backgroundImageView;
         self.initial = NO;
@@ -294,9 +313,14 @@ static NSIndexPath *_currentIndexPath;
 #pragma clang diagnostic pop
         if (result)
         {
-            [collectionView cellForItemAtIndexPath:indexPath].backgroundColor = _labelColor;
+            [collectionView cellForItemAtIndexPath:indexPath].backgroundColor = [UIColor labelColor];
             [self.tableView reloadRowsAtIndexPaths:@[_currentIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
             [self.tableView selectRowAtIndexPath:_currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+            
+            if ([cell.data isKindOfClass:[PVVISArea class]])
+            {
+                [self setPolygonsInMap:[self.areas objectAtIndex:indexPath.row] isCellSelected:YES];
+            }
         }
         else
         {
@@ -335,6 +359,11 @@ static NSIndexPath *_currentIndexPath;
         [collectionView cellForItemAtIndexPath:indexPath].backgroundColor = [UIColor whiteColor];
         [self.tableView reloadRowsAtIndexPaths:@[_currentIndexPath] withRowAnimation:UITableViewRowAnimationMiddle];
         [self.tableView selectRowAtIndexPath:_currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+        
+        if ([cell.data isKindOfClass:[PVVISArea class]])
+        {
+            [self setPolygonsInMap:[self.areas objectAtIndex:indexPath.row] isCellSelected:NO];
+        }
         
         [self runQuickQuery];
     }
@@ -409,6 +438,8 @@ static NSIndexPath *_currentIndexPath;
             PVVISArea *area = [[PVVISArea alloc] initWithDictionary:dictionary];
             cell.data = area;
             selected = [data containsObject:area];
+            
+            [self setPolygonsInMap:[self.areas objectAtIndex:indexPath.row] isCellSelected:selected];
         }
         else
         {
@@ -442,13 +473,26 @@ static NSIndexPath *_currentIndexPath;
         }
     }
     
-    cell.backgroundColor = selected ? _labelColor : [UIColor whiteColor];
+    cell.backgroundColor = selected ? [UIColor labelColor] : [UIColor whiteColor];
     cell.alpha = 0.8f;
     
     if (selected)
     {
         cell.highlighted = YES;
     }
+}
+
+- (void)setPolygonsInMap:(PVVISArea *)area isCellSelected:(BOOL)selected
+{
+    for (PVVISPolygon *polygon in area.polygons)
+    {
+        UIColor *selectedColor = selected ? [UIColor labelColor] : [UIColor lightGrayColor];
+        polygon.fillColor = [selectedColor colorWithAlphaComponent:0.5f];
+        polygon.strokeColor = selectedColor;
+        polygon.strokeWidth = 2;
+    }
+    
+    area.selected = selected;
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -466,7 +510,51 @@ static NSIndexPath *_currentIndexPath;
 - (void)presentPropertySelectionForIndex:(NSInteger)index;
 {
     self.currentProperty = [self.queryParameters objectAtIndex:index];
+    
+    if ([[self.currentProperty objectForKey:@"id"] isEqualToString:@"location"])
+    {
+        [self.mapView removeConstraint:self.mapViewHidden];
+        [self.mapView addConstraint:self.mapViewShown];
+        
+        [self resetMap];
+    }
+    else
+    {
+        [self.mapView removeConstraint:self.mapViewShown];
+        [self.mapView addConstraint:self.mapViewHidden];
+    }
+    
     [self.collectionView reloadData];
+}
+
+- (void)resetMap
+{
+    [self.mapView clear];
+    self.areas = [NSMutableArray new];
+    
+    NSArray *data = [[self.queryParameters objectAtIndex:2] objectForKey:@"options"];
+    for (NSDictionary *dict in data)
+    {
+        PVVISArea *area = [[PVVISArea alloc] initWithDictionary:dict];
+        for (PVVISPolygon *polygon in area.polygons)
+        {
+            UIColor *selectedColor = NO ? [UIColor labelColor] : [UIColor lightGrayColor];
+            polygon.fillColor = [selectedColor colorWithAlphaComponent:0.5f];
+            polygon.strokeColor = selectedColor;
+            polygon.strokeWidth = 2;
+            
+            polygon.tappable = YES;
+            
+            polygon.map = nil;
+            polygon.map = self.mapView;
+        }
+        [self.areas addObject:area];
+    }
+    
+    double coords[4];
+    [self.dataStore defaultWorldView:coords];
+    GMSCameraUpdate *cameraUpdate = [GMSCameraUpdate fitBounds:[[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(coords[3], coords[1]) coordinate:CLLocationCoordinate2DMake(coords[2], coords[0])]];
+    [self.mapView animateWithCameraUpdate:cameraUpdate];
 }
 
 #pragma mark - value chooser
@@ -551,6 +639,7 @@ static NSIndexPath *_currentIndexPath;
     [self.dataStore.query reset:cell.key];
     [self.collectionView reloadData];
     [self.tableView reloadRowsAtIndexPaths:@[cell.indexPath] withRowAnimation:UITableViewRowAnimationMiddle];
+    [self resetMap];
 }
 
 - (void)resetQuery:(UITapGestureRecognizer*)sender
@@ -571,6 +660,31 @@ static NSIndexPath *_currentIndexPath;
                                           cancelButtonTitle:@"No"
                                           otherButtonTitles:@"Yes", nil];
     [alert show];
+}
+
+#pragma mark - map view delegate
+
+- (void)mapView:(GMSMapView *)mapView didTapOverlay:(GMSOverlay *)overlay
+{
+    PVVISArea *area = ((PVVISPolygon *)overlay).area;
+    NSInteger index = [self.areas indexOfObject:area];
+    
+    NSArray *options = [self.currentProperty valueForKey:@"options"];
+    NSDictionary *dictionary = [options objectAtIndex:index];
+    PVVISArea *_area = [[PVVISArea alloc] initWithDictionary:dictionary];
+    
+    if (area.selected)
+    {
+        [self.dataStore.query removeLocation:_area];
+    }
+    else
+    {
+        [self.dataStore.query addLocation:_area];
+    }
+    
+    [self.collectionView reloadData];
+    [self setPolygonsInMap:area isCellSelected:!area.selected];
+    [self runQuickQuery];
 }
 
 @end

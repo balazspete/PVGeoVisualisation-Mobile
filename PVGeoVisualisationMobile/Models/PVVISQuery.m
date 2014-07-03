@@ -90,12 +90,12 @@
     return [self removeEntry:category forKey:PVVISQueryKeyCategory];
 }
 
-- (BOOL)addLocation:(PVVISLocation*)location
+- (BOOL)addLocation:(PVVISArea*)location
 {
     return [self addEntry:location forKey:PVVISQueryKeyLocation];
 }
 
-- (BOOL)removeLocation:(PVVISLocation*)location
+- (BOOL)removeLocation:(PVVISArea*)location
 {
     return [self removeEntry:location forKey:PVVISQueryKeyLocation];
 }

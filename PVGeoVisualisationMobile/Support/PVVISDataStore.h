@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <Redland-ObjC.h>
-#import <MapKit/MapKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 #import "PVVISQuery.h"
 
 typedef void(^ActionCallback)(NSString* action, id data);
 
-@interface PVVISDataStore : NSObject <MKMapViewDelegate, NSFetchedResultsControllerDelegate>
+@interface PVVISDataStore : NSObject <GMSMapViewDelegate, NSFetchedResultsControllerDelegate>
 
 @property NSFetchedResultsController *fetchedResultsController;
 @property NSManagedObjectContext *managedObjectContext;
@@ -31,10 +31,11 @@ typedef void(^ActionCallback)(NSString* action, id data);
 
 - (void)dumpResources;
 - (void)createResults:(void (^)(bool success, NSError *error))callback;
-- (void)reloadMap:(MKMapView*)map;
+- (void)reloadMap:(GMSMapView *)map;
 
 - (void)reloadDataStore:(void (^)(bool success, NSError *error))callback;
 
-- (void)zoomOutMap:(MKMapView *)mapView;
+- (void)zoomOutMap:(GMSMapView *)mapView;
+- (void)defaultWorldView:(double *)coords;
 
 @end

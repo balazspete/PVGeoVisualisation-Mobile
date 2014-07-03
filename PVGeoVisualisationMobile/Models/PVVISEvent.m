@@ -9,9 +9,9 @@
 #import "PVVISEvent.h"
 #import "PVVISTag.h"
 #import <Redland-ObjC.h>
+#import "PVVISMarker.h"
 
 @interface PVVISEvent () <MKAnnotation>
-
 
 @end
 
@@ -91,6 +91,15 @@
 - (void)setCoordinate:(CLLocationCoordinate2D)newCoordinate
 {
     [self.location setCoordinate:newCoordinate];
+}
+
+- (GMSMarker *)marker
+{
+    PVVISMarker *marker = [PVVISMarker markerWithPosition:self.location.coordinate];
+    marker.title = [NSString stringWithFormat:@"%@", self.date];
+    marker.event = self;
+ 
+    return marker;
 }
 
 #pragma mark - RedlandNode helper

@@ -7,15 +7,16 @@
 //
 
 #import "PVVISMapViewController.h"
-#import <MapKit/MapKit.h>
 
 #import "PVVISAppDelegate.h"
 #import "PVVISSparqlOverHTTP.h"
 #import "PVVISDataStore.h"
 #import "PVVISQueryViewController.h"
+
 #import <Redland-ObjC.h>
 
 #import "UIImage+StackBlur.h"
+#import "UIColor+PVVISColorSet.h"
 
 @interface PVVISMapViewController ()
 
@@ -28,8 +29,6 @@
 
 @implementation PVVISMapViewController
 
-static UIColor *_buttonColor;
-
 - (id)init
 {
     return [self initWithNibName:@"PVVISMapViewController" bundle:nil];
@@ -40,9 +39,6 @@ static UIColor *_buttonColor;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        NSArray *colorArray = @[@0.10f, @0.8f, @0.44f];
-        _buttonColor = [UIColor colorWithRed:[colorArray[0] floatValue] green:[colorArray[1] floatValue] blue:[colorArray[2] floatValue] alpha:1.0f];
-        
         self.results = [NSMutableArray new];
         self.dataStore = ((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]).dataStore;
         
@@ -58,7 +54,7 @@ static UIColor *_buttonColor;
                 }
                 else
                 {
-                    [self.mapView removeAnnotations:self.mapView.annotations];
+                    [self.mapView clear];
                 }
                 self.resultsCounter.text = [data stringValue];
             });
@@ -70,7 +66,11 @@ static UIColor *_buttonColor;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.mapView.myLocationEnabled = NO;
+    self.mapView.settings.tiltGestures = NO;
+    self.mapView.settings.rotateGestures = NO;
+    
     self.mapView.delegate = self.dataStore;
     
     self.loadingLabel.hidden = YES;

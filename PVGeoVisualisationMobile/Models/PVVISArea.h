@@ -7,18 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface PVVISArea : NSObject
 
 - (id)initWithDictionary:(NSDictionary*)dictionary;
 
 @property NSString *label;
-@property NSArray *polygons;
+@property (readonly) NSArray *polygons;
 @property NSArray *values;
 
 @property (readonly) NSDictionary *boundingBox;
-
-@property (weak, atomic, readonly) MKPolygonRenderer *polygonRenderer;
+@property BOOL selected;
 
 @end

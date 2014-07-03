@@ -47,9 +47,24 @@
 		E8457C3F1944A3DD00A8D57A /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E8457C3D1944A3DD00A8D57A /* map@2x.png */; };
 		E8457C431944D53400A8D57A /* PVVISArea.m in Sources */ = {isa = PBXBuildFile; fileRef = E8457C421944D53400A8D57A /* PVVISArea.m */; };
 		E8457C451947307400A8D57A /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E8457C441947307400A8D57A /* libsqlite3.0.dylib */; };
+		E868D25C19632E46004F042C /* GoogleMaps.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D25B19632E46004F042C /* GoogleMaps.framework */; };
+		E868D25E19632E57004F042C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D25D19632E57004F042C /* AVFoundation.framework */; };
+		E868D26019632E62004F042C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D25F19632E62004F042C /* CoreLocation.framework */; };
+		E868D26219632E6D004F042C /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D26119632E6D004F042C /* CoreText.framework */; };
+		E868D26419632E78004F042C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D26319632E78004F042C /* GLKit.framework */; };
+		E868D26619632E82004F042C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D26519632E82004F042C /* ImageIO.framework */; };
+		E868D26819632E8F004F042C /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D26719632E8F004F042C /* libc++.dylib */; };
+		E868D26A19632E9D004F042C /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D26919632E9D004F042C /* libicucore.dylib */; };
+		E868D26C19632EA8004F042C /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D26B19632EA8004F042C /* libz.dylib */; };
+		E868D26E19632EB2004F042C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D26D19632EB2004F042C /* OpenGLES.framework */; };
+		E868D27019632EC7004F042C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E868D26F19632EC7004F042C /* SystemConfiguration.framework */; };
+		E868D27219635D2D004F042C /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E868D27119635D2D004F042C /* GoogleMaps.bundle */; };
+		E868D278196371EF004F042C /* PVVISMarker.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D277196371EF004F042C /* PVVISMarker.m */; };
+		E868D27B19638CD6004F042C /* UIColor+PVVISColorSet.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D27A19638CD6004F042C /* UIColor+PVVISColorSet.m */; };
+		E868D27D19642129004F042C /* PVVISDataSetLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E868D27C19642129004F042C /* PVVISDataSetLoadingView.xib */; };
+		E868D280196433D5004F042C /* PVVISPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D27F196433D5004F042C /* PVVISPolygon.m */; };
 		E86B16DE1933E98C000DDF18 /* PVVISMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */; };
 		E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */; };
-		E86B16E11933EB2C000DDF18 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E86B16E01933EB2C000DDF18 /* MapKit.framework */; };
 		E86B16E31933F2B6000DDF18 /* FilterUIConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = E86B16E21933F2B6000DDF18 /* FilterUIConfiguration.plist */; };
 		E86B1743193532DF000DDF18 /* PVVISSparqlOverHTTP.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B1742193532DF000DDF18 /* PVVISSparqlOverHTTP.m */; };
 		E86B174619353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B174519353943000DDF18 /* PVVISSparqlOverHttpRequestSerializer.m */; };
@@ -174,6 +189,25 @@
 		E8457C411944D53400A8D57A /* PVVISArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISArea.h; path = Models/PVVISArea.h; sourceTree = "<group>"; };
 		E8457C421944D53400A8D57A /* PVVISArea.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISArea.m; path = Models/PVVISArea.m; sourceTree = "<group>"; };
 		E8457C441947307400A8D57A /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		E868D25B19632E46004F042C /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Resources/GoogleMaps.framework; sourceTree = "<group>"; };
+		E868D25D19632E57004F042C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E868D25F19632E62004F042C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		E868D26119632E6D004F042C /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		E868D26319632E78004F042C /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		E868D26519632E82004F042C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		E868D26719632E8F004F042C /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		E868D26919632E9D004F042C /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		E868D26B19632EA8004F042C /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		E868D26D19632EB2004F042C /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		E868D26F19632EC7004F042C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E868D27119635D2D004F042C /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GoogleMaps.bundle; sourceTree = "<group>"; };
+		E868D276196371EF004F042C /* PVVISMarker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISMarker.h; path = Models/PVVISMarker.h; sourceTree = "<group>"; };
+		E868D277196371EF004F042C /* PVVISMarker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISMarker.m; path = Models/PVVISMarker.m; sourceTree = "<group>"; };
+		E868D27919638CD6004F042C /* UIColor+PVVISColorSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+PVVISColorSet.h"; path = "Support/UIColor+PVVISColorSet.h"; sourceTree = "<group>"; };
+		E868D27A19638CD6004F042C /* UIColor+PVVISColorSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+PVVISColorSet.m"; path = "Support/UIColor+PVVISColorSet.m"; sourceTree = "<group>"; };
+		E868D27C19642129004F042C /* PVVISDataSetLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISDataSetLoadingView.xib; path = Interfaces/PVVISDataSetLoadingView.xib; sourceTree = "<group>"; };
+		E868D27E196433D5004F042C /* PVVISPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISPolygon.h; path = Models/PVVISPolygon.h; sourceTree = "<group>"; };
+		E868D27F196433D5004F042C /* PVVISPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISPolygon.m; path = Models/PVVISPolygon.m; sourceTree = "<group>"; };
 		E86B16DB1933E98C000DDF18 /* PVVISMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISMapViewController.h; path = Controllers/PVVISMapViewController.h; sourceTree = "<group>"; };
 		E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISMapViewController.m; path = Controllers/PVVISMapViewController.m; sourceTree = "<group>"; };
 		E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISMapViewController.xib; path = Controllers/PVVISMapViewController.xib; sourceTree = "<group>"; };
@@ -224,11 +258,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E868D25C19632E46004F042C /* GoogleMaps.framework in Frameworks */,
+				E868D27019632EC7004F042C /* SystemConfiguration.framework in Frameworks */,
+				E82ADDEA193F600A00A7011A /* QuartzCore.framework in Frameworks */,
+				E868D26E19632EB2004F042C /* OpenGLES.framework in Frameworks */,
+				E868D26C19632EA8004F042C /* libz.dylib in Frameworks */,
+				E868D26A19632E9D004F042C /* libicucore.dylib in Frameworks */,
+				E868D26819632E8F004F042C /* libc++.dylib in Frameworks */,
+				E868D26619632E82004F042C /* ImageIO.framework in Frameworks */,
+				E868D26419632E78004F042C /* GLKit.framework in Frameworks */,
+				E868D26219632E6D004F042C /* CoreText.framework in Frameworks */,
+				E868D26019632E62004F042C /* CoreLocation.framework in Frameworks */,
+				E868D25E19632E57004F042C /* AVFoundation.framework in Frameworks */,
 				E8CAF0CA192F92A400884C20 /* CoreData.framework in Frameworks */,
 				E8457C451947307400A8D57A /* libsqlite3.0.dylib in Frameworks */,
 				E8CAF111192F9C1000884C20 /* libsqlite3.dylib in Frameworks */,
-				E82ADDEA193F600A00A7011A /* QuartzCore.framework in Frameworks */,
-				E86B16E11933EB2C000DDF18 /* MapKit.framework in Frameworks */,
 				E8CAF10F192F9C0600884C20 /* libxslt.dylib in Frameworks */,
 				E8CAF10D192F9BFA00884C20 /* libxml2.dylib in Frameworks */,
 				E8CAF10B192F9BF100884C20 /* libredland-ios.a in Frameworks */,
@@ -296,6 +340,7 @@
 				E81112DF194CCC4100735422 /* PVVISQueryUICollectionViewCell.xib */,
 				E8457C371943E94D00A8D57A /* PVVISConditionEditorViewController.xib */,
 				E8111315195F0BB000735422 /* PVVISConditionPickerTableViewCell.xib */,
+				E868D27C19642129004F042C /* PVVISDataSetLoadingView.xib */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -353,6 +398,10 @@
 				E8457C421944D53400A8D57A /* PVVISArea.m */,
 				E8111310195DCEE800735422 /* PVVISCondition.h */,
 				E8111311195DCEE800735422 /* PVVISCondition.m */,
+				E868D276196371EF004F042C /* PVVISMarker.h */,
+				E868D277196371EF004F042C /* PVVISMarker.m */,
+				E868D27E196433D5004F042C /* PVVISPolygon.h */,
+				E868D27F196433D5004F042C /* PVVISPolygon.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -366,6 +415,8 @@
 				E86B1750193807D5000DDF18 /* PVVISDataStore.m */,
 				E81112E1194CCFC200735422 /* UIImage+StackBlur.h */,
 				E81112E2194CCFC200735422 /* UIImage+StackBlur.m */,
+				E868D27919638CD6004F042C /* UIColor+PVVISColorSet.h */,
+				E868D27A19638CD6004F042C /* UIColor+PVVISColorSet.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -394,6 +445,18 @@
 		E8CAF0C2192F92A400884C20 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E868D27119635D2D004F042C /* GoogleMaps.bundle */,
+				E868D26F19632EC7004F042C /* SystemConfiguration.framework */,
+				E868D26D19632EB2004F042C /* OpenGLES.framework */,
+				E868D26B19632EA8004F042C /* libz.dylib */,
+				E868D26919632E9D004F042C /* libicucore.dylib */,
+				E868D26719632E8F004F042C /* libc++.dylib */,
+				E868D26519632E82004F042C /* ImageIO.framework */,
+				E868D26319632E78004F042C /* GLKit.framework */,
+				E868D26119632E6D004F042C /* CoreText.framework */,
+				E868D25F19632E62004F042C /* CoreLocation.framework */,
+				E868D25D19632E57004F042C /* AVFoundation.framework */,
+				E868D25B19632E46004F042C /* GoogleMaps.framework */,
 				E8457C441947307400A8D57A /* libsqlite3.0.dylib */,
 				E82ADDE9193F600A00A7011A /* QuartzCore.framework */,
 				E83BD098193BE72900D9D09F /* libPods-GRMustache.a */,
@@ -592,11 +655,13 @@
 				E81112F8195C723A00735422 /* back.png in Resources */,
 				E81112D4194BDEA700735422 /* PVVISQueryViewController.xib in Resources */,
 				E8111302195CAD0E00735422 /* redo.png in Resources */,
+				E868D27D19642129004F042C /* PVVISDataSetLoadingView.xib in Resources */,
 				E81112FD195C921400735422 /* reload@2x.png in Resources */,
 				E8111304195CAD0E00735422 /* undo.png in Resources */,
 				E81112F9195C723A00735422 /* back@2x.png in Resources */,
 				E8111309195CBB1E00735422 /* close@2x.png in Resources */,
 				E811131C195F0F6E00735422 /* PVVISEventPopoverTableViewCell.xib in Resources */,
+				E868D27219635D2D004F042C /* GoogleMaps.bundle in Resources */,
 				E8457C101940C77800A8D57A /* PVVISQueryUITableViewCell.xib in Resources */,
 				E8CAF0D0192F92A400884C20 /* InfoPlist.strings in Resources */,
 				E81112FC195C921400735422 /* reload.png in Resources */,
@@ -666,8 +731,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E868D27B19638CD6004F042C /* UIColor+PVVISColorSet.m in Sources */,
 				E8111316195F0BB000735422 /* PVVISConditionPickerTableViewCell.m in Sources */,
 				E8457C2919412BB700A8D57A /* PVVISQueryUICollectionViewCell.m in Sources */,
+				E868D278196371EF004F042C /* PVVISMarker.m in Sources */,
 				E82ADDF4193FE0C100A7011A /* PVVISQueryViewController.m in Sources */,
 				E811131A195F0F6200735422 /* PVVISLocation.m in Sources */,
 				E86B17541938ABFC000DDF18 /* NSString+URLEncoding.m in Sources */,
@@ -689,6 +756,7 @@
 				E82ADDF0193F890900A7011A /* PVVISQuery.m in Sources */,
 				E81112E3194CCFC200735422 /* UIImage+StackBlur.m in Sources */,
 				E86B174E1937FD87000DDF18 /* PVVISConfig.m in Sources */,
+				E868D280196433D5004F042C /* PVVISPolygon.m in Sources */,
 				E8111312195DCEE800735422 /* PVVISCondition.m in Sources */,
 				E8CAF0D9192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld in Sources */,
 			);
@@ -810,6 +878,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Resources",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
@@ -838,6 +911,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Resources",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PVGeoVisualisationMobile/PVGeoVisualisationMobile-Prefix.pch";
 				HEADER_SEARCH_PATHS = (

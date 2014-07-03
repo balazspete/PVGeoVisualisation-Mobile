@@ -13,6 +13,7 @@
 #import "PVVISConfig.h"
 #import "PVVISSparqlOverHTTP.h"
 #import "PVVISEventPopoverView.h"
+#import "PVVISMarker.h"
 
 #import "PVVISEventPopoverViewController.h"
 
@@ -144,6 +145,14 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     [self loadRemoteData:callback];
 }
 
+- (void)defaultWorldView:(double *)coords
+{
+    coords[0] = -130; // minX
+    coords[1] = -50; // maxX
+    coords[2] = 15; // minY
+    coords[3] = 60; // maxY
+}
+
 //TODO: Add within polygon filtering
 - (void)runQuery:(BOOL)fast withCallback:(ActionCallback)callback
 {
@@ -152,8 +161,11 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     self.actionCallback(@"results", nil);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        double coords[4];
+        [self defaultWorldView:coords];
+        
         minX = 1.0/0, maxX = -1.0/0, minY = 1.0/0, maxY = -1.0/0;
-        _minX = -115, _maxX = -75, _minY = 15, _maxY = 60;
+        _minX = coords[0], _maxX = coords[1], _minY = coords[2], _maxY = coords[3];
         
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -170,7 +182,7 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         
         if (results.count == 0)
         {
-            minX = -115, maxX = -75, minY = 15, maxY = 60;
+            minX = coords[0], maxX = coords[1], minY = coords[2], maxY = coords[3];
             
             if (!fast)
             {
@@ -196,28 +208,29 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
                 PVVISLocation *location = ((PVVISEvent *)evaluatedObject).location;
                 for (PVVISArea *area in areas)
                 {
-                    NSDictionary *box = area.boundingBox;
-                    if ([[box objectForKey:@"minX"] doubleValue] <= location.longitude.doubleValue && location.longitude.doubleValue <= [[box objectForKey:@"maxX"] doubleValue] && [[box objectForKey:@"minY"] doubleValue] <= location.latitude.doubleValue && location.latitude.doubleValue <= [[box objectForKey:@"maxY"] doubleValue])
+                    for (GMSPolygon *polygon in area.polygons)
                     {
-                        // TODO: add polygon filtering
-                        
                         minX = MIN(minX, location.longitude.doubleValue);
                         minY = MIN(minY, location.latitude.doubleValue);
                         maxX = MAX(maxX, location.longitude.doubleValue);
                         maxY = MAX(maxY, location.latitude.doubleValue);
                         
-                        return YES;
+                        if (GMSGeometryContainsLocation(location.coordinate,
+                                                        polygon.path, NO))
+                        {
+                            return YES;
+                        }
                     }
                 }
                 
-                return false;
+                return NO;
             }];
             
             results = [results filteredArrayUsingPredicate:locationFilter];
         }
         else
         {
-            minX = -115, maxX = -75, minY = 15, maxY = 60;
+            minX = coords[0], maxX = coords[1], minY = coords[2], maxY = coords[3];
         }
         
         NSLog(@"Query results: %lu entries", results.count);
@@ -290,26 +303,20 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
 
 #pragma mark - map view delegate
 
-- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
+- (void)mapViewWillStartLoadingMap:(GMSMapView *)mapView
 {
     [self reloadMap:mapView];
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
+- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
-    MKPinAnnotationView *view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
-    view.canShowCallout = NO;
-    
-    [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showCallout:)]];
-    
-    return view;
+    [self showCallout:((PVVISMarker *)marker) onMapView:mapView];
+    return YES;
 }
-
-- (void)showCallout:(UITapGestureRecognizer *)sender
+    
+- (void)showCallout:(PVVISMarker *)marker onMapView:(GMSMapView *)mapView
 {
-    MKPinAnnotationView *view = (MKPinAnnotationView*) sender.view;
-
-    PVVISEventPopoverViewController *popoverView = [[PVVISEventPopoverViewController alloc] initWithEvent:view.annotation];
+    PVVISEventPopoverViewController *popoverView = [[PVVISEventPopoverViewController alloc] initWithEvent:marker.event];
     
     if (self.popover)
     {
@@ -317,7 +324,9 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     }
     
     self.popover = [[UIPopoverController alloc] initWithContentViewController:popoverView];
-    [self.popover presentPopoverFromRect:view.frame inView:view.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
+    CGPoint point = [mapView.projection pointForCoordinate:marker.position];
+    [self.popover presentPopoverFromRect:CGRectMake(point.x, point.y, 10, 1) inView:mapView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
     [popoverView resizeContents];
     
@@ -331,27 +340,44 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     };
 }
 
-- (void)reloadMap:(MKMapView *)mapView
+- (void)reloadMap:(GMSMapView *)mapView
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [mapView removeAnnotations:mapView.annotations];
-        [mapView addAnnotations:self.results];
+        [mapView clear];
+        
+        for (PVVISEvent *event in self.results)
+        {
+            event.marker.map = mapView;
+        }
+        
+        NSArray *locations = [self.query getDataForKey:PVVISQueryKeyLocation];
+        for (PVVISArea *area in locations)
+        {
+            NSArray *arr = area.polygons;
+            for (GMSPolygon *polygon in arr)
+            {
+                polygon.map = mapView;
+            }
+        }
+        
         [mapView reloadInputViews];
         
         if (zoomToFit)
         {
             if (minY != INFINITY || maxY != -INFINITY || minX != INFINITY || maxX != -INFINITY)
             {
-                [mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake((minY+maxY)/2, (minX + maxX)/2), MKCoordinateSpanMake(maxY-minY+4, maxX-minX+4)) animated:YES];
+                GMSCameraUpdate *cameraUpdate = [GMSCameraUpdate fitBounds:[[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(maxY, maxX) coordinate:CLLocationCoordinate2DMake(minY, minX)]];
+                [mapView animateWithCameraUpdate:cameraUpdate];
             }
             zoomToFit = NO;
         }
+    });
         
         NSLog(@"Reloading map");
-    });
+//    });
 }
 
-- (void)zoomOutMap:(MKMapView *)mapView
+- (void)zoomOutMap:(GMSMapView *)mapView
 {
     double minx = minX, maxx = maxX, miny = minY, maxy = maxY;
     minX = _minX, maxX = _maxX, minY = _minY, maxY = _maxY;

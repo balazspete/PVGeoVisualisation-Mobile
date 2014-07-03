@@ -10,6 +10,7 @@
 
 #import "PVVISEvent.h"
 #import "PVVISTag.h"
+#import "PVVISArea.h"
 
 #define PVVISQueryKeyMotivation @"motivation"
 #define PVVISQueryKeyCategory @"category"
@@ -35,8 +36,8 @@
 - (BOOL)addCategory:(PVVISTag*)category;
 - (BOOL)removeCategory:(PVVISTag*)category;
 
-- (BOOL)addLocation:(PVVISLocation*)location;
-- (BOOL)removeLocation:(PVVISLocation*)location;
+- (BOOL)addLocation:(PVVISArea*)location;
+- (BOOL)removeLocation:(PVVISArea*)location;
 
 - (BOOL)addFatalities:(NSNumber*)date;
 - (BOOL)removeFatalities:(NSNumber*)date;

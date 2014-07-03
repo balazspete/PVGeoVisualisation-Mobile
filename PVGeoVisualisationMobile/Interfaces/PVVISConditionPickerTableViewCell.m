@@ -9,16 +9,13 @@
 #import "PVVISConditionPickerTableViewCell.h"
 #import "PVVISCondition.h"
 
-@implementation PVVISConditionPickerTableViewCell
+#import "UIColor+PVVISColorSet.h"
 
-static UIColor *_labelColor;
-static NSArray *_colorArray;
+@implementation PVVISConditionPickerTableViewCell
 
 - (void)awakeFromNib
 {
     // Initialization code
-    _colorArray = @[@0.10f, @0.8f, @0.44f];
-    _labelColor = [UIColor colorWithRed:[_colorArray[0] floatValue] green:[_colorArray[1] floatValue] blue:[_colorArray[2] floatValue] alpha:1.0f];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     
     self.backgroundColor = [UIColor clearColor];
@@ -35,12 +32,12 @@ static NSArray *_colorArray;
     {
         self.conditionLabel.textColor = [UIColor whiteColor];
         self.symbolLabel.textColor = [UIColor whiteColor];
-        self.mainView.backgroundColor = _labelColor;
+        self.mainView.backgroundColor = [UIColor labelColor];
     }
     else
     {
-        self.conditionLabel.textColor = _labelColor;
-        self.symbolLabel.textColor = _labelColor;
+        self.conditionLabel.textColor = [UIColor labelColor];
+        self.symbolLabel.textColor = [UIColor labelColor];
         self.mainView.backgroundColor = [UIColor whiteColor];
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13E19" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -9,7 +9,7 @@
                 <outlet property="filterButton" destination="aHS-w5-0d9" id="NMY-to-GiI"/>
                 <outlet property="loadingLabel" destination="x3t-YQ-W1E" id="sQz-jh-5Y1"/>
                 <outlet property="magnifyingGlassButton" destination="dgS-Na-rHY" id="O1p-pu-Gud"/>
-                <outlet property="mapView" destination="yNx-G2-tCr" id="JQR-9v-DmN"/>
+                <outlet property="mapView" destination="L56-CZ-T7r" id="mWE-9V-Pec"/>
                 <outlet property="resultsCounter" destination="ALx-dM-SMu" id="rGf-ts-hT1"/>
                 <outlet property="toolbar" destination="FWu-3v-7UI" id="caD-2y-huQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,10 +21,10 @@
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yNx-G2-tCr">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L56-CZ-T7r" customClass="GMSMapView">
                     <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                </mapView>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </view>
                 <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading data..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3t-YQ-W1E">
                     <rect key="frame" x="632" y="983" width="116" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -48,14 +48,14 @@
                     <rect key="frame" x="68" y="28" width="680" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALx-dM-SMu">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALx-dM-SMu">
                             <rect key="frame" x="20" y="11" width="29" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                             <color key="textColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="events shown on the map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JV-UI-7G5">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" misplaced="YES" text="events shown on the map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JV-UI-7G5">
                             <rect key="frame" x="57" y="11" width="408" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
@@ -117,19 +117,17 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="centerY" secondItem="yNx-G2-tCr" secondAttribute="centerY" id="54G-88-71t"/>
+                <constraint firstItem="L56-CZ-T7r" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="0jc-jG-ipp"/>
                 <constraint firstItem="FWu-3v-7UI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="68" id="6cW-uG-4Sc"/>
                 <constraint firstItem="dgS-Na-rHY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="IQd-RN-rNk"/>
                 <constraint firstAttribute="trailing" secondItem="x3t-YQ-W1E" secondAttribute="trailing" constant="20" id="QCQ-5T-yQH"/>
                 <constraint firstAttribute="trailing" secondItem="FWu-3v-7UI" secondAttribute="trailing" constant="20" id="ccR-Ja-fKv"/>
                 <constraint firstItem="dgS-Na-rHY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="hkb-GZ-NLT"/>
                 <constraint firstItem="FWu-3v-7UI" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="28" id="iBh-Lo-ddB"/>
-                <constraint firstItem="yNx-G2-tCr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="j18-q2-4Mp"/>
-                <constraint firstAttribute="bottom" secondItem="yNx-G2-tCr" secondAttribute="bottom" id="m9i-6l-KG4"/>
-                <constraint firstAttribute="centerX" secondItem="yNx-G2-tCr" secondAttribute="centerX" id="mWc-Za-ElQ"/>
+                <constraint firstAttribute="bottom" secondItem="L56-CZ-T7r" secondAttribute="bottom" id="ijf-JS-Uaa"/>
+                <constraint firstAttribute="trailing" secondItem="L56-CZ-T7r" secondAttribute="trailing" id="ltN-cU-r9t"/>
+                <constraint firstItem="L56-CZ-T7r" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="qPO-uT-MYO"/>
                 <constraint firstAttribute="bottom" secondItem="x3t-YQ-W1E" secondAttribute="bottom" constant="20" id="rn7-1J-Ut0"/>
-                <constraint firstItem="yNx-G2-tCr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vM5-bQ-Cgx"/>
-                <constraint firstAttribute="trailing" secondItem="yNx-G2-tCr" secondAttribute="trailing" id="zBd-3B-P8g"/>
             </constraints>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
         </view>

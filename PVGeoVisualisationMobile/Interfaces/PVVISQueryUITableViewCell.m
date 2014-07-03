@@ -7,12 +7,11 @@
 //
 
 #import "PVVISQueryUITableViewCell.h"
+#import "UIColor+PVVISColorSet.h"
 
 @implementation PVVISQueryUITableViewCell
 
 @synthesize backgroundView = _backgroundView;
-
-static UIColor *_labelColor;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -26,9 +25,6 @@ static UIColor *_labelColor;
 - (void)awakeFromNib
 {
     // Initialization code
-    NSArray *colorArray = @[@0.10f, @0.8f, @0.44f];
-    _labelColor = [UIColor colorWithRed:[colorArray[0] floatValue] green:[colorArray[1] floatValue] blue:[colorArray[2] floatValue] alpha:1.0f];
-    
     self.backgroundColor = [UIColor clearColor];
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -63,7 +59,7 @@ static UIColor *_labelColor;
 {
     self.counterLabel.textColor = [UIColor whiteColor];
     self.label.textColor = [UIColor whiteColor];
-    self.cellBackgroundView.backgroundColor = _labelColor;//[UIColor colorWithWhite:0.8f alpha:0.8f];
+    self.cellBackgroundView.backgroundColor = [UIColor labelColor];
     self.separator.backgroundColor = [UIColor whiteColor];
     self.clearButton.imageView.image = [UIImage imageNamed:@"closeWhite"];
     self.selectedTextLabel.textColor = [UIColor whiteColor];
@@ -71,7 +67,7 @@ static UIColor *_labelColor;
 
 - (void)cellDeselected
 {
-    self.counterLabel.textColor = _labelColor;
+    self.counterLabel.textColor = [UIColor labelColor];
     self.label.textColor = [UIColor darkGrayColor];
     self.cellBackgroundView.backgroundColor = [UIColor whiteColor];
     self.separator.backgroundColor = [UIColor lightGrayColor];

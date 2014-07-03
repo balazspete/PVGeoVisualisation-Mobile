@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 @interface PVVISQueryViewController : UIViewController
 
@@ -24,5 +25,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *resultsCountLabel;
 @property (weak, nonatomic) IBOutlet UIView *dataSetLoadingView;
+
+@property (weak, nonatomic) IBOutlet GMSMapView *mapView;
+
+@property NSLayoutConstraint *mapViewShown;
+@property NSLayoutConstraint *mapViewHidden;
+
 
 @end

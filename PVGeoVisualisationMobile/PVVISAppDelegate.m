@@ -10,6 +10,8 @@
 #import "PVVISQueryViewController.h"
 #import "PVVISMapViewController.h"
 
+#import <GoogleMaps/GoogleMaps.h>
+
 #import "PVVISDataStore.h"
 
 @implementation PVVISAppDelegate
@@ -20,6 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [GMSServices provideAPIKey:@"AIzaSyC3pGhmUR8l1Lxi-QEu8LS_4zXnCW9Tcfo"];
+    
     self.dataStore = [PVVISDataStore new];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

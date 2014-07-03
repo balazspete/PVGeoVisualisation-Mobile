@@ -7,12 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <MapKit/MapKit.h>
+#import <GoogleMaps/GoogleMaps.h>
 
 #import "PVVISTag.h"
 #import "PVVISLocation.h"
 
-@interface PVVISEvent : NSManagedObject <MKAnnotation>
+@interface PVVISEvent : NSManagedObject
 
 @property (nonatomic, strong) NSString *descriptionText;
 
@@ -29,6 +29,7 @@
 @property (nonatomic, strong) PVVISLocation *location;
 
 @property (readonly) NSArray *details;
+@property (readonly) GMSMarker *marker;
 
 - (id)initWithURI:(NSString*)URI description:(NSString*)description category:(NSString*)category motivation:(NSString*)motivation fatalities:(NSNumber*)fatalities date:(NSNumber*)date locationName:(NSString*)location insertIntoManagedObjectContext:(NSManagedObjectContext *)context;
 
