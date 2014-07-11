@@ -84,9 +84,9 @@
                             </constraints>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="3" minimumInteritemSpacing="10" id="pVh-oe-FsD">
                                 <size key="itemSize" width="50" height="50"/>
-                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="headerReferenceSize" width="50" height="110"/>
                                 <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                <inset key="sectionInset" minX="0.0" minY="50" maxX="0.0" maxY="20"/>
+                                <inset key="sectionInset" minX="0.0" minY="5" maxX="0.0" maxY="20"/>
                             </collectionViewFlowLayout>
                             <cells/>
                         </collectionView>

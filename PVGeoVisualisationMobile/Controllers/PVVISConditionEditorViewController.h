@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "PVVISCondition.h"
+#import "PVVISQueryViewController.h"
 
 @interface PVVISConditionEditorViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UINavigationItem *navigationBar;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *doneButton;
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
 @property (weak, nonatomic) IBOutlet UITextField *valueField;
@@ -22,5 +23,7 @@
 @property (nonatomic, copy) void(^callback)(PVVISCondition* condition);
 
 @property PVVISCondition *condition;
+
+@property PVVISQueryViewController *queryView;
 
 @end

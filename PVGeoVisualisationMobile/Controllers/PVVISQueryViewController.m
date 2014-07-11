@@ -12,6 +12,7 @@
 
 #import "PVVISQueryUITableViewCell.h"
 #import "PVVISQueryUICollectionViewCell.h"
+#import "PVVISQueryUICollectionHeader.h"
 #import "PVVISConditionEditorViewController.h"
 #import "PVVISArea.h"
 #import "PVVISPolygon.h"
@@ -70,6 +71,7 @@ static NSIndexPath *_currentIndexPath;
         self.queryParameters = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"FilterUIConfiguration" ofType:@"plist"]] objectForKey:@"UI"];
         
         self.picker = [[PVVISConditionEditorViewController alloc] initWithNibName:@"PVVISConditionEditorViewController" bundle:nil];
+        self.picker.queryView = self;
     }
     return self;
 }
@@ -144,12 +146,6 @@ static NSIndexPath *_currentIndexPath;
     UINib *cellNib = [UINib nibWithNibName:@"PVVISQueryUICollectionViewCell" bundle:nil];
     [self.collectionView registerNib:cellNib forCellWithReuseIdentifier:@"CollectionViewLabel"];
     _sizingCell = [[cellNib instantiateWithOwner:nil options:nil] objectAtIndex:0];
-    
-    cellNib = [UINib nibWithNibName:@"PVVISQueryUICollectionFooter" bundle:nil];
-    [self.collectionView registerNib:cellNib forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"CollectionView"];
-    
-    cellNib = [UINib nibWithNibName:@"PVVISQueryUICollectionFooter" bundle:nil];
-    [self.collectionView registerNib:cellNib forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"Blank"];
     
     cellNib = [UINib nibWithNibName:@"PVVISQueryUICollectionHeader" bundle:nil];
     [self.collectionView registerNib:cellNib forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"CollectionView"];
@@ -395,6 +391,19 @@ static NSIndexPath *_currentIndexPath;
         NSArray *data = [self.dataStore.query getDataForKey:[self.currentProperty objectForKey:@"id"]];
         return data.count+1;
     }
+}
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *cell;
+    if (kind == UICollectionElementKindSectionHeader)
+    {
+        PVVISQueryUICollectionHeader *header = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"CollectionView" forIndexPath:indexPath];
+        header.textView.text = [self.currentProperty objectForKey:@"instruction"];
+        cell = header;
+    }
+    
+    return cell;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

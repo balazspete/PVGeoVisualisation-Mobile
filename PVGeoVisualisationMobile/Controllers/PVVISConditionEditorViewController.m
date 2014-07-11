@@ -11,7 +11,7 @@
 
 @interface PVVISConditionEditorViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
-- (void)addGestureRecogniser:(UIBarButtonItem*)item;
+- (void)addGestureRecogniser:(UIButton*)item;
 - (void)closeNumberValuePicker:(UITapGestureRecognizer *)sender;
 
 @end
@@ -37,9 +37,13 @@
     
     [self addGestureRecogniser:self.cancelButton];
     [self addGestureRecogniser:self.doneButton];
+    [self addGestureRecogniser:self.nextButton];
     
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
+    
+    self.doneButton.layer.cornerRadius = 10;
+    self.nextButton.layer.cornerRadius = 10;
     
     UINib *cellNib = [UINib nibWithNibName:@"PVVISConditionPickerTableViewCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"cell"];
@@ -56,7 +60,7 @@
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,16 +69,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)addGestureRecogniser:(UIBarButtonItem*)item
+- (void)addGestureRecogniser:(UIButton *)item
 {
     UITapGestureRecognizer *tapGestureRecogniser = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeNumberValuePicker:)];
     tapGestureRecogniser.numberOfTapsRequired = 1;
-    [[item valueForKey:@"view"] addGestureRecognizer:tapGestureRecogniser];
+    [item addGestureRecognizer:tapGestureRecogniser];
 }
 
 - (void)closeNumberValuePicker:(UITapGestureRecognizer *)sender
 {
-    if (self.callback && sender.view == [self.doneButton valueForKey:@"view"]) {
+    if (self.callback && sender.view != self.cancelButton) {
         NSScanner *scanner = [NSScanner scannerWithString:self.valueField.text];
         double number;
         if ([scanner scanDouble:&number])
@@ -95,8 +99,13 @@
         }
     }
     
-    [self dismissViewControllerAnimated:YES completion:nil];
-    self.callback = nil;
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (sender.view == self.nextButton)
+        {
+            self.condition = [PVVISCondition conditionWithProperty:self.condition.property opeartion:0 value:nil];
+            [self.queryView presentViewController:self animated:YES completion:nil];
+        }
+    }];
 }
 
 #pragma mark - table view data source

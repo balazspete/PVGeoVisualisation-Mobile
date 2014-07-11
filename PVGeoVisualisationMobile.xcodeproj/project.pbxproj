@@ -63,6 +63,8 @@
 		E868D27B19638CD6004F042C /* UIColor+PVVISColorSet.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D27A19638CD6004F042C /* UIColor+PVVISColorSet.m */; };
 		E868D27D19642129004F042C /* PVVISDataSetLoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E868D27C19642129004F042C /* PVVISDataSetLoadingView.xib */; };
 		E868D280196433D5004F042C /* PVVISPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D27F196433D5004F042C /* PVVISPolygon.m */; };
+		E868D28519702119004F042C /* PVVISQueryUICollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D28419702119004F042C /* PVVISQueryUICollectionHeader.m */; };
+		E868D28F1970212C004F042C /* PVVISQueryUICollectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E868D28E1970212C004F042C /* PVVISQueryUICollectionHeader.xib */; };
 		E86B16DE1933E98C000DDF18 /* PVVISMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */; };
 		E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */; };
 		E86B16E31933F2B6000DDF18 /* FilterUIConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = E86B16E21933F2B6000DDF18 /* FilterUIConfiguration.plist */; };
@@ -208,6 +210,9 @@
 		E868D27C19642129004F042C /* PVVISDataSetLoadingView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISDataSetLoadingView.xib; path = Interfaces/PVVISDataSetLoadingView.xib; sourceTree = "<group>"; };
 		E868D27E196433D5004F042C /* PVVISPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISPolygon.h; path = Models/PVVISPolygon.h; sourceTree = "<group>"; };
 		E868D27F196433D5004F042C /* PVVISPolygon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISPolygon.m; path = Models/PVVISPolygon.m; sourceTree = "<group>"; };
+		E868D28319702119004F042C /* PVVISQueryUICollectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISQueryUICollectionHeader.h; path = Interfaces/PVVISQueryUICollectionHeader.h; sourceTree = "<group>"; };
+		E868D28419702119004F042C /* PVVISQueryUICollectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISQueryUICollectionHeader.m; path = Interfaces/PVVISQueryUICollectionHeader.m; sourceTree = "<group>"; };
+		E868D28E1970212C004F042C /* PVVISQueryUICollectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISQueryUICollectionHeader.xib; path = Interfaces/PVVISQueryUICollectionHeader.xib; sourceTree = "<group>"; };
 		E86B16DB1933E98C000DDF18 /* PVVISMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISMapViewController.h; path = Controllers/PVVISMapViewController.h; sourceTree = "<group>"; };
 		E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISMapViewController.m; path = Controllers/PVVISMapViewController.m; sourceTree = "<group>"; };
 		E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISMapViewController.xib; path = Controllers/PVVISMapViewController.xib; sourceTree = "<group>"; };
@@ -310,6 +315,8 @@
 				E8457C2819412BB700A8D57A /* PVVISQueryUICollectionViewCell.m */,
 				E8111313195F0BB000735422 /* PVVISConditionPickerTableViewCell.h */,
 				E8111314195F0BB000735422 /* PVVISConditionPickerTableViewCell.m */,
+				E868D28319702119004F042C /* PVVISQueryUICollectionHeader.h */,
+				E868D28419702119004F042C /* PVVISQueryUICollectionHeader.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -341,6 +348,7 @@
 				E8457C371943E94D00A8D57A /* PVVISConditionEditorViewController.xib */,
 				E8111315195F0BB000735422 /* PVVISConditionPickerTableViewCell.xib */,
 				E868D27C19642129004F042C /* PVVISDataSetLoadingView.xib */,
+				E868D28E1970212C004F042C /* PVVISQueryUICollectionHeader.xib */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -669,6 +677,7 @@
 				E8111308195CBB1E00735422 /* close.png in Resources */,
 				E8457C3F1944A3DD00A8D57A /* map@2x.png in Resources */,
 				E8111305195CAD0E00735422 /* undo@2x.png in Resources */,
+				E868D28F1970212C004F042C /* PVVISQueryUICollectionHeader.xib in Resources */,
 				E811130F195CDC0500735422 /* closeWhite@2x.png in Resources */,
 				E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */,
 				E8457C391943E94D00A8D57A /* PVVISConditionEditorViewController.xib in Resources */,
@@ -759,6 +768,7 @@
 				E868D280196433D5004F042C /* PVVISPolygon.m in Sources */,
 				E8111312195DCEE800735422 /* PVVISCondition.m in Sources */,
 				E8CAF0D9192F92A400884C20 /* PVGeoVisualisationMobile.xcdatamodeld in Sources */,
+				E868D28519702119004F042C /* PVVISQueryUICollectionHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
