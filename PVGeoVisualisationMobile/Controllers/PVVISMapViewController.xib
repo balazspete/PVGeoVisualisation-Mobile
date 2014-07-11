@@ -24,6 +24,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L56-CZ-T7r" customClass="GMSMapView">
                     <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <label hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading data..." textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3t-YQ-W1E">
                     <rect key="frame" x="632" y="983" width="116" height="21"/>
@@ -48,22 +49,22 @@
                     <rect key="frame" x="68" y="28" width="680" height="40"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALx-dM-SMu">
-                            <rect key="frame" x="20" y="11" width="29" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ALx-dM-SMu">
+                            <rect key="frame" x="20" y="11" width="10" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                             <color key="textColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" misplaced="YES" text="events shown on the map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JV-UI-7G5">
-                            <rect key="frame" x="57" y="11" width="408" height="21"/>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="events shown on the map" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8JV-UI-7G5">
+                            <rect key="frame" x="38" y="11" width="427" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ia2-Br-NaI">
-                            <rect key="frame" x="485" y="5" width="1" height="30"/>
+                            <rect key="frame" x="460" y="5" width="1" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -72,12 +73,12 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JcZ-wJ-7FN">
-                            <rect key="frame" x="494" y="5" width="85" height="30"/>
+                            <rect key="frame" x="480" y="5" width="85" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="85" id="EQO-xb-b36"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="15"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
                             <state key="normal" title="Zoom out">
                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -99,17 +100,17 @@
                         <constraint firstAttribute="bottom" secondItem="Ia2-Br-NaI" secondAttribute="bottom" constant="5" id="3TQ-E7-Hdk"/>
                         <constraint firstItem="JcZ-wJ-7FN" firstAttribute="top" secondItem="FWu-3v-7UI" secondAttribute="top" constant="5" id="BYu-dg-7mc"/>
                         <constraint firstItem="aHS-w5-0d9" firstAttribute="top" secondItem="FWu-3v-7UI" secondAttribute="top" constant="1" id="Hb4-i2-oKA"/>
-                        <constraint firstItem="JcZ-wJ-7FN" firstAttribute="leading" secondItem="Ia2-Br-NaI" secondAttribute="trailing" constant="8" id="I2N-0r-ihf"/>
+                        <constraint firstItem="JcZ-wJ-7FN" firstAttribute="leading" secondItem="Ia2-Br-NaI" secondAttribute="trailing" constant="19" id="I2N-0r-ihf"/>
                         <constraint firstItem="ALx-dM-SMu" firstAttribute="top" secondItem="FWu-3v-7UI" secondAttribute="top" constant="11" id="JTN-ky-2hc"/>
                         <constraint firstAttribute="bottom" secondItem="ALx-dM-SMu" secondAttribute="bottom" constant="8" id="MPx-f3-Z9B"/>
                         <constraint firstAttribute="bottom" secondItem="aHS-w5-0d9" secondAttribute="bottom" constant="2" id="Npo-hb-Ifh"/>
                         <constraint firstAttribute="bottom" secondItem="8JV-UI-7G5" secondAttribute="bottom" constant="8" id="YiA-7F-I16"/>
                         <constraint firstItem="ALx-dM-SMu" firstAttribute="leading" secondItem="FWu-3v-7UI" secondAttribute="leading" constant="20" id="Z0D-DM-895"/>
-                        <constraint firstItem="aHS-w5-0d9" firstAttribute="leading" secondItem="JcZ-wJ-7FN" secondAttribute="trailing" constant="15" id="ax0-Oe-eCG"/>
+                        <constraint firstItem="aHS-w5-0d9" firstAttribute="leading" secondItem="JcZ-wJ-7FN" secondAttribute="trailing" constant="29" id="ax0-Oe-eCG"/>
                         <constraint firstItem="8JV-UI-7G5" firstAttribute="leading" secondItem="ALx-dM-SMu" secondAttribute="trailing" constant="8" id="fPy-sD-zdd"/>
                         <constraint firstAttribute="height" constant="40" id="fh1-w7-fbd"/>
                         <constraint firstAttribute="trailing" secondItem="aHS-w5-0d9" secondAttribute="trailing" constant="20" id="lfd-Uq-Tyj"/>
-                        <constraint firstItem="Ia2-Br-NaI" firstAttribute="leading" secondItem="8JV-UI-7G5" secondAttribute="trailing" constant="20" id="ljC-kK-ZOd"/>
+                        <constraint firstItem="Ia2-Br-NaI" firstAttribute="leading" secondItem="8JV-UI-7G5" secondAttribute="trailing" constant="-5" id="ljC-kK-ZOd"/>
                         <constraint firstItem="Ia2-Br-NaI" firstAttribute="top" secondItem="FWu-3v-7UI" secondAttribute="top" constant="5" id="wZ8-cf-t9W"/>
                         <constraint firstItem="8JV-UI-7G5" firstAttribute="top" secondItem="FWu-3v-7UI" secondAttribute="top" constant="11" id="x74-o2-Hlg"/>
                     </constraints>
