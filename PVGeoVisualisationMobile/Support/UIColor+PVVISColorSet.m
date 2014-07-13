@@ -15,6 +15,11 @@
     return [UIColor colorWithRed:0.1f green:0.8f blue:0.44f alpha:1.0f];
 }
 
++ (UIColor *)locationColor
+{
+    return [UIColor colorWithRed:0.203125f green:0.59375f blue:0.85546875f alpha:1.0f];
+}
+
 + (UIColor *)selectedAreaColor
 {
     //249, 105, 14

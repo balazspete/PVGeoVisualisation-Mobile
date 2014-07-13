@@ -10,6 +10,7 @@
 #import "PVVISTag.h"
 #import <Redland-ObjC.h>
 #import "PVVISMarker.h"
+#import "UIColor+PVVISColorSet.h"
 
 @interface PVVISEvent () <MKAnnotation>
 
@@ -98,7 +99,7 @@
     PVVISMarker *marker = [PVVISMarker markerWithPosition:self.location.coordinate];
     marker.title = [NSString stringWithFormat:@"%@", self.date];
     marker.event = self;
- 
+    
     return marker;
 }
 

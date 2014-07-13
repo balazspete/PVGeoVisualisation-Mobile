@@ -12,18 +12,26 @@
 #import "PVVISSparqlOverHTTP.h"
 #import "PVVISDataStore.h"
 #import "PVVISQueryViewController.h"
+#import "PVVISMarker.h"
 
 #import <Redland-ObjC.h>
 
 #import "UIImage+StackBlur.h"
 #import "UIColor+PVVISColorSet.h"
 
-@interface PVVISMapViewController ()
+#import "GCGeocodingService.h"
+
+@interface PVVISMapViewController () <UIAlertViewDelegate>
 
 @property NSMutableArray *results;
 @property PVVISDataStore *dataStore;
+@property UITextField *locationInputField;
+
+@property PVVISMarker *locationMarker;
+@property GCGeocodingService *geocode;
 
 - (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector;
+- (void)searchForLocation:(UITapGestureRecognizer *)sender;
 
 @end
 
@@ -41,9 +49,18 @@
         // Custom initialization
         self.results = [NSMutableArray new];
         self.dataStore = ((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]).dataStore;
+        self.geocode = [[GCGeocodingService alloc] init];
         
         self.dataStore.actionCallback = ^(NSString* action, id data)
         {
+            if ([action isEqualToString:@"openQueryUI"])
+            {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+                [self openQueryUI:nil];
+                return;
+            }
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([action isEqualToString:@"done"]) {
 #pragma clang diagnostic push
@@ -81,9 +98,13 @@
     
     self.toolbar.opaque = YES;
     
+    self.locationSearchBar.hidden = YES;
+    
     [self addGestureRecogniser:self.filterButton selector:@selector(openQueryUI:)];
     [self addGestureRecogniser:self.magnifyingGlassButton selector:@selector(openQueryUI:)];
     [self addGestureRecogniser:self.zoomButton selector:@selector(zoomToggle:)];
+    [self addGestureRecogniser:self.locationSearchButton selector:@selector(searchForLocation:)];
+    [self addGestureRecogniser:self.locationSearchBarCloseButton selector:@selector(dismissLocationSearch:)];
 }
 
 - (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector
@@ -139,11 +160,51 @@
 static bool inMode = YES;
 - (void)zoomToggle:(UITapGestureRecognizer *)sender
 {
-    NSString *title = inMode ? @"Zoom out" : @"Zoom in";
+    UIImage *image = [UIImage imageNamed:(inMode ? @"zoom-out.png" : @"zoom-in.png")];
     inMode = !inMode;
-    [self.zoomButton setTitle:title forState:UIControlStateNormal];
+    [self.zoomButton setImage:image forState:UIControlStateNormal];
     
     [self.dataStore zoomOutMap:self.mapView];
+}
+
+#pragma mark - location search
+
+- (void)searchForLocation:(UITapGestureRecognizer *)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location search" message:@"Enter the address or the name of the place you are looking for" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    self.locationInputField = [alertView textFieldAtIndex:0];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        NSString *address = self.locationInputField.text;
+        if (address.length > 0)
+        {
+            [self.geocode geocodeAddress:address withCallback:@selector(presentLocationSearch) withDelegate:self];
+        }
+    }
+}
+
+- (void)presentLocationSearch
+{
+    [self.geocode.geocode objectForKey:@"lat"];
+    self.locationMarker = [PVVISMarker markerWithPosition:CLLocationCoordinate2DMake([[self.geocode.geocode objectForKey:@"lat"] doubleValue], [[self.geocode.geocode objectForKey:@"lng"] doubleValue])];
+    self.locationMarker.icon = [PVVISMarker markerImageWithColor:[UIColor locationColor]];
+    self.locationMarker.isLocationMarker = YES;
+    self.locationMarker.appearAnimation = kGMSMarkerAnimationPop;
+    self.locationMarker.map = self.mapView;
+    self.locationNameDisplayField.text = self.locationInputField.text;
+    self.locationSearchBar.hidden = NO;
+}
+
+- (void)dismissLocationSearch:(UITapGestureRecognizer *)sender
+{
+    self.locationSearchBar.hidden = YES;
+    self.locationMarker.map = nil;
 }
 
 @end

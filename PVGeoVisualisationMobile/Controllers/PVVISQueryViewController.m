@@ -170,6 +170,12 @@ static NSIndexPath *_currentIndexPath;
         self.initial = NO;
         [self presentMap:YES];
     }
+    else
+    {
+        [self runQuickQuery];
+        [self.tableView reloadData];
+        [self.collectionView reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning

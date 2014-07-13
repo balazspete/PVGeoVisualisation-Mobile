@@ -310,6 +310,11 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
 
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
+    if (((PVVISMarker *)marker).isLocationMarker)
+    {
+        return NO;
+    }
+    
     [self showCallout:((PVVISMarker *)marker) onMapView:mapView];
     return YES;
 }
@@ -332,11 +337,13 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     
     popoverView.actionCallback = ^(NSString* action, id data) {
         [self.popover dismissPopoverAnimated:YES];
-        
-        if (self.actionCallback)
+        if ([action isEqualToString:@"show similar events"])
         {
-            self.actionCallback(action, data);
+            self.query = [PVVISQuery querySimilarToEvent:marker.event];
+            self.actionCallback(@"openQueryUI", nil);
         }
+        
+//        , @"find nearby events"
     };
 }
 

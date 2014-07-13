@@ -65,6 +65,22 @@
 		E868D280196433D5004F042C /* PVVISPolygon.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D27F196433D5004F042C /* PVVISPolygon.m */; };
 		E868D28519702119004F042C /* PVVISQueryUICollectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D28419702119004F042C /* PVVISQueryUICollectionHeader.m */; };
 		E868D28F1970212C004F042C /* PVVISQueryUICollectionHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E868D28E1970212C004F042C /* PVVISQueryUICollectionHeader.xib */; };
+		E868D29119703CF4004F042C /* PVVISMarker.xib in Resources */ = {isa = PBXBuildFile; fileRef = E868D29019703CF4004F042C /* PVVISMarker.xib */; };
+		E868D2941970403A004F042C /* marker-bottom.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2921970403A004F042C /* marker-bottom.png */; };
+		E868D2951970403A004F042C /* marker-bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2931970403A004F042C /* marker-bottom@2x.png */; };
+		E868D29919709E92004F042C /* edit-map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D29719709E92004F042C /* edit-map@2x.png */; };
+		E868D29B1970A100004F042C /* edit-map.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D29A1970A100004F042C /* edit-map.png */; };
+		E868D29E1970AD3C004F042C /* PVVISTutorialView.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D29D1970AD3C004F042C /* PVVISTutorialView.m */; };
+		E868D2A01970AD50004F042C /* PVVISTutorialView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E868D29F1970AD50004F042C /* PVVISTutorialView.xib */; };
+		E868D2A21970AF62004F042C /* corner-top-left.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2A11970AF62004F042C /* corner-top-left.png */; };
+		E868D2A41970AFA7004F042C /* corner-top-right.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2A31970AFA7004F042C /* corner-top-right.png */; };
+		E868D2A71970B02B004F042C /* corner-bottom-left.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2A51970B02B004F042C /* corner-bottom-left.png */; };
+		E868D2A81970B02B004F042C /* corner-bottom-right.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2A61970B02B004F042C /* corner-bottom-right.png */; };
+		E868D2AD1971A92E004F042C /* zoom-in.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2A91971A92E004F042C /* zoom-in.png */; };
+		E868D2AE1971A92E004F042C /* zoom-in@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2AA1971A92E004F042C /* zoom-in@2x.png */; };
+		E868D2AF1971A92E004F042C /* zoom-out.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2AB1971A92E004F042C /* zoom-out.png */; };
+		E868D2B01971A92E004F042C /* zoom-out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2AC1971A92E004F042C /* zoom-out@2x.png */; };
+		E868D2B31971AAF8004F042C /* GCGeocodingService.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D2B21971AAF8004F042C /* GCGeocodingService.m */; };
 		E86B16DE1933E98C000DDF18 /* PVVISMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */; };
 		E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */; };
 		E86B16E31933F2B6000DDF18 /* FilterUIConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = E86B16E21933F2B6000DDF18 /* FilterUIConfiguration.plist */; };
@@ -213,6 +229,24 @@
 		E868D28319702119004F042C /* PVVISQueryUICollectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISQueryUICollectionHeader.h; path = Interfaces/PVVISQueryUICollectionHeader.h; sourceTree = "<group>"; };
 		E868D28419702119004F042C /* PVVISQueryUICollectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISQueryUICollectionHeader.m; path = Interfaces/PVVISQueryUICollectionHeader.m; sourceTree = "<group>"; };
 		E868D28E1970212C004F042C /* PVVISQueryUICollectionHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISQueryUICollectionHeader.xib; path = Interfaces/PVVISQueryUICollectionHeader.xib; sourceTree = "<group>"; };
+		E868D29019703CF4004F042C /* PVVISMarker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISMarker.xib; path = Interfaces/PVVISMarker.xib; sourceTree = "<group>"; };
+		E868D2921970403A004F042C /* marker-bottom.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "marker-bottom.png"; path = "Assets/marker-bottom.png"; sourceTree = "<group>"; };
+		E868D2931970403A004F042C /* marker-bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "marker-bottom@2x.png"; path = "Assets/marker-bottom@2x.png"; sourceTree = "<group>"; };
+		E868D29719709E92004F042C /* edit-map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "edit-map@2x.png"; path = "Assets/edit-map@2x.png"; sourceTree = "<group>"; };
+		E868D29A1970A100004F042C /* edit-map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "edit-map.png"; path = "Assets/edit-map.png"; sourceTree = "<group>"; };
+		E868D29C1970AD3C004F042C /* PVVISTutorialView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISTutorialView.h; path = Interfaces/PVVISTutorialView.h; sourceTree = "<group>"; };
+		E868D29D1970AD3C004F042C /* PVVISTutorialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISTutorialView.m; path = Interfaces/PVVISTutorialView.m; sourceTree = "<group>"; };
+		E868D29F1970AD50004F042C /* PVVISTutorialView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISTutorialView.xib; path = Interfaces/PVVISTutorialView.xib; sourceTree = "<group>"; };
+		E868D2A11970AF62004F042C /* corner-top-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner-top-left.png"; path = "Assets/corner-top-left.png"; sourceTree = "<group>"; };
+		E868D2A31970AFA7004F042C /* corner-top-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner-top-right.png"; path = "Assets/corner-top-right.png"; sourceTree = "<group>"; };
+		E868D2A51970B02B004F042C /* corner-bottom-left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner-bottom-left.png"; path = "Assets/corner-bottom-left.png"; sourceTree = "<group>"; };
+		E868D2A61970B02B004F042C /* corner-bottom-right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner-bottom-right.png"; path = "Assets/corner-bottom-right.png"; sourceTree = "<group>"; };
+		E868D2A91971A92E004F042C /* zoom-in.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zoom-in.png"; path = "Assets/zoom-in.png"; sourceTree = "<group>"; };
+		E868D2AA1971A92E004F042C /* zoom-in@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zoom-in@2x.png"; path = "Assets/zoom-in@2x.png"; sourceTree = "<group>"; };
+		E868D2AB1971A92E004F042C /* zoom-out.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zoom-out.png"; path = "Assets/zoom-out.png"; sourceTree = "<group>"; };
+		E868D2AC1971A92E004F042C /* zoom-out@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zoom-out@2x.png"; path = "Assets/zoom-out@2x.png"; sourceTree = "<group>"; };
+		E868D2B11971AAF8004F042C /* GCGeocodingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCGeocodingService.h; path = Support/GCGeocodingService.h; sourceTree = "<group>"; };
+		E868D2B21971AAF8004F042C /* GCGeocodingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCGeocodingService.m; path = Support/GCGeocodingService.m; sourceTree = "<group>"; };
 		E86B16DB1933E98C000DDF18 /* PVVISMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISMapViewController.h; path = Controllers/PVVISMapViewController.h; sourceTree = "<group>"; };
 		E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISMapViewController.m; path = Controllers/PVVISMapViewController.m; sourceTree = "<group>"; };
 		E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISMapViewController.xib; path = Controllers/PVVISMapViewController.xib; sourceTree = "<group>"; };
@@ -317,6 +351,8 @@
 				E8111314195F0BB000735422 /* PVVISConditionPickerTableViewCell.m */,
 				E868D28319702119004F042C /* PVVISQueryUICollectionHeader.h */,
 				E868D28419702119004F042C /* PVVISQueryUICollectionHeader.m */,
+				E868D29C1970AD3C004F042C /* PVVISTutorialView.h */,
+				E868D29D1970AD3C004F042C /* PVVISTutorialView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -349,6 +385,8 @@
 				E8111315195F0BB000735422 /* PVVISConditionPickerTableViewCell.xib */,
 				E868D27C19642129004F042C /* PVVISDataSetLoadingView.xib */,
 				E868D28E1970212C004F042C /* PVVISQueryUICollectionHeader.xib */,
+				E868D29019703CF4004F042C /* PVVISMarker.xib */,
+				E868D29F1970AD50004F042C /* PVVISTutorialView.xib */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -356,6 +394,18 @@
 		E8457C401944A3E300A8D57A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				E868D2A91971A92E004F042C /* zoom-in.png */,
+				E868D2AA1971A92E004F042C /* zoom-in@2x.png */,
+				E868D2AB1971A92E004F042C /* zoom-out.png */,
+				E868D2AC1971A92E004F042C /* zoom-out@2x.png */,
+				E868D2A51970B02B004F042C /* corner-bottom-left.png */,
+				E868D2A61970B02B004F042C /* corner-bottom-right.png */,
+				E868D2A31970AFA7004F042C /* corner-top-right.png */,
+				E868D2A11970AF62004F042C /* corner-top-left.png */,
+				E868D29A1970A100004F042C /* edit-map.png */,
+				E868D29719709E92004F042C /* edit-map@2x.png */,
+				E868D2921970403A004F042C /* marker-bottom.png */,
+				E868D2931970403A004F042C /* marker-bottom@2x.png */,
 				E811131D1960546600735422 /* search.png */,
 				E811131E1960546600735422 /* search@2x.png */,
 				E811130C195CDC0500735422 /* closeWhite.png */,
@@ -425,6 +475,8 @@
 				E81112E2194CCFC200735422 /* UIImage+StackBlur.m */,
 				E868D27919638CD6004F042C /* UIColor+PVVISColorSet.h */,
 				E868D27A19638CD6004F042C /* UIColor+PVVISColorSet.m */,
+				E868D2B11971AAF8004F042C /* GCGeocodingService.h */,
+				E868D2B21971AAF8004F042C /* GCGeocodingService.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -662,31 +714,45 @@
 				E811131F1960546600735422 /* search.png in Resources */,
 				E81112F8195C723A00735422 /* back.png in Resources */,
 				E81112D4194BDEA700735422 /* PVVISQueryViewController.xib in Resources */,
+				E868D2A41970AFA7004F042C /* corner-top-right.png in Resources */,
+				E868D29B1970A100004F042C /* edit-map.png in Resources */,
 				E8111302195CAD0E00735422 /* redo.png in Resources */,
 				E868D27D19642129004F042C /* PVVISDataSetLoadingView.xib in Resources */,
 				E81112FD195C921400735422 /* reload@2x.png in Resources */,
 				E8111304195CAD0E00735422 /* undo.png in Resources */,
 				E81112F9195C723A00735422 /* back@2x.png in Resources */,
 				E8111309195CBB1E00735422 /* close@2x.png in Resources */,
+				E868D2A71970B02B004F042C /* corner-bottom-left.png in Resources */,
+				E868D2A81970B02B004F042C /* corner-bottom-right.png in Resources */,
 				E811131C195F0F6E00735422 /* PVVISEventPopoverTableViewCell.xib in Resources */,
 				E868D27219635D2D004F042C /* GoogleMaps.bundle in Resources */,
 				E8457C101940C77800A8D57A /* PVVISQueryUITableViewCell.xib in Resources */,
+				E868D2A01970AD50004F042C /* PVVISTutorialView.xib in Resources */,
 				E8CAF0D0192F92A400884C20 /* InfoPlist.strings in Resources */,
 				E81112FC195C921400735422 /* reload.png in Resources */,
+				E868D2951970403A004F042C /* marker-bottom@2x.png in Resources */,
+				E868D2AF1971A92E004F042C /* zoom-out.png in Resources */,
 				E86B16E31933F2B6000DDF18 /* FilterUIConfiguration.plist in Resources */,
 				E8111308195CBB1E00735422 /* close.png in Resources */,
+				E868D2AD1971A92E004F042C /* zoom-in.png in Resources */,
 				E8457C3F1944A3DD00A8D57A /* map@2x.png in Resources */,
 				E8111305195CAD0E00735422 /* undo@2x.png in Resources */,
 				E868D28F1970212C004F042C /* PVVISQueryUICollectionHeader.xib in Resources */,
 				E811130F195CDC0500735422 /* closeWhite@2x.png in Resources */,
+				E868D2AE1971A92E004F042C /* zoom-in@2x.png in Resources */,
 				E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */,
 				E8457C391943E94D00A8D57A /* PVVISConditionEditorViewController.xib in Resources */,
 				E82ADDDE193D139000A7011A /* PVVISEventPopoverView.xib in Resources */,
 				E8111303195CAD0E00735422 /* redo@2x.png in Resources */,
 				E8457C3E1944A3DD00A8D57A /* map.png in Resources */,
+				E868D29119703CF4004F042C /* PVVISMarker.xib in Resources */,
+				E868D29919709E92004F042C /* edit-map@2x.png in Resources */,
 				E8CAF0DB192F92A400884C20 /* Images.xcassets in Resources */,
+				E868D2941970403A004F042C /* marker-bottom.png in Resources */,
 				E81113201960546600735422 /* search@2x.png in Resources */,
 				E86B174B1937FC96000DDF18 /* config.plist in Resources */,
+				E868D2B01971A92E004F042C /* zoom-out@2x.png in Resources */,
+				E868D2A21970AF62004F042C /* corner-top-left.png in Resources */,
 				E8111317195F0BB000735422 /* PVVISConditionPickerTableViewCell.xib in Resources */,
 				E811130E195CDC0500735422 /* closeWhite.png in Resources */,
 			);
@@ -747,6 +813,7 @@
 				E82ADDF4193FE0C100A7011A /* PVVISQueryViewController.m in Sources */,
 				E811131A195F0F6200735422 /* PVVISLocation.m in Sources */,
 				E86B17541938ABFC000DDF18 /* NSString+URLEncoding.m in Sources */,
+				E868D2B31971AAF8004F042C /* GCGeocodingService.m in Sources */,
 				E86B1749193543ED000DDF18 /* PVVISSparqlOverHTTPResponseSerializer.m in Sources */,
 				E8457C431944D53400A8D57A /* PVVISArea.m in Sources */,
 				E86B1751193807D5000DDF18 /* PVVISDataStore.m in Sources */,
@@ -763,6 +830,7 @@
 				E86B1759193BD554000DDF18 /* PVVISEvent.m in Sources */,
 				E8CAF0D6192F92A400884C20 /* PVVISAppDelegate.m in Sources */,
 				E82ADDF0193F890900A7011A /* PVVISQuery.m in Sources */,
+				E868D29E1970AD3C004F042C /* PVVISTutorialView.m in Sources */,
 				E81112E3194CCFC200735422 /* UIImage+StackBlur.m in Sources */,
 				E86B174E1937FD87000DDF18 /* PVVISConfig.m in Sources */,
 				E868D280196433D5004F042C /* PVVISPolygon.m in Sources */,

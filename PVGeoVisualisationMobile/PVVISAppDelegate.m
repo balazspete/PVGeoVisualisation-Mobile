@@ -22,7 +22,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [GMSServices provideAPIKey:@"AIzaSyC3pGhmUR8l1Lxi-QEu8LS_4zXnCW9Tcfo"];
+    self.googleAPIKey = @"AIzaSyC3pGhmUR8l1Lxi-QEu8LS_4zXnCW9Tcfo";
+    [GMSServices provideAPIKey:self.googleAPIKey];
     
     self.dataStore = [PVVISDataStore new];
     

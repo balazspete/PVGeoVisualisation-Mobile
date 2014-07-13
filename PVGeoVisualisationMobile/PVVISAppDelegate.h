@@ -20,6 +20,8 @@ static NSString *storagePath;
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
+@property NSString *googleAPIKey;
+
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 

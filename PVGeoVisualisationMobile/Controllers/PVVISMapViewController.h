@@ -21,6 +21,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *loadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *resultsCounter;
 
+@property (weak, nonatomic) IBOutlet UIButton *locationSearchButton;
+
+@property (weak, nonatomic) IBOutlet UIView *locationSearchBar;
+@property (weak, nonatomic) IBOutlet UIButton *locationSearchBarCloseButton;
+@property (weak, nonatomic) IBOutlet UILabel *locationNameDisplayField;
+
 @property UIImageView *mapImage;
 @property BOOL runQuery;
 

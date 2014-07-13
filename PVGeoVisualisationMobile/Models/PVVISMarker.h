@@ -13,4 +13,9 @@
 
 @property PVVISEvent *event;
 
++ (UIImage *)eventMarkerImage;
++ (UIImage *)locationMarkerImage;
+
+@property BOOL isLocationMarker;
+
 @end

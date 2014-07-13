@@ -11,6 +11,7 @@
 @interface UIColor (PVVISColorSet)
 
 + (UIColor *)labelColor;
++ (UIColor *)locationColor;
 
 + (UIColor *)selectedAreaColor;
 + (UIColor *)unselectedAreaColor;

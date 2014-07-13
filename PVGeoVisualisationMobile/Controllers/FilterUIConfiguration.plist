@@ -6,7 +6,7 @@
 	<array>
 		<dict>
 			<key>instruction</key>
-			<string>Select one or more options. Clear the selection to disable filtering by category.</string>
+			<string>Select one or more options. Clear the selection to not filter by category.</string>
 			<key>options</key>
 			<array>
 				<dict>
@@ -95,7 +95,7 @@
 		</dict>
 		<dict>
 			<key>instruction</key>
-			<string>Select one or more options. Clear the selection to disable filtering by motivation.</string>
+			<string>Select one or more options. Clear the selection to not filter by motivation.</string>
 			<key>options</key>
 			<array>
 				<dict>
@@ -29415,7 +29415,7 @@
 			<key>id</key>
 			<string>fatalities</string>
 			<key>instruction</key>
-			<string>Tap the + button to add a condition, to edit or delete tap the select condition.</string>
+			<string>Tap the + button to add a condition. Tap an entry to edit or delete it.</string>
 			<key>type</key>
 			<string>selector</string>
 			<key>hint</key>
@@ -29433,7 +29433,7 @@
 			<key>hint</key>
 			<string>specified</string>
 			<key>instruction</key>
-			<string>Tap the + button to add a condition, to edit or delete tap the select condition.</string>
+			<string>Tap the + button to add a condition. Tap an entry to edit or delete it.</string>
 		</dict>
 	</array>
 </dict>
