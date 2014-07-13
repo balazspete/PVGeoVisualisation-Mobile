@@ -13,6 +13,13 @@
 #import <GoogleMaps/GoogleMaps.h>
 
 #import "PVVISDataStore.h"
+#import "PVVISTutorial.h"
+
+@interface PVVISAppDelegate ()
+
+@property NSMutableDictionary *tutorials;
+
+@end
 
 @implementation PVVISAppDelegate
 
@@ -158,6 +165,45 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+#pragma mark - tutorials
+
+- (void)resetTutorials
+{
+    self.tutorials = [NSMutableDictionary dictionaryWithDictionary:@{
+        @"query": @YES,
+        @"location-query": @YES,
+        @"query-condition-picker": @YES,
+        @"condition-picker": @YES,
+        @"mapview": @YES,
+        @"location-search": @YES
+    }];
+}
+
+- (void)presentedTutorialNamed:(NSString *)name
+{
+    [self.tutorials setValue:NO forKey:name];
+}
+
+- (BOOL)shouldPresentTutorialNamed:(NSString *)name
+{
+    return [self.tutorials objectForKey:name];
+}
+
++ (void)startTutorialNamed:(NSString *)name forView:(UIView *)view completed:(void (^)(NSString *name))callback
+{
+    PVVISAppDelegate *del = (PVVISAppDelegate*)[[UIApplication sharedApplication] delegate];
+    if ([del shouldPresentTutorialNamed:name])
+    {
+        [del presentedTutorialNamed:name];
+        PVVISTutorial *tutorial = [[PVVISTutorial alloc] initWithName:name inSuperView:view];
+        [tutorial begin:callback];
+    }
+    else
+    {
+        callback(name);
+    }
 }
 
 @end

@@ -25,4 +25,10 @@ static NSString *storagePath;
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+- (void)resetTutorials;
+- (void)presentedTutorialNamed:(NSString *)name;
+- (BOOL)shouldPresentTutorialNamed:(NSString *)name;
+
++ (void)startTutorialNamed:(NSString *)name forView:(UIView *)view completed:(void (^)(NSString *name))callback;
+
 @end

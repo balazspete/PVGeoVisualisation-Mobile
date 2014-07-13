@@ -27,7 +27,7 @@
     if (self)
     {
         self.event = event;
-        self.actions = @[@"show similar events", @"find nearby events"];
+        self.actions = @[@"show similar events"/*, @"find nearby events"*/];
         
         NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:@"PVVISEventPopoverView"
                                                           owner:self

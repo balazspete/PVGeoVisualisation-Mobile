@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *resetButton;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *reloadButton;
+@property (weak, nonatomic) IBOutlet UIButton *tutorialButton;
 
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImageView;
 @property (weak, nonatomic) IBOutlet UIView *loadingView;

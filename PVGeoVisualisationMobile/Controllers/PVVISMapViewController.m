@@ -27,7 +27,7 @@
 @property PVVISDataStore *dataStore;
 @property UITextField *locationInputField;
 
-@property PVVISMarker *locationMarker;
+@property NSMutableArray *locationMarkers;
 @property GCGeocodingService *geocode;
 
 - (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector;
@@ -50,6 +50,8 @@
         self.results = [NSMutableArray new];
         self.dataStore = ((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]).dataStore;
         self.geocode = [[GCGeocodingService alloc] init];
+        
+        self.locationMarkers = [NSMutableArray new];
         
         self.dataStore.actionCallback = ^(NSString* action, id data)
         {
@@ -127,6 +129,10 @@
     {
         [self.dataStore reloadMap:self.mapView];
     }
+    
+    [PVVISAppDelegate startTutorialNamed:@"mapview" forView:self.view completed:^(NSString *name) {
+        NSLog(@"Completed tutorial %@", name);
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -192,19 +198,29 @@ static bool inMode = YES;
 - (void)presentLocationSearch
 {
     [self.geocode.geocode objectForKey:@"lat"];
-    self.locationMarker = [PVVISMarker markerWithPosition:CLLocationCoordinate2DMake([[self.geocode.geocode objectForKey:@"lat"] doubleValue], [[self.geocode.geocode objectForKey:@"lng"] doubleValue])];
-    self.locationMarker.icon = [PVVISMarker markerImageWithColor:[UIColor locationColor]];
-    self.locationMarker.isLocationMarker = YES;
-    self.locationMarker.appearAnimation = kGMSMarkerAnimationPop;
-    self.locationMarker.map = self.mapView;
-    self.locationNameDisplayField.text = self.locationInputField.text;
+    PVVISMarker *marker = [PVVISMarker markerWithPosition:CLLocationCoordinate2DMake([[self.geocode.geocode objectForKey:@"lat"] doubleValue], [[self.geocode.geocode objectForKey:@"lng"] doubleValue])];
+    marker.icon = [PVVISMarker markerImageWithColor:[UIColor locationColor]];
+    marker.isLocationMarker = YES;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.map = self.mapView;
+    self.locationNameDisplayField.text = [NSString stringWithFormat:@"%@%@", self.locationInputField.text, (self.locationMarkers.count > 0 ? @", and others..." : @"")];
     self.locationSearchBar.hidden = NO;
+    
+    [self.locationMarkers addObject:marker];
+    
+    [PVVISAppDelegate startTutorialNamed:@"location-search" forView:self.view completed:^(NSString *name) {
+        NSLog(@"Completed tutorial %@", name);
+    }];
 }
 
 - (void)dismissLocationSearch:(UITapGestureRecognizer *)sender
 {
     self.locationSearchBar.hidden = YES;
-    self.locationMarker.map = nil;
+    self.locationNameDisplayField.text = @"";
+    for (PVVISMarker *marker in self.locationMarkers)
+    {
+        marker.map = nil;
+    }
 }
 
 @end

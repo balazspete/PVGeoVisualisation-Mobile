@@ -81,6 +81,11 @@
 		E868D2AF1971A92E004F042C /* zoom-out.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2AB1971A92E004F042C /* zoom-out.png */; };
 		E868D2B01971A92E004F042C /* zoom-out@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2AC1971A92E004F042C /* zoom-out@2x.png */; };
 		E868D2B31971AAF8004F042C /* GCGeocodingService.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D2B21971AAF8004F042C /* GCGeocodingService.m */; };
+		E868D2B81972E3AB004F042C /* corner-bottom-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2B41972E3AB004F042C /* corner-bottom-left@2x.png */; };
+		E868D2B91972E3AB004F042C /* corner-bottom-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2B51972E3AB004F042C /* corner-bottom-right@2x.png */; };
+		E868D2BA1972E3AB004F042C /* corner-top-left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2B61972E3AB004F042C /* corner-top-left@2x.png */; };
+		E868D2BB1972E3AB004F042C /* corner-top-right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E868D2B71972E3AB004F042C /* corner-top-right@2x.png */; };
+		E868D2BE1972E7C8004F042C /* PVVISTutorial.m in Sources */ = {isa = PBXBuildFile; fileRef = E868D2BD1972E7C8004F042C /* PVVISTutorial.m */; };
 		E86B16DE1933E98C000DDF18 /* PVVISMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */; };
 		E86B16DF1933E98C000DDF18 /* PVVISMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */; };
 		E86B16E31933F2B6000DDF18 /* FilterUIConfiguration.plist in Resources */ = {isa = PBXBuildFile; fileRef = E86B16E21933F2B6000DDF18 /* FilterUIConfiguration.plist */; };
@@ -247,6 +252,12 @@
 		E868D2AC1971A92E004F042C /* zoom-out@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "zoom-out@2x.png"; path = "Assets/zoom-out@2x.png"; sourceTree = "<group>"; };
 		E868D2B11971AAF8004F042C /* GCGeocodingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GCGeocodingService.h; path = Support/GCGeocodingService.h; sourceTree = "<group>"; };
 		E868D2B21971AAF8004F042C /* GCGeocodingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GCGeocodingService.m; path = Support/GCGeocodingService.m; sourceTree = "<group>"; };
+		E868D2B41972E3AB004F042C /* corner-bottom-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner-bottom-left@2x.png"; path = "Assets/corner-bottom-left@2x.png"; sourceTree = "<group>"; };
+		E868D2B51972E3AB004F042C /* corner-bottom-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner-bottom-right@2x.png"; path = "Assets/corner-bottom-right@2x.png"; sourceTree = "<group>"; };
+		E868D2B61972E3AB004F042C /* corner-top-left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner-top-left@2x.png"; path = "Assets/corner-top-left@2x.png"; sourceTree = "<group>"; };
+		E868D2B71972E3AB004F042C /* corner-top-right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "corner-top-right@2x.png"; path = "Assets/corner-top-right@2x.png"; sourceTree = "<group>"; };
+		E868D2BC1972E7C8004F042C /* PVVISTutorial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISTutorial.h; path = Models/PVVISTutorial.h; sourceTree = "<group>"; };
+		E868D2BD1972E7C8004F042C /* PVVISTutorial.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISTutorial.m; path = Models/PVVISTutorial.m; sourceTree = "<group>"; };
 		E86B16DB1933E98C000DDF18 /* PVVISMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PVVISMapViewController.h; path = Controllers/PVVISMapViewController.h; sourceTree = "<group>"; };
 		E86B16DC1933E98C000DDF18 /* PVVISMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PVVISMapViewController.m; path = Controllers/PVVISMapViewController.m; sourceTree = "<group>"; };
 		E86B16DD1933E98C000DDF18 /* PVVISMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PVVISMapViewController.xib; path = Controllers/PVVISMapViewController.xib; sourceTree = "<group>"; };
@@ -394,6 +405,10 @@
 		E8457C401944A3E300A8D57A /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				E868D2B41972E3AB004F042C /* corner-bottom-left@2x.png */,
+				E868D2B51972E3AB004F042C /* corner-bottom-right@2x.png */,
+				E868D2B61972E3AB004F042C /* corner-top-left@2x.png */,
+				E868D2B71972E3AB004F042C /* corner-top-right@2x.png */,
 				E868D2A91971A92E004F042C /* zoom-in.png */,
 				E868D2AA1971A92E004F042C /* zoom-in@2x.png */,
 				E868D2AB1971A92E004F042C /* zoom-out.png */,
@@ -460,6 +475,8 @@
 				E868D277196371EF004F042C /* PVVISMarker.m */,
 				E868D27E196433D5004F042C /* PVVISPolygon.h */,
 				E868D27F196433D5004F042C /* PVVISPolygon.m */,
+				E868D2BC1972E7C8004F042C /* PVVISTutorial.h */,
+				E868D2BD1972E7C8004F042C /* PVVISTutorial.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -716,10 +733,12 @@
 				E81112D4194BDEA700735422 /* PVVISQueryViewController.xib in Resources */,
 				E868D2A41970AFA7004F042C /* corner-top-right.png in Resources */,
 				E868D29B1970A100004F042C /* edit-map.png in Resources */,
+				E868D2B91972E3AB004F042C /* corner-bottom-right@2x.png in Resources */,
 				E8111302195CAD0E00735422 /* redo.png in Resources */,
 				E868D27D19642129004F042C /* PVVISDataSetLoadingView.xib in Resources */,
 				E81112FD195C921400735422 /* reload@2x.png in Resources */,
 				E8111304195CAD0E00735422 /* undo.png in Resources */,
+				E868D2BB1972E3AB004F042C /* corner-top-right@2x.png in Resources */,
 				E81112F9195C723A00735422 /* back@2x.png in Resources */,
 				E8111309195CBB1E00735422 /* close@2x.png in Resources */,
 				E868D2A71970B02B004F042C /* corner-bottom-left.png in Resources */,
@@ -745,8 +764,10 @@
 				E82ADDDE193D139000A7011A /* PVVISEventPopoverView.xib in Resources */,
 				E8111303195CAD0E00735422 /* redo@2x.png in Resources */,
 				E8457C3E1944A3DD00A8D57A /* map.png in Resources */,
+				E868D2BA1972E3AB004F042C /* corner-top-left@2x.png in Resources */,
 				E868D29119703CF4004F042C /* PVVISMarker.xib in Resources */,
 				E868D29919709E92004F042C /* edit-map@2x.png in Resources */,
+				E868D2B81972E3AB004F042C /* corner-bottom-left@2x.png in Resources */,
 				E8CAF0DB192F92A400884C20 /* Images.xcassets in Resources */,
 				E868D2941970403A004F042C /* marker-bottom.png in Resources */,
 				E81113201960546600735422 /* search@2x.png in Resources */,
@@ -828,6 +849,7 @@
 				E8CAF0D2192F92A400884C20 /* main.m in Sources */,
 				E8457C381943E94D00A8D57A /* PVVISConditionEditorViewController.m in Sources */,
 				E86B1759193BD554000DDF18 /* PVVISEvent.m in Sources */,
+				E868D2BE1972E7C8004F042C /* PVVISTutorial.m in Sources */,
 				E8CAF0D6192F92A400884C20 /* PVVISAppDelegate.m in Sources */,
 				E82ADDF0193F890900A7011A /* PVVISQuery.m in Sources */,
 				E868D29E1970AD3C004F042C /* PVVISTutorialView.m in Sources */,

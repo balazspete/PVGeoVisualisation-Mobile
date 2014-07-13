@@ -16,6 +16,7 @@
 #import "PVVISConditionEditorViewController.h"
 #import "PVVISArea.h"
 #import "PVVISPolygon.h"
+#import "PVVISTutorial.h"
 
 #import "UIImage+StackBlur.h"
 #import "UIColor+PVVISColorSet.h"
@@ -44,6 +45,8 @@
 
 - (void)setPolygonsInMap:(PVVISArea *)area isCellSelected:(BOOL)selected;
 
+@property NSDictionary *tutorials;
+
 @end
 
 @implementation PVVISQueryViewController
@@ -51,6 +54,7 @@
 static PVVISQueryUICollectionViewCell *_sizingCell;
 static NSString *_dataSetReloadWarningAlertTitle, *_queryResetWarningAlertTitle;
 static NSIndexPath *_currentIndexPath;
+static void (^_tutorialCallback)(NSString *);
 
 - (id)init
 {
@@ -72,6 +76,10 @@ static NSIndexPath *_currentIndexPath;
         
         self.picker = [[PVVISConditionEditorViewController alloc] initWithNibName:@"PVVISConditionEditorViewController" bundle:nil];
         self.picker.queryView = self;
+        
+        _tutorialCallback = ^(NSString *name){
+            NSLog(@"Tutorial %@ completed", name);
+        };
     }
     return self;
 }
@@ -104,6 +112,9 @@ static NSIndexPath *_currentIndexPath;
     
     UITapGestureRecognizer *reload = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDataSetReloadWarning:)];
     [self.reloadButton addGestureRecognizer:reload];
+    
+    UITapGestureRecognizer *tutorial = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetTutorials:)];
+    [self.tutorialButton addGestureRecognizer:tutorial];
     
     self.loadingView.hidden = YES;
     
@@ -168,6 +179,8 @@ static NSIndexPath *_currentIndexPath;
         self.mapViewController = [[PVVISMapViewController alloc] init];
         self.mapViewController.mapImage = self.backgroundImageView;
         self.initial = NO;
+        
+        [((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]) resetTutorials];
         [self presentMap:YES];
     }
     else
@@ -175,6 +188,8 @@ static NSIndexPath *_currentIndexPath;
         [self runQuickQuery];
         [self.tableView reloadData];
         [self.collectionView reloadData];
+        
+        [PVVISAppDelegate startTutorialNamed:@"query" forView:self.view completed:_tutorialCallback];
     }
 }
 
@@ -534,12 +549,19 @@ static NSIndexPath *_currentIndexPath;
         self.mapViewContainer.hidden = NO;
         
         [self resetMap];
+        
+        [PVVISAppDelegate startTutorialNamed:@"location-query" forView:self.view completed:_tutorialCallback];
     }
     else
     {
         [self.mapView removeConstraint:self.mapViewShown];
         [self.mapView addConstraint:self.mapViewHidden];
         self.mapViewContainer.hidden = YES;
+        
+        if ([[self.currentProperty objectForKey:@"id"] isEqualToString:@"date"] || [[self.currentProperty objectForKey:@"id"] isEqualToString:@"fatalities"])
+        {
+            [PVVISAppDelegate startTutorialNamed:@"query-condition-picker" forView:self.view completed:_tutorialCallback];
+        }
     }
     
     [self.collectionView reloadData];
@@ -703,6 +725,14 @@ static NSIndexPath *_currentIndexPath;
     [self.tableView selectRowAtIndexPath:_currentIndexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
     [self setPolygonsInMap:area isCellSelected:!area.selected];
     [self runQuickQuery];
+}
+
+#pragma mark - tutorial
+
+- (void)resetTutorials:(UITapGestureRecognizer*)sender
+{
+    [((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]) resetTutorials];
+    [PVVISAppDelegate startTutorialNamed:@"query" forView:self.view completed:_tutorialCallback];
 }
 
 @end

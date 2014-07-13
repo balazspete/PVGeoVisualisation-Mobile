@@ -9,6 +9,8 @@
 #import "PVVISConditionEditorViewController.h"
 #import "PVVISConditionPickerTableViewCell.h"
 
+#import "PVVISAppDelegate.h"
+
 @interface PVVISConditionEditorViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 - (void)addGestureRecogniser:(UIButton*)item;
@@ -56,7 +58,10 @@
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:self.condition.op inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     self.valueField.text = [self.condition.value stringValue];
     
-    [self.valueField becomeFirstResponder];
+    [PVVISAppDelegate startTutorialNamed:@"condition-picker" forView:self.view completed:^(NSString *name) {
+        NSLog(@"Completed tutorial %@", name);
+        [self.valueField becomeFirstResponder];
+    }];
 }
 
 - (UIStatusBarStyle) preferredStatusBarStyle {
