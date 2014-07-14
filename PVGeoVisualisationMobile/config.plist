@@ -359,8 +359,8 @@ WHERE {
 		<key>cd-query</key>
 		<string>{{^ isEmpty(category)}}( {{# category}}( rawCategory LIKE &apos;{{.}}&apos; ) OR {{/ category}}rawCategory==NULL ) AND {{/}}
 {{^ isEmpty(motivation)}}( {{# motivation}}( rawMotivation LIKE &apos;{{.}}&apos; ) OR {{/ motivation}}rawMotivation==NULL ) AND {{/}}
-{{^ isEmpty(date)}}( {{# date}}( {{{.}}} ) AND {{/ date}}date==NULL ) AND {{/}}
-{{^ isEmpty(fatalities)}}( {{# fatalities}}( {{{.}}} ) AND {{/ fatalities}}fatalities==NULL ) AND {{/}}
+{{^ isEmpty(date)}}( {{# date}}( {{{.}}} ) AND {{/ date}}date!=NULL ) AND {{/}}
+{{^ isEmpty(fatalities)}}( {{# fatalities}}( {{{.}}} ) AND {{/ fatalities}}fatalities!=NULL ) AND {{/}}
 ( uri != NULL )</string>
 		<key>query-template</key>
 		<string>PREFIX pv:&lt;http://dacura.cs.tcd.ie/data/politicalviolence#&gt;
