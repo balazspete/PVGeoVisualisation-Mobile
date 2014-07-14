@@ -732,7 +732,6 @@ static void (^_tutorialCallback)(NSString *);
 - (void)resetTutorials:(UITapGestureRecognizer*)sender
 {
     [((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]) resetTutorials];
-    [PVVISAppDelegate startTutorialNamed:@"query" forView:self.view completed:_tutorialCallback];
 }
 
 @end
