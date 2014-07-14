@@ -124,6 +124,12 @@
 				</dict>
 				<dict>
 					<key>value</key>
+					<string>http://dacura.cs.tcd.ie/data/politicalviolence#extralegal</string>
+					<key>label</key>
+					<string>extralegal</string>
+				</dict>
+				<dict>
+					<key>value</key>
 					<string>http://dacura.cs.tcd.ie/data/politicalviolence#family</string>
 					<key>label</key>
 					<string>family</string>
