@@ -2,10 +2,333 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>tutorial</key>
+	<dict>
+		<key>location-search</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>The searched location</string>
+				<key>description</key>
+				<string>The map shows the result of your location search in blue.</string>
+				<key>x</key>
+				<integer>25</integer>
+				<key>y</key>
+				<integer>50</integer>
+				<key>width</key>
+				<integer>720</integer>
+				<key>height</key>
+				<integer>900</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Location search toolbar</string>
+				<key>description</key>
+				<string>Remove your search results from the map using the X button.</string>
+				<key>x</key>
+				<integer>700</integer>
+				<key>y</key>
+				<integer>70</integer>
+				<key>width</key>
+				<integer>30</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Other addresses</string>
+				<key>description</key>
+				<string>You can add additional locations to your search, just press the location search button again...</string>
+				<key>x</key>
+				<integer>604</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>30</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+		</array>
+		<key>mapview</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>The map</string>
+				<key>description</key>
+				<string>This is the main map, and this is where you can see all the events that match your current selection. You can zoom in, move around, and select events just like on any other mapping application.</string>
+				<key>x</key>
+				<integer>25</integer>
+				<key>y</key>
+				<integer>50</integer>
+				<key>width</key>
+				<integer>720</integer>
+				<key>height</key>
+				<integer>900</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Results counter</string>
+				<key>description</key>
+				<string>This element shows how many elements are displayed on the map.</string>
+				<key>x</key>
+				<integer>70</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>30</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Zoom</string>
+				<key>description</key>
+				<string>You can change your view of the map using this button. Tap it to have a quick glance of the entire map, press it again to go back to the overview of your results.</string>
+				<key>x</key>
+				<integer>557</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>30</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Location search</string>
+				<key>description</key>
+				<string>Having difficulty finding a city or a location? Tap the button to bring up a search box. The map will try to find the best fit for your address.</string>
+				<key>x</key>
+				<integer>604</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>30</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Event Search</string>
+				<key>description</key>
+				<string>Click the button to present the event search interface. Use this functionality to limit the events presented on the map.
+
+Go ahead, give it a try!</string>
+				<key>x</key>
+				<integer>665</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>60</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+		</array>
+		<key>condition-picker</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>Condition picker</string>
+				<key>description</key>
+				<string>This view allows you to define a condition to the selected property. The name of the property is shown above.</string>
+				<key>x</key>
+				<integer>70</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>120</integer>
+				<key>height</key>
+				<integer>25</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Relationships</string>
+				<key>description</key>
+				<string>Select the relationship that you want to define for the current property.</string>
+				<key>x</key>
+				<integer>20</integer>
+				<key>y</key>
+				<integer>66</integer>
+				<key>width</key>
+				<integer>720</integer>
+				<key>height</key>
+				<integer>350</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Number value</string>
+				<key>description</key>
+				<string>Enter the number value of the condition into the text field.</string>
+				<key>x</key>
+				<integer>20</integer>
+				<key>y</key>
+				<integer>416</integer>
+				<key>width</key>
+				<integer>720</integer>
+				<key>height</key>
+				<integer>50</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Controls</string>
+				<key>description</key>
+				<string>Use these buttons to delete or save the current condition. You can also create another condition while saving all of your changes. </string>
+				<key>x</key>
+				<integer>20</integer>
+				<key>y</key>
+				<integer>500</integer>
+				<key>width</key>
+				<integer>720</integer>
+				<key>height</key>
+				<integer>55</integer>
+			</dict>
+		</array>
+		<key>query-condition-picker</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>Conditions</string>
+				<key>description</key>
+				<string>You can define conditions for event properties that are numbers, such as the fatality count or the date (year).
+
+Use multiple conditions to specify a range, by setting the minimum and the maximum.</string>
+				<key>x</key>
+				<integer>410</integer>
+				<key>y</key>
+				<integer>120</integer>
+				<key>width</key>
+				<integer>320</integer>
+				<key>height</key>
+				<integer>120</integer>
+			</dict>
+		</array>
+		<key>location-query</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>List of states</string>
+				<key>description</key>
+				<string>Select one or more states from this list. Only the events which can be found in the selected states will be presented on the map.
+
+Clear the selection to show all events within the US.</string>
+				<key>x</key>
+				<integer>410</integer>
+				<key>y</key>
+				<integer>140</integer>
+				<key>width</key>
+				<integer>320</integer>
+				<key>height</key>
+				<string>65</string>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Query map</string>
+				<key>description</key>
+				<string>You can select the states using the map, just tap on the corresponding shapes.
+
+You can search for cities or a specific address using the location search feature found on the main map.</string>
+				<key>x</key>
+				<integer>200</integer>
+				<key>y</key>
+				<integer>700</integer>
+				<key>width</key>
+				<integer>400</integer>
+				<key>height</key>
+				<integer>200</integer>
+			</dict>
+		</array>
+		<key>query</key>
+		<array>
+			<dict>
+				<key>title</key>
+				<string>Query properties</string>
+				<key>description</key>
+				<string>Tap these entries to filter the political violence events based on their properties. Only the events which match the selection will be shown on the map.</string>
+				<key>x</key>
+				<integer>70</integer>
+				<key>y</key>
+				<integer>75</integer>
+				<key>width</key>
+				<integer>320</integer>
+				<key>height</key>
+				<integer>65</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Property control</string>
+				<key>description</key>
+				<string>Each section indicates how many values you have currently selected. Tap the X button to deselect all values for the entry.</string>
+				<key>x</key>
+				<integer>275</integer>
+				<key>y</key>
+				<integer>75</integer>
+				<key>width</key>
+				<integer>110</integer>
+				<key>height</key>
+				<integer>65</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Results counter</string>
+				<key>description</key>
+				<string>You can have a quick glance at how your results are changed based on your actions.</string>
+				<key>x</key>
+				<integer>70</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>30</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Resetting the query</string>
+				<key>description</key>
+				<string>Tap this button to clear all values in the query and begin a new one. Don&apos;t worry, you&apos;ll need to confirm this to avoid any accidental resets.</string>
+				<key>x</key>
+				<integer>575</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>60</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>Search</string>
+				<key>description</key>
+				<string>Tap the Search button to see all events that match your query on the map.</string>
+				<key>x</key>
+				<integer>665</integer>
+				<key>y</key>
+				<integer>30</integer>
+				<key>width</key>
+				<integer>70</integer>
+				<key>height</key>
+				<integer>30</integer>
+			</dict>
+			<dict>
+				<key>title</key>
+				<string>App controls</string>
+				<key>description</key>
+				<string>Use these controls to either start the tutorial or reload the data set.</string>
+				<key>x</key>
+				<integer>0</integer>
+				<key>y</key>
+				<integer>930</integer>
+				<key>width</key>
+				<integer>30</integer>
+				<key>height</key>
+				<integer>75</integer>
+			</dict>
+		</array>
+	</dict>
 	<key>local-end-point</key>
 	<dict>
 		<key>query</key>
-		<string>PREFIX pv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence#&gt;
+		<string>PREFIX pv:&lt;http://dacura.cs.tcd.ie/data/politicalviolence#&gt;
 PREFIX owltime:&lt;http://www.w3.org/2006/time#&gt;
 
 PREFIX geo:&lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;
@@ -34,9 +357,13 @@ WHERE {
 }
 </string>
 		<key>cd-query</key>
-		<string>{{^ isEmpty(category)}}( {{# category}}( rawCategory LIKE &apos;{{.}}&apos; ) OR {{/ category}}rawCategory==NULL ) AND {{/}}{{^ isEmpty(motivation)}}( {{# motivation}}( rawMotivation LIKE &apos;{{.}}&apos; ) OR {{/ motivation}}rawMotivation==NULL ) AND {{/}}{{# date.range.min}}( {{date.range.min}} &lt;= date ) AND {{/ date.range.min}}{{# date.range.max}}( date &lt;= {{date.range.max}} ) AND {{/ date.range.max}}{{^ isEmpty(date.values) }}( {{#date.values}}( date == {{.}} ) OR {{/date.values}}date==NULL ) AND {{/}}{{# fatality.range.min}}( {{fatality.range.min}} &lt;= fatalities ) AND {{/ fatality.range.min}}{{# fatality.range.max}}( fatalities &lt;= {{fatality.range.max}} ) AND {{/ fatality.range.max}}{{^ isEmpty(fatality.values) }}( {{#fatality.values}}( fatalities == {{.}} ) OR {{/fatality.values}}fatalities==NULL ) AND {{/}}( uri != NULL )</string>
+		<string>{{^ isEmpty(category)}}( {{# category}}( rawCategory LIKE &apos;{{.}}&apos; ) OR {{/ category}}rawCategory==NULL ) AND {{/}}
+{{^ isEmpty(motivation)}}( {{# motivation}}( rawMotivation LIKE &apos;{{.}}&apos; ) OR {{/ motivation}}rawMotivation==NULL ) AND {{/}}
+{{^ isEmpty(date)}}( {{# date}}( {{{.}}} ) AND {{/ date}}date!=NULL ) AND {{/}}
+{{^ isEmpty(fatalities)}}( {{# fatalities}}( {{{.}}} ) AND {{/ fatalities}}fatalities!=NULL ) AND {{/}}
+( uri != NULL )</string>
 		<key>query-template</key>
-		<string>PREFIX pv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence#&gt;
+		<string>PREFIX pv:&lt;http://dacura.cs.tcd.ie/data/politicalviolence#&gt;
 PREFIX owltime:&lt;http://www.w3.org/2006/time#&gt;
 
 PREFIX geo:&lt;http://www.w3.org/2003/01/geo/wgs84_pos#&gt;
@@ -81,16 +408,16 @@ LIMIT {{ limit }}</string>
 		<key>db-name</key>
 		<string>politicalviolence.sqlite</string>
 		<key>baseURL</key>
-		<string>http://tcdfame.cs.tcd.ie</string>
+		<string>http://dacura.cs.tcd.ie/</string>
 	</dict>
 	<key>remote-end-point</key>
 	<dict>
 		<key>query</key>
 		<string>PREFIX rdf:&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
 PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;
-PREFIX uspv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence/uspv/&gt;
+PREFIX uspv:&lt;http://dacura.cs.tcd.ie/data/politicalviolence/uspv/&gt;
 PREFIX xsd:&lt;http://www.w3.org/2001/XMLSchema#&gt;
-PREFIX pv:&lt;http://tcdfame.cs.tcd.ie/data/politicalviolence#&gt;
+PREFIX pv:&lt;http://dacura.cs.tcd.ie/data/politicalviolence#&gt;
 PREFIX owltime:&lt;http://www.w3.org/2006/time#&gt;
 
 PREFIX lgd:&lt;http://linkedgeodata.org/&gt;

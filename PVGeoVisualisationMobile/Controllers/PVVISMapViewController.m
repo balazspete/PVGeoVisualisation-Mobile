@@ -3,33 +3,48 @@
 //  PVGeoVisualisationMobile
 //
 //  Created by Balázs Pete on 26/05/2014.
-//  Copyright (c) 2014 Balázs Pete. All rights reserved.
+//
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2014 Balázs Pete
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #import "PVVISMapViewController.h"
-#import <MapKit/MapKit.h>
 
 #import "PVVISAppDelegate.h"
 #import "PVVISSparqlOverHTTP.h"
 #import "PVVISDataStore.h"
 #import "PVVISQueryViewController.h"
+#import "PVVISMarker.h"
+
 #import <Redland-ObjC.h>
 
 #import "UIImage+StackBlur.h"
+#import "UIColor+PVVISColorSet.h"
 
-@interface PVVISMapViewController ()
+#import "GCGeocodingService.h"
+
+@interface PVVISMapViewController () <UIAlertViewDelegate>
 
 @property NSMutableArray *results;
 @property PVVISDataStore *dataStore;
+@property UITextField *locationInputField;
 
-- (void)styleButton:(UIButton*)button;
+@property NSMutableArray *locationMarkers;
+@property GCGeocodingService *geocode;
+
 - (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector;
+- (void)searchForLocation:(UITapGestureRecognizer *)sender;
 
 @end
 
 @implementation PVVISMapViewController
-
-static UIColor *_buttonColor;
 
 - (id)init
 {
@@ -41,29 +56,36 @@ static UIColor *_buttonColor;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        NSArray *colorArray = @[@0.10f, @0.8f, @0.44f];
-        _buttonColor = [UIColor colorWithRed:[colorArray[0] floatValue] green:[colorArray[1] floatValue] blue:[colorArray[2] floatValue] alpha:1.0f];
-        
         self.results = [NSMutableArray new];
         self.dataStore = ((PVVISAppDelegate*)[[UIApplication sharedApplication] delegate]).dataStore;
+        self.geocode = [[GCGeocodingService alloc] init];
+        
+        self.locationMarkers = [NSMutableArray new];
         
         self.dataStore.actionCallback = ^(NSString* action, id data)
         {
-            if ([action isEqualToString:@"done"]) {
+            if ([action isEqualToString:@"openQueryUI"])
+            {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
-//                [self.loadingLabel performSelectorOnMainThread:@selector(setHidden:) withObject:@YES waitUntilDone:YES ];
-//                [self.loadingLabel performSelector:@selector(setHidden:) withObject:@YES afterDelay:0];
-//                [self.dataStore performSelectorOnMainThread:@selector(reloadMap:) withObject:self.mapView waitUntilDone:YES];
-                [self.dataStore performSelector:@selector(reloadMap:) withObject:self.mapView afterDelay:0];
-#pragma clang diagnostic pop
-            }
-            else
-            {
-                [self.mapView removeAnnotations:self.mapView.annotations];
-//                self.loadingLabel.hidden = NO;
+                [self openQueryUI:nil];
+                return;
             }
             
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if ([action isEqualToString:@"done"]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-retain-cycles"
+                    [self.dataStore performSelector:@selector(reloadMap:) withObject:self.mapView afterDelay:0];
+#pragma clang diagnostic pop
+                    self.loadingLabel.hidden = YES;
+                }
+                else
+                {
+                    [self.mapView clear];
+                }
+                self.resultsCounter.text = [data stringValue];
+            });
         };
     }
     return self;
@@ -72,24 +94,28 @@ static UIColor *_buttonColor;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    self.mapView.myLocationEnabled = NO;
+    self.mapView.settings.tiltGestures = NO;
+    self.mapView.settings.rotateGestures = NO;
+    
     self.mapView.delegate = self.dataStore;
     
     self.loadingLabel.hidden = YES;
     
-    [self styleButton:self.filterButton];
-    [self styleButton:self.zoomButton];
+    self.toolbar.layer.borderWidth = 0.5f;
+    self.toolbar.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.toolbar.layer.cornerRadius = 5;
+    
+    self.toolbar.opaque = YES;
+    
+    self.locationSearchBar.hidden = YES;
     
     [self addGestureRecogniser:self.filterButton selector:@selector(openQueryUI:)];
+    [self addGestureRecogniser:self.magnifyingGlassButton selector:@selector(openQueryUI:)];
     [self addGestureRecogniser:self.zoomButton selector:@selector(zoomToggle:)];
-}
-
-- (void)styleButton:(UIButton*)button
-{
-    button.layer.borderWidth = 0.8f;
-    button.layer.cornerRadius = 15.0f;
-    button.layer.borderColor = _buttonColor.CGColor;
-    button.backgroundColor = [UIColor whiteColor];
+    [self addGestureRecogniser:self.locationSearchButton selector:@selector(searchForLocation:)];
+    [self addGestureRecogniser:self.locationSearchBarCloseButton selector:@selector(dismissLocationSearch:)];
 }
 
 - (void)addGestureRecogniser:(UIButton*)button selector:(SEL)selector
@@ -102,7 +128,20 @@ static UIColor *_buttonColor;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.dataStore runQuery];
+    self.loadingLabel.hidden = NO;
+    
+    if (self.runQuery)
+    {
+        [self.dataStore runQuery:NO withCallback:nil];
+    }
+    else
+    {
+        [self.dataStore reloadMap:self.mapView];
+    }
+    
+    [PVVISAppDelegate startTutorialNamed:@"mapview" forView:self.view completed:^(NSString *name) {
+        NSLog(@"Completed tutorial %@", name);
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -136,11 +175,61 @@ static UIColor *_buttonColor;
 static bool inMode = YES;
 - (void)zoomToggle:(UITapGestureRecognizer *)sender
 {
-    NSString *title = inMode ? @"Zoom out" : @"Zoom in";
+    UIImage *image = [UIImage imageNamed:(inMode ? @"zoom-out.png" : @"zoom-in.png")];
     inMode = !inMode;
-    [self.zoomButton setTitle:title forState:UIControlStateNormal];
+    [self.zoomButton setImage:image forState:UIControlStateNormal];
     
     [self.dataStore zoomOutMap:self.mapView];
+}
+
+#pragma mark - location search
+
+- (void)searchForLocation:(UITapGestureRecognizer *)sender
+{
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Location search" message:@"Enter the address or the name of the place you are looking for" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    self.locationInputField = [alertView textFieldAtIndex:0];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+    {
+        NSString *address = self.locationInputField.text;
+        if (address.length > 0)
+        {
+            [self.geocode geocodeAddress:address withCallback:@selector(presentLocationSearch) withDelegate:self];
+        }
+    }
+}
+
+- (void)presentLocationSearch
+{
+    [self.geocode.geocode objectForKey:@"lat"];
+    PVVISMarker *marker = [PVVISMarker markerWithPosition:CLLocationCoordinate2DMake([[self.geocode.geocode objectForKey:@"lat"] doubleValue], [[self.geocode.geocode objectForKey:@"lng"] doubleValue])];
+    marker.icon = [PVVISMarker markerImageWithColor:[UIColor locationColor]];
+    marker.isLocationMarker = YES;
+    marker.appearAnimation = kGMSMarkerAnimationPop;
+    marker.map = self.mapView;
+    self.locationNameDisplayField.text = [NSString stringWithFormat:@"%@%@", self.locationInputField.text, (self.locationMarkers.count > 0 ? @", and others..." : @"")];
+    self.locationSearchBar.hidden = NO;
+    
+    [self.locationMarkers addObject:marker];
+    
+    [PVVISAppDelegate startTutorialNamed:@"location-search" forView:self.view completed:^(NSString *name) {
+        NSLog(@"Completed tutorial %@", name);
+    }];
+}
+
+- (void)dismissLocationSearch:(UITapGestureRecognizer *)sender
+{
+    self.locationSearchBar.hidden = YES;
+    self.locationNameDisplayField.text = @"";
+    for (PVVISMarker *marker in self.locationMarkers)
+    {
+        marker.map = nil;
+    }
 }
 
 @end

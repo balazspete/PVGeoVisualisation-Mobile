@@ -3,7 +3,16 @@
 //  PVGeoVisualisationMobile
 //
 //  Created by Balázs Pete on 30/05/2014.
-//  Copyright (c) 2014 Balázs Pete. All rights reserved.
+//
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2014 Balázs Pete
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #import "PVVISDataStore.h"
@@ -13,6 +22,7 @@
 #import "PVVISConfig.h"
 #import "PVVISSparqlOverHTTP.h"
 #import "PVVISEventPopoverView.h"
+#import "PVVISMarker.h"
 
 #import "PVVISEventPopoverViewController.h"
 
@@ -32,6 +42,7 @@
 
 @implementation PVVISDataStore
 
+static dispatch_semaphore_t _activity;
 static bool zoomToFit = YES;
 static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     _minX, _maxX, _minY, _maxY;
@@ -47,6 +58,7 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         self.managedObjectContext = delegate.managedObjectContext;
         
         [self ensureModel];
+        _activity = dispatch_semaphore_create(1);
         
         self.query = [PVVISQuery new];
         self.results = [NSMutableArray new];
@@ -59,7 +71,6 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
 {
     if (!self.storage)
     {
-        
         self.storage = [[RedlandStorage alloc] initWithFactoryName:@"memory" identifier:@"db.rdf" options:nil];
     }
     
@@ -94,14 +105,12 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
             if (model)
             {
                 self.model = model;
-                callback(YES, nil);
+                [self createResults:callback];
             }
             else
             {
                 callback(NO, error);
             }
-            
-            [self createResults];
         }];
         
         query = nil;
@@ -139,23 +148,33 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     }  
 }
 
-//TODO: notify or something...
-- (void)reloadDataStore
+- (void)reloadDataStore:(void (^)(bool success, NSError *error))callback
 {
     [self deleteAllObjectsInCoreData];
-    [self loadRemoteData:^(bool success, NSError *error) {
-        
-        
-    }];
+    [self loadRemoteData:callback];
+}
+
+- (void)defaultWorldView:(double *)coords
+{
+    coords[0] = -130; // minX
+    coords[1] = -50; // maxX
+    coords[2] = 15; // minY
+    coords[3] = 60; // maxY
 }
 
 //TODO: Add within polygon filtering
-- (void)runQuery {
+- (void)runQuery:(BOOL)fast withCallback:(ActionCallback)callback
+{
+    dispatch_semaphore_wait(_activity, DISPATCH_TIME_FOREVER);
+
     self.actionCallback(@"results", nil);
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        double coords[4];
+        [self defaultWorldView:coords];
+        
         minX = 1.0/0, maxX = -1.0/0, minY = 1.0/0, maxY = -1.0/0;
-        _minX = -115, _maxX = -75, _minY = 15, _maxY = 60;
+        _minX = coords[0], _maxX = coords[1], _minY = coords[2], _maxY = coords[3];
         
         NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Event" inManagedObjectContext:self.managedObjectContext];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -172,13 +191,23 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         
         if (results.count == 0)
         {
-            minX = -115, maxX = -75, minY = 15, maxY = 60;
+            minX = coords[0], maxX = coords[1], minY = coords[2], maxY = coords[3];
             
-            self.results = [NSMutableArray new];
-            self.actionCallback(@"done", @0);
+            if (!fast)
+            {
+                self.results = [NSMutableArray new];
+            }
             
-            NSLog(@"Query results: %lu entries", results.count);
+            if (callback)
+            {
+                callback(@"done", @0);
+            }
+            else
+            {
+                self.actionCallback(@"done", @0);
+            }
             
+            dispatch_semaphore_signal(_activity);
             return;
         }
         
@@ -188,40 +217,55 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
                 PVVISLocation *location = ((PVVISEvent *)evaluatedObject).location;
                 for (PVVISArea *area in areas)
                 {
-                    NSDictionary *box = area.boundingBox;
-                    if ([[box objectForKey:@"minX"] doubleValue] <= location.longitude.doubleValue && location.longitude.doubleValue <= [[box objectForKey:@"maxX"] doubleValue] && [[box objectForKey:@"minY"] doubleValue] <= location.latitude.doubleValue && location.latitude.doubleValue <= [[box objectForKey:@"maxY"] doubleValue])
+                    for (GMSPolygon *polygon in area.polygons)
                     {
-                        // TODO: add polygon filtering
-                        
                         minX = MIN(minX, location.longitude.doubleValue);
                         minY = MIN(minY, location.latitude.doubleValue);
                         maxX = MAX(maxX, location.longitude.doubleValue);
                         maxY = MAX(maxY, location.latitude.doubleValue);
                         
-                        return YES;
+                        if (GMSGeometryContainsLocation(location.coordinate,
+                                                        polygon.path, NO))
+                        {
+                            return YES;
+                        }
                     }
                 }
                 
-                return false;
+                return NO;
             }];
             
             results = [results filteredArrayUsingPredicate:locationFilter];
         }
         else
         {
-            minX = -115, maxX = -75, minY = 15, maxY = 60;
+            minX = coords[0], maxX = coords[1], minY = coords[2], maxY = coords[3];
         }
         
         NSLog(@"Query results: %lu entries", results.count);
         
         zoomToFit = YES;
         
-        self.results = [NSMutableArray arrayWithArray:results];
-        self.actionCallback(@"done", [NSNumber numberWithUnsignedInteger:self.results.count]);
+        if (!fast)
+        {
+            self.results = [NSMutableArray arrayWithArray:results];
+        }
+        
+        if (callback)
+        {
+            callback(@"done", [NSNumber numberWithUnsignedInteger:results.count]);
+        }
+        else
+        {
+            self.actionCallback(@"done", [NSNumber numberWithUnsignedInteger:results.count]);
+        }
+        
+        dispatch_semaphore_signal(_activity);
+        return;
     });
 }
 
-- (void)createResults
+- (void)createResults:(void (^)(bool success, NSError *error))callback
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NSLog(@"Started loading data!");
@@ -246,6 +290,7 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         if (![self.managedObjectContext save:&error])
         {
             NSLog(@"Error saving data!");
+            callback(NO, error);
         }
         
         result = nil;
@@ -254,7 +299,7 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
         
         NSLog(@"Done loading data!");
         
-        [self runQuery];
+        callback(YES, nil);
     });
 }
 
@@ -267,26 +312,25 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
 
 #pragma mark - map view delegate
 
-- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView
+- (void)mapViewWillStartLoadingMap:(GMSMapView *)mapView
 {
     [self reloadMap:mapView];
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id < MKAnnotation >)annotation
+- (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker
 {
-    MKPinAnnotationView *view = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
-    view.canShowCallout = NO;
+    if (((PVVISMarker *)marker).isLocationMarker)
+    {
+        return NO;
+    }
     
-    [view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showCallout:)]];
-    
-    return view;
+    [self showCallout:((PVVISMarker *)marker) onMapView:mapView];
+    return YES;
 }
-
-- (void)showCallout:(UITapGestureRecognizer *)sender
+    
+- (void)showCallout:(PVVISMarker *)marker onMapView:(GMSMapView *)mapView
 {
-    MKPinAnnotationView *view = (MKPinAnnotationView*) sender.view;
-
-    PVVISEventPopoverViewController *popoverView = [[PVVISEventPopoverViewController alloc] initWithEvent:view.annotation];
+    PVVISEventPopoverViewController *popoverView = [[PVVISEventPopoverViewController alloc] initWithEvent:marker.event];
     
     if (self.popover)
     {
@@ -294,39 +338,62 @@ static double minX = -100, maxX = 40, minY = 45, maxY = 70,
     }
     
     self.popover = [[UIPopoverController alloc] initWithContentViewController:popoverView];
-    [self.popover presentPopoverFromRect:view.frame inView:view.superview permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
+    CGPoint point = [mapView.projection pointForCoordinate:marker.position];
+    [self.popover presentPopoverFromRect:CGRectMake(point.x-10, point.y-20, 20, 20) inView:mapView permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
     [popoverView resizeContents];
     
     popoverView.actionCallback = ^(NSString* action, id data) {
         [self.popover dismissPopoverAnimated:YES];
-        
-        if (self.actionCallback)
+        if ([action isEqualToString:@"show similar events"])
         {
-            self.actionCallback(action, data);
+            self.query = [PVVISQuery querySimilarToEvent:marker.event];
+            self.actionCallback(@"openQueryUI", nil);
         }
+        
+//        , @"find nearby events"
     };
 }
 
-- (void)reloadMap:(MKMapView *)mapView
+- (void)reloadMap:(GMSMapView *)mapView
 {
-    [mapView removeAnnotations:mapView.annotations];
-    [mapView addAnnotations:self.results];
-    [mapView reloadInputViews];
-    
-    if (zoomToFit)
-    {
-        if (minY != INFINITY || maxY != -INFINITY || minX != INFINITY || maxX != -INFINITY)
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [mapView clear];
+        
+        for (PVVISEvent *event in self.results)
         {
-            [mapView setRegion:MKCoordinateRegionMake(CLLocationCoordinate2DMake((minY+maxY)/2, (minX + maxX)/2), MKCoordinateSpanMake(maxY-minY, maxX-minX)) animated:YES];
+            event.marker.map = mapView;
         }
-        zoomToFit = NO;
-    }
-    
-    NSLog(@"Reloading map");
+        
+        NSArray *locations = [self.query getDataForKey:PVVISQueryKeyLocation];
+        for (PVVISArea *area in locations)
+        {
+            NSArray *arr = area.polygons;
+            for (GMSPolygon *polygon in arr)
+            {
+                polygon.map = mapView;
+            }
+        }
+        
+        [mapView reloadInputViews];
+        
+        if (zoomToFit)
+        {
+            if (minY != INFINITY || maxY != -INFINITY || minX != INFINITY || maxX != -INFINITY)
+            {
+                GMSCameraUpdate *cameraUpdate = [GMSCameraUpdate fitBounds:[[GMSCoordinateBounds alloc] initWithCoordinate:CLLocationCoordinate2DMake(maxY, maxX) coordinate:CLLocationCoordinate2DMake(minY, minX)]];
+                [mapView animateWithCameraUpdate:cameraUpdate];
+            }
+            zoomToFit = NO;
+        }
+    });
+        
+        NSLog(@"Reloading map");
+//    });
 }
 
-- (void)zoomOutMap:(MKMapView *)mapView
+- (void)zoomOutMap:(GMSMapView *)mapView
 {
     double minx = minX, maxx = maxX, miny = minY, maxy = maxY;
     minX = _minX, maxX = _maxX, minY = _minY, maxY = _maxY;

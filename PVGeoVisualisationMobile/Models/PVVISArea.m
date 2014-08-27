@@ -3,15 +3,32 @@
 //  PVGeoVisualisationMobile
 //
 //  Created by Balázs Pete on 08/06/2014.
-//  Copyright (c) 2014 Balázs Pete. All rights reserved.
+//
+//  The MIT License (MIT)
+//
+//  Copyright (c) 2014 Balázs Pete
+//
+//  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+//
+//  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
 #import "PVVISArea.h"
+#import "PVVISPolygon.h"
+#import "UIColor+PVVISColorSet.h"
+
+@interface PVVISArea ()
+
+@property NSArray *polygonsInfo;
+
+@end
 
 @implementation PVVISArea
 
-@synthesize polygonRenderer = _polygonRenderer,
-    boundingBox = _boundingBox;
+@synthesize boundingBox = _boundingBox,
+    polygons = _polygons;
 
 - (id)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -20,20 +37,21 @@
     {
         self.label = [dictionary objectForKey:@"label"];
         self.values = [dictionary objectForKey:@"value"];
-        self.polygons = [self getPolygonsFromArray:[dictionary objectForKey:@"polygon"]];
+        self.polygonsInfo = [dictionary objectForKey:@"polygon"];
+        _polygons = [self setupPolygons];
     }
     
     return self;
 }
 
-- (NSArray*)getPolygonsFromArray:(NSArray*)array
+- (NSArray *)setupPolygons
 {
     double minX = 1.0/0, maxX = -1.0/0, minY = 1.0/0, maxY = -1.0/0;
-    
-    NSMutableArray *polygons = [NSMutableArray new];
-    for (NSArray *floats in array)
+        
+    NSMutableArray *__polygons = [NSMutableArray new];
+    for (NSArray *floats in self.polygonsInfo)
     {
-        CLLocationCoordinate2D coordinates[floats.count/2];
+        GMSMutablePath *path = [GMSMutablePath path];
         for (int i = 0; i < floats.count; i+=2)
         {
             double x = [floats[i] doubleValue];
@@ -44,10 +62,11 @@
             minY = MIN(y, minY);
             maxY = MAX(y, maxY);
             
-            coordinates[i/2] = CLLocationCoordinate2DMake(x, y);
+            CLLocationCoordinate2D coords = CLLocationCoordinate2DMake(y, x);
+            [path addCoordinate:coords];
         }
         
-        [polygons addObject:[MKPolygon polygonWithCoordinates:coordinates count:(floats.count/2)]];
+        [__polygons addObject:[self polygonFromPath:path]];
     }
     
     _boundingBox = @{
@@ -55,18 +74,19 @@
                      @"minY": @(minY),
                      @"maxX": @(maxX),
                      @"maxY": @(maxY)};
-    
-    return polygons;
+    return __polygons;
 }
 
-- (MKPolygonRenderer *)polygonRenderer
+- (PVVISPolygon *)polygonFromPath:(GMSMutablePath *)path
 {
-    if (!_polygonRenderer)
-    {
-        
-    }
+    PVVISPolygon *polygon = [PVVISPolygon polygonWithPath:path];
+    polygon.fillColor = [[UIColor labelColor] colorWithAlphaComponent:0.35f];
+    polygon.strokeColor = [[UIColor labelColor] colorWithAlphaComponent:1.0f];
+    polygon.strokeWidth = 1.7f;
     
-    return nil;
+    polygon.area = self;
+    
+    return polygon;
 }
 
 - (BOOL)isEqual:(id)object

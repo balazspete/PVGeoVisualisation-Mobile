@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13E19" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="LeP-25-t42">
+            <rect key="frame" x="0.0" y="0.0" width="90" height="65"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BxF-wH-Yua">
+                    <rect key="frame" x="10" y="7" width="70" height="38"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <subviews>
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xcH-c7-xhv">
+                            <rect key="frame" x="11" y="9" width="49" height="19"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.83921568627450982" green="0.27058823529411763" blue="0.25490196078431371" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="xcH-c7-xhv" secondAttribute="bottom" constant="10" id="7iD-Dn-G4q"/>
+                        <constraint firstItem="xcH-c7-xhv" firstAttribute="top" secondItem="BxF-wH-Yua" secondAttribute="top" constant="9" id="bC5-PQ-zKx"/>
+                        <constraint firstAttribute="trailing" secondItem="xcH-c7-xhv" secondAttribute="trailing" constant="10" id="fot-yq-BYs"/>
+                        <constraint firstItem="xcH-c7-xhv" firstAttribute="leading" secondItem="BxF-wH-Yua" secondAttribute="leading" constant="11" id="gUk-qL-hA4"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="marker-bottom.png" translatesAutoresizingMaskIntoConstraints="NO" id="nns-oo-A48">
+                    <rect key="frame" x="25" y="44" width="40" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="3sN-sQ-WbB"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="BxF-wH-Yua" firstAttribute="leading" secondItem="LeP-25-t42" secondAttribute="leading" constant="10" id="Kz9-k5-UYr"/>
+                <constraint firstAttribute="bottom" secondItem="BxF-wH-Yua" secondAttribute="bottom" constant="20" id="hp7-vc-Mcw"/>
+                <constraint firstAttribute="trailing" secondItem="BxF-wH-Yua" secondAttribute="trailing" constant="10" id="nAk-1d-jSr"/>
+                <constraint firstAttribute="bottom" secondItem="nns-oo-A48" secondAttribute="bottom" constant="1" id="uhf-Ly-DaZ"/>
+            </constraints>
+        </view>
+    </objects>
+    <resources>
+        <image name="marker-bottom.png" width="40" height="20"/>
+    </resources>
+</document>

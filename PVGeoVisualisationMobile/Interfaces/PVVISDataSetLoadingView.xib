@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.iPad.XIB" version="3.0" toolsVersion="5056" systemVersion="13E19" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Bvi-fF-jDR">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TQi-lD-JeE">
+                    <rect key="frame" x="354" y="343" width="60" height="60"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="EHc-n6-IsM"/>
+                        <constraint firstAttribute="width" secondItem="TQi-lD-JeE" secondAttribute="height" multiplier="1:1" id="dbu-ap-BgO"/>
+                    </constraints>
+                    <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </activityIndicatorView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading data set" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gZT-Kp-aoU">
+                    <rect key="frame" x="223" y="272" width="323" height="63"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="36"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please wait" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2OD-qi-Wo2">
+                    <rect key="frame" x="221" y="238" width="327" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5wY-dG-gIW">
+                    <rect key="frame" x="322" y="974" width="124" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="5wY-dG-gIW" firstAttribute="leading" secondItem="Bvi-fF-jDR" secondAttribute="leading" constant="322" id="3BE-TU-myk"/>
+                <constraint firstAttribute="trailing" secondItem="2OD-qi-Wo2" secondAttribute="trailing" constant="220" id="4ZM-1U-rjd"/>
+                <constraint firstItem="gZT-Kp-aoU" firstAttribute="top" secondItem="Bvi-fF-jDR" secondAttribute="top" constant="272" id="8UD-9j-qUg"/>
+                <constraint firstAttribute="bottom" secondItem="2OD-qi-Wo2" secondAttribute="bottom" constant="760" id="A6i-mc-toX"/>
+                <constraint firstAttribute="bottom" secondItem="5wY-dG-gIW" secondAttribute="bottom" constant="20" id="Hou-9a-Nb7"/>
+                <constraint firstItem="2OD-qi-Wo2" firstAttribute="top" secondItem="Bvi-fF-jDR" secondAttribute="top" constant="238" id="Kfi-Ri-drj"/>
+                <constraint firstItem="TQi-lD-JeE" firstAttribute="top" secondItem="Bvi-fF-jDR" secondAttribute="top" constant="343" id="Xte-lB-Li4"/>
+                <constraint firstAttribute="trailing" secondItem="TQi-lD-JeE" secondAttribute="trailing" constant="354" id="YJc-vd-VoK"/>
+                <constraint firstAttribute="trailing" secondItem="5wY-dG-gIW" secondAttribute="trailing" constant="322" id="b5P-Lf-K2t"/>
+                <constraint firstItem="TQi-lD-JeE" firstAttribute="leading" secondItem="Bvi-fF-jDR" secondAttribute="leading" constant="354" id="fVF-m6-x94"/>
+                <constraint firstItem="2OD-qi-Wo2" firstAttribute="leading" secondItem="Bvi-fF-jDR" secondAttribute="leading" constant="221" id="q1P-Yi-qOe"/>
+                <constraint firstAttribute="bottom" secondItem="TQi-lD-JeE" secondAttribute="bottom" constant="621" id="rx4-jH-WU5"/>
+                <constraint firstItem="gZT-Kp-aoU" firstAttribute="leading" secondItem="Bvi-fF-jDR" secondAttribute="leading" constant="223" id="uaj-d5-hXy"/>
+                <constraint firstAttribute="trailing" secondItem="gZT-Kp-aoU" secondAttribute="trailing" constant="222" id="uf1-9c-tp2"/>
+                <constraint firstAttribute="bottom" secondItem="gZT-Kp-aoU" secondAttribute="bottom" constant="689" id="wV0-RV-Rsa"/>
+            </constraints>
+        </view>
+    </objects>
+</document>
